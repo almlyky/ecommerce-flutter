@@ -13,9 +13,9 @@ class SearchData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    favoratecontroller contrllerfav = Get.put(favoratecontroller());
+    favoratecontroller contrllerfav = Get.find();
     // homepagecontrolerimp controllerhome = Get.find();
-    Productcontroller controllerproduct = Get.put(Productcontroller());
+    Productcontroller controllerproduct = Get.find();
 
     return ListView(shrinkWrap: true, children: [
       SizedBox(

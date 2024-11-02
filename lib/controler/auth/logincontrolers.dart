@@ -2,10 +2,12 @@ import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
 import 'package:eccommerce_new/data/remote/auth/logindata.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/constant/linksapi.dart';
 import '../../core/my_function/curd.dart';
@@ -66,7 +68,7 @@ class logincontrolersimp extends logincontrolers {
     } else {}
   }
 
-  @override
+  // @override
   // login() {
   //   if (email.text == "admin" && passowrd.text == "admin") {
   //     Get.toNamed(AppRoute.dashhome);
@@ -82,6 +84,23 @@ class logincontrolersimp extends logincontrolers {
   //     }
   //   }
   // }
+
+  Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
 
   login() async {
     if (email.text == "admin2" && passowrd.text == "admin2") {

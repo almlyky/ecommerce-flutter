@@ -1,6 +1,7 @@
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:eccommerce_new/core/my_function/curd.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
+import 'package:eccommerce_new/data/remote/dashboard/productdata.dart';
 import 'package:eccommerce_new/data/remote/homedata.dart';
 import 'package:eccommerce_new/data/remote/items_data.dart';
 import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
@@ -26,8 +27,21 @@ class homepagecontrolerimp extends GetxController {
   late StatusRequest statusRequestCat;
   // late StatusRequest statusRequestCatProduct;
   late StatusRequest statusRequestSearch;
+  late StatusRequest statusRequestAllProduct;
+  List dataAllProduct = [];
+  Productdata productdata = Productdata();
 
   // late StatusRequest statusRequestAllProduct;
+
+  getallproduct() async {
+    statusRequestAllProduct = StatusRequest.loading;
+    var response = await productdata.getAllproduct(1);
+    statusRequestAllProduct = handlingData(response);
+    if (StatusRequest.success == statusRequestAllProduct) {
+      dataAllProduct.addAll(response);
+    }
+    update();
+  }
 
   getcategories() async {
     statusRequestCat = StatusRequest.loading;
@@ -57,6 +71,7 @@ class homepagecontrolerimp extends GetxController {
   void onInit() {
     print("init cat==========================");
     getcategories();
+    getallproduct();
     super.onInit();
   }
 

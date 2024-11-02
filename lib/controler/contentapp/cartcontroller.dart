@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
 import 'package:eccommerce_new/data/remote/cartdata.dart';
@@ -9,6 +10,9 @@ class Cartcontroller extends GetxController {
   int totalPrice = 0;
   List dataCart = [];
   late StatusRequest statusRequest;
+
+  Map<int, Map> data = {};
+  
 
   getdatacart(int userid) async {
     dataCart.clear();
@@ -27,14 +31,25 @@ class Cartcontroller extends GetxController {
       required int quantity}) async {
     statusRequest = StatusRequest.loading;
     var response = await cartData.addcart(productID, userid, quantity);
-    print(response);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      Get.rawSnackbar(
-          title: "اشعار",
-          messageText: const Text("تم اضافة المنتج من المفضلة ",
-              style: TextStyle(color: Colors.white)));
-      dataCart.add(response);
+      // Get.rawSnackbar(
+      //     title: "اشعار",
+      //     messageText: const Text("تم اضافة المنتج الى السله ",
+      //         style: TextStyle(color: Colors.white)));
+      if (response['status'] == "exist") {
+        for (var element in dataCart) {
+          if (element['pr_fk']['pr_id'] == productID) {
+            element['quantity'] = response['data']["quantity"];
+            int price = response['data']['pr_fk']['pr_cost'];
+            totalPrice += price;
+          }
+        }
+      } else {
+        dataCart.add(response['data']);
+        int price = response['data']['pr_fk']['pr_cost'];
+        totalPrice += price;
+      }
     }
     update();
   }
@@ -45,12 +60,20 @@ class Cartcontroller extends GetxController {
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       dataCart.removeWhere((element) => element['pr_fk']['pr_id'] == productID);
-      Get.rawSnackbar(
-          title: "اشعار",
-          messageText: const Text("تم حذف المنتج من المفضلة ",
-              style: TextStyle(
-                color: Colors.white,
-              )));
+      initTotal();
+      // for (var element in dataCart) {
+      //   if (element['pr_fk']['pr_id'] == productID) {
+      //     int x = element['pr_fk']['pr_cost'] * element['quantity'];
+      //     totalPrice -= x;
+      //   }
+      // }
+
+      // Get.rawSnackbar(
+      //     title: "اشعار",
+      //     messageText: const Text("تم حذف المنتج من المفضلة ",
+      //         style: TextStyle(
+      //           color: Colors.white,
+      //         )));
       // dataFavorite.addAll(response);
     }
     update();
@@ -60,17 +83,30 @@ class Cartcontroller extends GetxController {
     statusRequest = StatusRequest.loading;
     var response = await cartData.updatequantitys(action, cartid);
     statusRequest = handlingData(response);
-    print(response);
     if (StatusRequest.success == statusRequest) {
-      for (var element in dataCart) {
-        if (element['cart_id'] == cartid) {
-          if (action == "plus") {
-            element['quantity'] += 1;
-          } else if (action == "minus" && element['quantity'] > 1) {
-            element['quantity'] -= 1;
-          }
-        }
+      if (action == "plus") {
+        data[cartid]!['quantity'] += 1;
+        int price = data[cartid]!['pr_fk']['pr_cost'];
+        totalPrice += price;
+      } else if (action == "minus" && data[cartid]!['quantity'] > 1) {
+        data[cartid]!['quantity'] -= 1;
+        int price = data[cartid]!['pr_fk']['pr_cost'];
+        totalPrice -= price;
       }
+
+      // for (var element in dataCart) {
+      //   if (element['cart_id'] == cartid) {
+      //     if (action == "plus") {
+      //       element['quantity'] += 1;
+      //       int price = element['pr_fk']['pr_cost'];
+      //       totalPrice += price;
+      //     } else if (action == "minus" && element['quantity'] > 1) {
+      //       element['quantity'] -= 1;
+      //       int price = element['pr_fk']['pr_cost'];
+      //       totalPrice -= price;
+      //     }
+      //   }
+      // }
       // Get.rawSnackbar(
       //     title: "اشعار",
       //     messageText: const Text("تم حذف المنتج من المفضلة ",
@@ -82,9 +118,18 @@ class Cartcontroller extends GetxController {
     update();
   }
 
+  initTotal() {
+    totalPrice = 0;
+    for (var element in dataCart) {
+      int price1 = element['pr_fk']['pr_cost'] * element['quantity'];
+      totalPrice += price1;
+    }
+  }
+
   @override
-  void onInit() {
-    getdatacart(1);
+  void onInit() async {
+    await getdatacart(1);
+    initTotal();
     super.onInit();
   }
 

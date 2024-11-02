@@ -18,8 +18,7 @@ class product extends StatelessWidget {
   // localecontroler controller = Get.put(localecontroler());
   // Productcontroller controllerproduct = Get.put(Productcontroller());
   // Productcontroller controllerproduct=Get.find();
-
-  homepagecontrolerimp controllerhome = Get.put(homepagecontrolerimp());
+  homepagecontrolerimp controllerhome = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class product extends StatelessWidget {
                           controllerproduct.productModel =
                               ProductModel.fromJson(
                                   controllerproduct.dataProduct[i]);
-                          Get.to(const ProductDetailPage());
+                          Get.to(()=> const ProductDetailPage());
                         },
                         child: myProductCard(
                           productModel: ProductModel.fromJson(

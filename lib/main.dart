@@ -66,14 +66,31 @@ class _MyhomepageState extends State<Myhomepage> {
       // initialRoute: "/home",
       // home: const SignUpForm(),
       theme: ThemeData(
+        
+      // textButtonTheme: TextButtonThemeData(
+      // style: TextButton.styleFrom(
+      //   backgroundColor: Colors.red, // لون النص لـ TextButton
+      // ),
+      // ),
+    // outlinedButtonTheme: OutlinedButtonThemeData(
+    //   style: OutlinedButton.styleFrom(
+    //     backgroundColor: Colors.purple, // لون النص لـ OutlinedButton
+    //   ),
+    // ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.amber[600], // لون الخلفية لـ ElevatedButton
+      ),
+    ),
           textTheme: const TextTheme(
         displayMedium: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Cairo"),
+            fontWeight: FontWeight.bold, fontSize: 17, fontFamily: "Cairo"),
         displaySmall: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 16, fontFamily: "Cairo"),
+             fontSize: 17),
         displayLarge: TextStyle(
             fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Cairo"),
       )),
+      
     );
   }
 }

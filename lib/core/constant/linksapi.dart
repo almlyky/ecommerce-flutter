@@ -43,6 +43,7 @@ const String djsignup = "$djServer/acounts/signup/";
 const String djlogin = "$djServer/pages/gettoken/";
 
 // api home
+const String allproduct="$djServer/pages/productAll";
 const String djproduct = "$djServer/pages/allproduct";
 const String searchproduct = "$djServer/pages/searchproduct";
 

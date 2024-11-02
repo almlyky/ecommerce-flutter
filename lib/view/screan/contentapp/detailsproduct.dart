@@ -11,7 +11,7 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Productcontroller controllerproduct = Get.find();
-    Cartcontroller controllercart = Get.put(Cartcontroller());
+    Cartcontroller controllercart = Get.find();
     controllerproduct.initquantity(controllerproduct.productModel.prId!);
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +33,7 @@ class ProductDetailPage extends StatelessWidget {
             Center(
               child: Image(
                 image: NetworkImage(
-                    "$image/${controllerproduct.productModel.prImage}"),
+                    "${controllerproduct.productModel.prImage}"),
                 height: 200,
               ),
             ),
@@ -146,11 +146,11 @@ class ProductDetailPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      print(controllerproduct.productModel.prId);
+                      //print(controllerproduct.productModel.prId);
                       controllercart.addcart(
                           productID: controllerproduct.productModel.prId!,
                           userid: 1,
-                          quantity: 1);
+                          quantity: controllerproduct.quantity);
                     },
                     child: const Text('add to cart'),
                   ),

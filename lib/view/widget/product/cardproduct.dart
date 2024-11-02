@@ -42,7 +42,7 @@ class myProductCard extends StatelessWidget {
             Stack(
               children: [
                 CachedNetworkImage(
-                  imageUrl: '$image/${productModel.prImage}',
+                  imageUrl: '${productModel.prImage}',
                   imageBuilder: (context, imageprovider) => ClipRRect(
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(12.0)),

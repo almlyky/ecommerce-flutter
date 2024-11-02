@@ -12,7 +12,7 @@ import '../../core/my_function/handledata.dart';
 import '../../data/remote/items_data.dart';
 
 class Productcontroller extends GetxController {
-  Cartcontroller controller = Get.put(Cartcontroller());
+   Cartcontroller controller = Get.put(Cartcontroller());
   curd c = curd();
 
   late ProductModel productModel;
@@ -37,7 +37,9 @@ class Productcontroller extends GetxController {
         quantity = elemelnt['quantity'];
       }
     }
+
   }
+
 
   getproduct(int productId, int userid) async {
     dataProduct = [];

@@ -5,6 +5,7 @@ import 'package:eccommerce_new/view/screan/auth/login.dart';
 import 'package:eccommerce_new/view/screan/auth/signup.dart';
 import 'package:eccommerce_new/view/screan/auth/verfycode.dart';
 import 'package:eccommerce_new/view/screan/contentapp/HomeScrean.dart';
+import 'package:eccommerce_new/view/screan/contentapp/detailsproduct.dart';
 import 'package:eccommerce_new/view/screan/dashboard/addcategories.dart';
 import 'package:eccommerce_new/view/screan/dashboard/addproduct.dart';
 import 'package:eccommerce_new/view/screan/dashboard/categoris.dart';
@@ -25,6 +26,7 @@ List<GetPage<dynamic>>? routeapp = [
   GetPage(name: AppRoute.verfycode, page: () => const veryfycode()),
   GetPage(name: AppRoute.homepage, page: () => const Homescrean()),
   GetPage(name: AppRoute.product, page: () => product()),
+  GetPage(name: AppRoute.detailsProduct, page: ()=> const ProductDetailPage()),
   GetPage(name: AppRoute.dashhome, page: () => const dashhome()),
   GetPage(name: AppRoute.categorishome, page: () => const categoriesdash()),
   GetPage(name: AppRoute.homepage, page: () => const home()),

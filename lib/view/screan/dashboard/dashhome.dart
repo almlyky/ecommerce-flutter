@@ -1,4 +1,5 @@
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
+import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/test/serveces.dart';
 import 'package:eccommerce_new/view/screan/auth/login.dart';
 import 'package:eccommerce_new/view/screan/dashboard/categoris.dart';
@@ -11,7 +12,7 @@ class dashhome extends StatelessWidget {
   const dashhome({super.key});
   @override
   Widget build(BuildContext context) {
-    homepagecontrolerimp controllerhome =Get.put(homepagecontrolerimp());
+    homepagecontrolerimp controllerhome = Get.put(homepagecontrolerimp());
     setteng controller = Get.find();
     List<String> grid = ["Users", "Categories", "product"];
     List<Object> page = [
@@ -26,7 +27,7 @@ class dashhome extends StatelessWidget {
           IconButton(
               onPressed: () {
                 controller.shared.remove("rule");
-                Get.to(const login());
+                Get.toNamed(AppRoute.login);
               },
               icon: const Icon(Icons.logout))
         ],

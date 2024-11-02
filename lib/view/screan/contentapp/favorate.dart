@@ -13,18 +13,33 @@ class favorate extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Text("favorate product")),
         body: GetBuilder<favoratecontroller>(
-            init: favoratecontroller(),
+            // init: favoratecontroller(),
             builder: (controller) {
-              return ListView.builder(
-                  itemCount: controller.dataFavorite.length,
-                  itemBuilder: (context, i) {
-                    return InkWell(
-                      child: myProductCard(
-                        productModel: ProductModel.fromJson(
-                            controller.dataFavorite[i]['pr_fk']),
-                      ),
-                    );
-                  });
-            }));
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                childAspectRatio: 0.6,
+              ),
+              itemCount:  controller.dataFavorite.length,
+              itemBuilder: (context, i) {
+                return InkWell(
+                  child: myProductCard(
+                    productModel: ProductModel.fromJson(
+                        controller.dataFavorite[i]['pr_fk']),
+                  ),
+                );
+              });
+          // return ListView.builder(
+          //     itemCount: controller.dataFavorite.length,
+          //     itemBuilder: (context, i) {
+          //       return InkWell(
+          //         child: myProductCard(
+          //           productModel: ProductModel.fromJson(
+          //               controller.dataFavorite[i]['pr_fk']),
+          //         ),
+          //       );
+          //     });
+        }));
   }
 }

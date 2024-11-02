@@ -6,6 +6,7 @@ class AppRoute {
   static const String verfycode="/verfycode";
   static const String homepage="/home";
   static const String product="/product";
+  static const String detailsProduct="/detailsProduct";
   static const String dashhome="/dashhome";
   static const String categorishome="/categorishome";
   static const String insertcategories="/insertcategories";

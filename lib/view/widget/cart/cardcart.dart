@@ -1,28 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eccommerce_new/controler/auth/forgetpasscontroler.dart';
 import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
 import 'package:eccommerce_new/view/widget/onboarding/controler.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 
 class CardCart extends StatelessWidget {
   final CartModel cartModel;
-  final Cartcontroller cartcontroller;
+  // final Cartcontroller cartcontroller;
   const CardCart({
     super.key,
     required this.cartModel,
-    required this.cartcontroller,
+    // required this.cartcontroller,
   });
 
   @override
   Widget build(BuildContext context) {
+    Cartcontroller cartcontroller = Get.find();
     int price = cartModel.prFk!.prCost! * cartModel.quantity!;
-    cartcontroller.totalPrice += price;
     return Card(
       child: ListTile(
         title: Text("${cartModel.prFk!.prName}"),
         subtitle: Text(
-          "$price",
+          "${price}",
           style: const TextStyle(color: Colors.red),
         ),
         leading: CachedNetworkImage(
@@ -64,34 +67,35 @@ class CardCart extends StatelessWidget {
                   color: Colors.red,
                 ),
                 onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('حذف منتج'),
-                          content: const SingleChildScrollView(
-                            child: ListBody(
-                              children: <Widget>[
-                                Text('هل انت متأكد من الحذف؟'),
-                                // Text('Would you like to approve of this message?'),
-                              ],
-                            ),
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'Cancel'),
-                              child: const Text('لا'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                // controller.removecart(snapshot.data[,1);
-                                Navigator.pop(context, 'OK');
-                              },
-                              child: const Text('نعم'),
-                            ),
-                          ],
-                        );
-                      });
+                  cartcontroller.removecart(
+                      productID: cartModel.prFk!.prId!, userid: 1);
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (context) {
+                  //       return AlertDialog(
+                  //         title: const Text('حذف منتج'),
+                  //         content: const SingleChildScrollView(
+                  //           child: ListBody(
+                  //             children: <Widget>[
+                  //               Text('هل انت متأكد من الحذف؟'),
+                  //               // Text('Would you like to approve of this message?'),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         actions: <Widget>[
+                  //           TextButton(
+                  //             onPressed: () => Navigator.pop(context, 'Cancel'),
+                  //             child: const Text('لا'),
+                  //           ),
+                  //           TextButton(
+                  //             onPressed: () {
+                  //               Navigator.pop(context, 'OK');
+                  //             },
+                  //             child: const Text('نعم'),
+                  //           ),
+                  //         ],
+                  //       );
+                  //     });
                 },
               ),
             ],

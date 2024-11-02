@@ -16,3 +16,10 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+// buildscript {
+//     dependencies {
+//         // الإضافة الخاصة بخدمات Google إذا كانت مطلوبة
+//         classpath 'com.android.tools.build:gradle:8.5'
+//         classpath 'com.google.gms:google-services:4.4.2'
+//     }
+// }

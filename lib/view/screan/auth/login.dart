@@ -146,7 +146,9 @@ class login extends StatelessWidget {
                         backgroundColor: Colors.red,
                         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        controler.signInWithGoogle();
+                      },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

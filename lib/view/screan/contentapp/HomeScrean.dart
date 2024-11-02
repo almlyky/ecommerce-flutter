@@ -12,7 +12,7 @@ class Homescrean extends StatelessWidget {
 
     homepagecontrolerimp contrllerhom = Get.put(homepagecontrolerimp());
     return GetBuilder<homepagecontrolerimp>(
-      init: homepagecontrolerimp(),
+      // init: homepagecontrolerimp(),
       builder: (contrllerhome) => Scaffold(
         drawer: const Drawer(),
         appBar: AppBar(
@@ -48,9 +48,11 @@ class Homescrean extends StatelessWidget {
             // SizedBox(width: 16),
           ],
         ),
-        body: IndexedStack(
-            index: contrllerhom.selectedIndex,
-            children: contrllerhom.widgetOptions),
+
+        body: contrllerhom.widgetOptions[ contrllerhome.selectedIndex],
+        // IndexedStack(
+        //     index: contrllerhom.selectedIndex,
+        //     children: contrllerhom.widgetOptions),
         bottomNavigationBar: BottomNavigationBar(
             onTap: contrllerhome.onItemTapped,
             currentIndex: contrllerhome.selectedIndex,
@@ -64,8 +66,8 @@ class Homescrean extends StatelessWidget {
                 label: 'Cart',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.school),
-                label: 'School',
+                icon: Icon(Icons.settings),
+                label: 'Settings',
               ),
             ]),
       ),

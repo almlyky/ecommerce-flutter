@@ -32,9 +32,8 @@ class favoratecontroller extends GetxController {
       Get.rawSnackbar(
           title: "اشعار",
           messageText: const Text("تم اضافة المنتج من المفضلة ",
-              style: TextStyle(color: Colors.white)));
+          style: TextStyle(color: Colors.white)));
       dataFavorite.add(response);
-      print(dataFavorite);
     }
     update();
   }

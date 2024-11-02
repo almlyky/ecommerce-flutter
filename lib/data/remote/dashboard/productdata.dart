@@ -5,8 +5,8 @@ import 'package:eccommerce_new/core/my_classes/crud.dart';
 
 class Productdata {
   Crud crud = Crud();
-  getAllproduct() async {
-    var res = await crud.getrequst(productList);
+  getAllproduct(int id) async {
+    var res = await crud.getrequst("$allproduct/$id/");
     return res.fold((l) => l, (r) => r);
   }
 

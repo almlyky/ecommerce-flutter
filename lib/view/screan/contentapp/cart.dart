@@ -21,7 +21,6 @@ class cart extends StatelessWidget {
         ],
       ),
       body: GetBuilder<Cartcontroller>(
-        init: Cartcontroller(),
         builder: (controller) => Handlingdataview(
             statusRequest: controller.statusRequest,
             widgets: Column(
@@ -31,29 +30,58 @@ class cart extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: controller.dataCart.length,
                   itemBuilder: (context, i) {
+                    controller.data[controller.dataCart[i]['cart_id']] =
+                        controller.dataCart[i];
                     return CardCart(
                       cartModel: CartModel.fromJson(controller.dataCart[i]),
-                      cartcontroller: controller,
+                      // cartcontroller: controller,
                     );
                   },
                 ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text("Total Pice",
-                            style: Theme.of(context).textTheme.displayMedium),
-                        Text("${controller.totalPrice}\$",
-                            style: Theme.of(context).textTheme.displaySmall),
-                      ],
-                    ),
-                    SizedBox(
-                        width: 300,
-                        child: ElevatedButton(
-                            onPressed: () {}, child: const Text("check out"))),
-                    const SizedBox(height: 10)
-                  ],
+                // Column(
+                //   children: [
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //       children: [
+                //         Text("Total Pice",
+                //             style: Theme.of(context).textTheme.displayMedium),
+                //         Text("${controller.totalPrice}\$",
+                //             style: Theme.of(context).textTheme.displaySmall),
+                //       ],
+                //     ),
+                //     SizedBox(
+                //         width: 300,
+                //         child: ElevatedButton(
+                //             onPressed: () {}, child: const Text("check out"))),
+                //     const SizedBox(height: 10)
+                //   ],
+                // )
+                Card(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(10),
+                            hintText: "Add coupon code",
+                            suffixIcon: Icon(Icons.discount),
+                            border: InputBorder.none),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(  onPressed: (){}, child: Text("check out")),
+                            Column(children: [
+                              Text("price",style: Theme.of(context).textTheme.displaySmall),
+                              Text("${controller.totalPrice}\$",style: Theme.of(context).textTheme.displayMedium),
+                            ],)
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 )
               ],
             )),

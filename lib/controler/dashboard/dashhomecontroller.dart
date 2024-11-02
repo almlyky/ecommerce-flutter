@@ -66,7 +66,7 @@ class dashhomcontrollerimp extends GetxController {
 //==================== get all product ==============
   getallproduct() async {
     statusRequestAllProduct = StatusRequest.loading;
-    var response = await productdata.getAllproduct();
+    var response = await productdata.getAllproduct(1);
     statusRequestAllProduct = handlingData(response);
     if (StatusRequest.success == statusRequestAllProduct) {
       dataAllProduct.addAll(response);
@@ -197,7 +197,7 @@ addCategories()async{
   @override
   void onInit() {
     getallproduct();
-    selectedcategories = controlerhome.catName[0];
+    //selectedcategories = controlerhome.catName[0];
     super.onInit();
   }
 
