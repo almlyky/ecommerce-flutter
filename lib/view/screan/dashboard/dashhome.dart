@@ -3,6 +3,7 @@ import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/test/serveces.dart';
 import 'package:eccommerce_new/view/screan/auth/login.dart';
 import 'package:eccommerce_new/view/screan/dashboard/categoris.dart';
+import 'package:eccommerce_new/view/screan/dashboard/order.dart';
 import 'package:eccommerce_new/view/screan/dashboard/product.dart';
 import 'package:eccommerce_new/view/screan/dashboard/users.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +13,14 @@ class dashhome extends StatelessWidget {
   const dashhome({super.key});
   @override
   Widget build(BuildContext context) {
-    homepagecontrolerimp controllerhome = Get.put(homepagecontrolerimp());
+    // homepagecontrolerimp controllerhome = Get.put(homepagecontrolerimp());
     setteng controller = Get.find();
-    List<String> grid = ["Users", "Categories", "product"];
+    List<String> grid = ["Users", "Categories", "product","order"];
     List<Object> page = [
       const usersdash(),
       const categoriesdash(),
-      const productdash()
+      const productdash(),
+      const Orderdash()
     ];
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +41,7 @@ class dashhome extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisCount: 3,
             ),
-            itemCount: 3,
+            itemCount: grid.length,
             itemBuilder: (context, i) {
               return InkWell(
                 onTap: () {

@@ -3,6 +3,7 @@ class CartModel {
   PrFk? prFk;
   int? quantity;
   int? userFk;
+  int? order;
 
   CartModel({this.cartId, this.prFk, this.quantity, this.userFk});
 
@@ -11,6 +12,7 @@ class CartModel {
     prFk = json['pr_fk'] != null ? PrFk.fromJson(json['pr_fk']) : null;
     quantity = json['quantity'];
     userFk = json['user_fk'];
+    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {

@@ -1,12 +1,16 @@
-
+import 'package:eccommerce_new/controler/homepagecontroler.dart';
+import 'package:eccommerce_new/data/model/offermodel.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class PageViewOffer extends StatelessWidget {
   const PageViewOffer({
     super.key,
     required this.bodyheight,
+    required this.homeconroller,
   });
 
+  final homepagecontrolerimp homeconroller;
   final double bodyheight;
 
   @override
@@ -16,7 +20,7 @@ class PageViewOffer extends StatelessWidget {
       child: PageView.builder(
           // pageSnapping: false,
           //dragStartBehavior: DragStartBehavior.start,
-          itemCount: 10,
+          itemCount: homeconroller.dataAdds.length,
           itemBuilder: (context, i) {
             return Card(
               shape: RoundedRectangleBorder(
@@ -28,7 +32,12 @@ class PageViewOffer extends StatelessWidget {
                 width: 300,
                 height: 150,
                 decoration: BoxDecoration(
-                  color: Colors.lightBlueAccent,
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          homeconroller.dataAdds[i].image!),
+                      fit: BoxFit.fill),
+
+                  // color: Colors.lightBlueAccent,
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Row(
@@ -39,45 +48,46 @@ class PageViewOffer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            '50-40% OFF',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
+                          // // Container(color: Colors.white,child: Image(image: AssetImage("assist/image/offer.png"),fit: BoxFit.fill,width: 100,height: 100,)),
+                          // Text(
+                          //   '${homeconroller.dataAdds[i].}% OFF',
+                          //   style: const TextStyle(
+                              
+                          //     fontSize: 30,
+                          //     fontWeight: FontWeight.bold,
+                          //     color: Color.fromARGB(255, 250, 250, 250),
+                          //   ),
+                          // ),
                           const SizedBox(height: 8.0),
-                          const Text(
-                            'Now in (product)\nAll colours',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
+                          // Text(
+                          //   'offer expire on \n${homeconroller.dataOffer[i].endDate}',
+                          //   style: const TextStyle(
+                          //     fontSize: 16,
+                          //     color: Color.fromARGB(255, 255, 0, 0),
+                          //   ),
+                          // ),
                           const SizedBox(height: 16.0),
                           OutlinedButton.icon(
-                            icon: const Icon(
-                                Icons.shopping_basket_outlined),
+                            icon: const Icon(Icons.shopping_basket_outlined),
                             onPressed: () {},
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Colors.white),
+                              // side: const BorderSide(color: Colors.white),
                             ),
                             label: const Text(
                               'Shop Now',
-                              style: TextStyle(color: Colors.white),
+                              // style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    // Image
-                    Image.asset(
-                      "assist/image/offer4.png",
-                      width: 150,
-                      height: 200,
-                      fit: BoxFit.contain,
-                    ),
+                  
+                    // Image.asset(
+                    //   "assist/image/offer4.png",
+                    //   width: 150,
+                    //   height: 200,
+                    //   fit: BoxFit.contain,
+                    // ),
                   ],
                 ),
               ),
@@ -86,4 +96,3 @@ class PageViewOffer extends StatelessWidget {
     );
   }
 }
-

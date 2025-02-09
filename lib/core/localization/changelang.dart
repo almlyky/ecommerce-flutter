@@ -3,7 +3,7 @@ import 'package:eccommerce_new/test/serveces.dart';
 import 'package:get/get.dart';
 
 class localecontroler extends GetxController {
-  late Locale language = const Locale("en");
+  late Locale language = const Locale("ar");
   setteng service = Get.find();
   changelang(String languageCode) {
     language = Locale(languageCode);

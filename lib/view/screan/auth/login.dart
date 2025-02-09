@@ -25,12 +25,19 @@ class login extends StatelessWidget {
           key: controler.formstae,
           child: ListView(
             children: [
-              Center(
-                child: Container(
-                    margin: const EdgeInsets.only(top: 100),
-                    child: Text("5".tr,
-                        style: Theme.of(context).textTheme.displayMedium)),
-              ),
+              
+              // Center(
+              //   child: Container(
+              //       margin: const EdgeInsets.only(top: 60),
+              //       child: Text("5".tr,
+              //           style: Theme.of(context).textTheme.displayMedium)),
+              // ),
+               Container(
+                margin: EdgeInsets.only(top: 100),
+                  child: const CircleAvatar(
+                    radius: 50,
+                child: Icon(Icons.person,size: 50,),
+              )),
               const SizedBox(
                 height: 60,
               ),

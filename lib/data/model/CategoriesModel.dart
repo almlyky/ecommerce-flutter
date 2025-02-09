@@ -15,10 +15,10 @@ class CategoriesModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['cat_id'] = catId;
+    // data['cat_id'] = catId;
     data['cat_name'] = catName;
     data['cat_name_en'] = catNameEn;
-    data['cat_image'] = catImage;
+    // data['cat_image'] = catImage;
     return data;
   }
 }

@@ -19,14 +19,13 @@ class favorate extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 20,
-                childAspectRatio: 0.6,
+                childAspectRatio: 0.8,
               ),
-              itemCount:  controller.dataFavorite.length,
+              itemCount:  controller.dataFavoriteModel.length,
               itemBuilder: (context, i) {
                 return InkWell(
                   child: myProductCard(
-                    productModel: ProductModel.fromJson(
-                        controller.dataFavorite[i]['pr_fk']),
+                    productModel: controller.dataFavoriteModel[i].prFk!,
                   ),
                 );
               });

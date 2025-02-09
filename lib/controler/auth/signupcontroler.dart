@@ -4,6 +4,7 @@ import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/curd.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
 import 'package:eccommerce_new/data/remote/auth/signupdata.dart';
+import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,28 @@ class signupcontrolerimp extends signupcontroler {
 
   String erroremail = "";
   bool visable = false;
+  int? userId;
+  String errorotp = "";
+  String? otp;
+
+  Controldata controldata = Controldata();
+  StatusRequest? statusRequest;
+
+  chechoTp() async {
+    statusRequest = StatusRequest.loading;
+    // var data={"otp":otp}
+    var response =
+        await controldata.addData("$chechotp/$userId/", {"otp": otp});
+    print(otp);
+    print(response);
+    statusRequest = handlingData(response);
+    if (statusRequest == StatusRequest.success) {
+      Get.offNamed(AppRoute.login);
+    } else {
+      errorotp = "tho otp incorrect!";
+    }
+    update();
+  }
 
   @override
   void onInit() {
@@ -83,13 +106,15 @@ class signupcontrolerimp extends signupcontroler {
     var formdata = formsignup.currentState;
     if (formdata!.validate()) {
       statusRequestsignup = StatusRequest.loading;
-      var response =
-          await signupdata.signup(Username.text, passowrd.text,cofirmpassowrd.text, email.text);
-      print(response);
+      var response = await signupdata.signup(
+          Username.text, passowrd.text, cofirmpassowrd.text, email.text);
+      // print(response);
       statusRequestsignup = handlingData(response);
       if (StatusRequest.success == statusRequestsignup &&
           response['status'] == "successfuly") {
-        Get.offNamed(AppRoute.login);
+        userId = response['user']['pk'];
+        print(userId);
+        Get.toNamed(AppRoute.verfycode);
       }
     } else {
       // visable = false;

@@ -1,7 +1,12 @@
 import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
+import 'package:eccommerce_new/core/constant/linksapi.dart';
+import 'package:eccommerce_new/core/constant/route.dart';
+import 'package:eccommerce_new/core/my_classes/crud.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
+import 'package:eccommerce_new/data/model/cartmodel.dart';
 import 'package:eccommerce_new/data/remote/cartdata.dart';
+import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,10 +14,18 @@ class Cartcontroller extends GetxController {
   CartData cartData = CartData();
   int totalPrice = 0;
   List dataCart = [];
-  late StatusRequest statusRequest;
+  List<CartModel> dataCartModels = [];
 
-  Map<int, Map> data = {};
-  
+  List dataCoupon = [];
+  late StatusRequest statusRequest;
+  int discount = 0;
+
+
+  late StatusRequest statusRequestCoupon;
+  TextEditingController couponName = TextEditingController();
+  Controldata controldata = Controldata();
+
+  // Map<int, Map> data = {};
 
   getdatacart(int userid) async {
     dataCart.clear();
@@ -20,7 +33,14 @@ class Cartcontroller extends GetxController {
     var response = await cartData.getCart(userid);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      dataCart.addAll(response);
+      List<CartModel> cartList = response.map<CartModel>((cart) {
+        int prCost = cart['pr_fk']['pr_cost'];
+        totalPrice += prCost;
+        // print(prCost);
+        return CartModel.fromJson(cart);
+      }).toList();
+      dataCartModels.addAll(cartList);
+      // dataCart.addAll(response);
     }
     update();
   }
@@ -33,33 +53,56 @@ class Cartcontroller extends GetxController {
     var response = await cartData.addcart(productID, userid, quantity);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
+      CartModel cartModel = CartModel.fromJson(response['data']);
+
       // Get.rawSnackbar(
       //     title: "اشعار",
       //     messageText: const Text("تم اضافة المنتج الى السله ",
       //         style: TextStyle(color: Colors.white)));
       if (response['status'] == "exist") {
-        for (var element in dataCart) {
-          if (element['pr_fk']['pr_id'] == productID) {
-            element['quantity'] = response['data']["quantity"];
-            int price = response['data']['pr_fk']['pr_cost'];
-            totalPrice += price;
+        // for (var element in dataCartMo) {
+        //   if (element['pr_fk']['pr_id'] == productID) {
+        //     element['quantity'] = response['data']["quantity"];
+        //     int price = response['data']['pr_fk']['pr_cost'];
+        //     totalPrice += price;
+        //   }
+        // }
+
+        for (var element in dataCartModels) {
+          if (element.prFk!.prId == productID) {
+            element.quantity = cartModel.quantity;
+            // int price = response['data']['pr_fk']['pr_cost'];
+            totalPrice += cartModel.prFk!.prCost!;
           }
         }
       } else {
-        dataCart.add(response['data']);
-        int price = response['data']['pr_fk']['pr_cost'];
+        // dataCart.add(response['data']);
+        dataCartModels.add(cartModel);
+        int price = cartModel.prFk!.prCost!;
         totalPrice += price;
       }
     }
     update();
   }
 
-  removecart({required int productID, required int userid}) async {
+  deleteAllcart(int userId) async {
     statusRequest = StatusRequest.loading;
-    var response = await cartData.removeCart(productID, userid);
+    var response = await controldata.deleteData("$deleteallcart/$userId/");
+    statusRequest = handlingData(response);
+    if (statusRequest == StatusRequest.success) {
+      dataCartModels.clear();
+    }
+    update();
+  }
+
+  removecart(int cartId) async {
+    statusRequest = StatusRequest.loading;
+
+    var response = await controldata.deleteData("$deletecart/$cartId/");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      dataCart.removeWhere((element) => element['pr_fk']['pr_id'] == productID);
+      dataCartModels.removeWhere((element) => element.cartId == cartId);
+      // dataCart.removeWhere((element) => element['pr_fk']['pr_id'] == productID);
       initTotal();
       // for (var element in dataCart) {
       //   if (element['pr_fk']['pr_id'] == productID) {
@@ -84,29 +127,37 @@ class Cartcontroller extends GetxController {
     var response = await cartData.updatequantitys(action, cartid);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      if (action == "plus") {
-        data[cartid]!['quantity'] += 1;
-        int price = data[cartid]!['pr_fk']['pr_cost'];
-        totalPrice += price;
-      } else if (action == "minus" && data[cartid]!['quantity'] > 1) {
-        data[cartid]!['quantity'] -= 1;
-        int price = data[cartid]!['pr_fk']['pr_cost'];
-        totalPrice -= price;
-      }
-
-      // for (var element in dataCart) {
-      //   if (element['cart_id'] == cartid) {
-      //     if (action == "plus") {
-      //       element['quantity'] += 1;
-      //       int price = element['pr_fk']['pr_cost'];
-      //       totalPrice += price;
-      //     } else if (action == "minus" && element['quantity'] > 1) {
-      //       element['quantity'] -= 1;
-      //       int price = element['pr_fk']['pr_cost'];
-      //       totalPrice -= price;
-      //     }
-      //   }
+      // if (action == "plus") {
+      //   data[cartid]!['quantity'] += 1;
+      //   int price = data[cartid]!['pr_fk']['pr_cost'];
+      //   totalPrice += price;
+      // } else if (action == "minus" && data[cartid]!['quantity'] > 1) {
+      //   data[cartid]!['quantity'] -= 1;
+      //   int price = data[cartid]!['pr_fk']['pr_cost'];
+      //   totalPrice -= price;
       // }
+      // if (action == "plus") {
+      //   data[cartid]!['quantity'] += 1;
+      //   int price = data[cartid]!['pr_fk']['pr_cost'];
+      //   totalPrice += price;
+      // } else if (action == "minus" && data[cartid]!['quantity'] > 1) {
+      //   data[cartid]!['quantity'] -= 1;
+      //   int price = data[cartid]!['pr_fk']['pr_cost'];
+      //   totalPrice -= price;
+      // }
+      for (var element in dataCartModels) {
+        if (element.cartId == cartid) {
+          if (action == "plus") {
+            element.quantity = element.quantity! + 1;
+            // int price = element['pr_fk']['pr_cost'];
+            totalPrice += element.prFk!.prCost!;
+          } else if (action == "minus" && element.quantity! > 1) {
+            element.quantity = element.quantity! - 1;
+            // int price = element['pr_fk']['pr_cost'];
+            totalPrice -= element.prFk!.prCost!;
+          }
+        }
+      }
       // Get.rawSnackbar(
       //     title: "اشعار",
       //     messageText: const Text("تم حذف المنتج من المفضلة ",
@@ -124,6 +175,34 @@ class Cartcontroller extends GetxController {
       int price1 = element['pr_fk']['pr_cost'] * element['quantity'];
       totalPrice += price1;
     }
+  }
+
+  // int check = 0;
+  checkCoupon() async {
+    statusRequestCoupon = StatusRequest.loading;
+    var response = await cartData.checkCoupon(couponName.text);
+    statusRequestCoupon = handlingData(response);
+    if (statusRequestCoupon == StatusRequest.success) {
+      discount = response['data']['co_discount'];
+      // if (check == 0) {
+      totalPrice -= discount;
+      //   check++;
+      // }
+    } else if (statusRequestCoupon == StatusRequest.failure) {
+      discount = 0;
+      // initTotal();
+      Get.rawSnackbar(
+          title: "اشعار",
+          messageText: const Text("the coupon not found or expired !",
+              style: TextStyle(
+                color: Colors.white,
+              )));
+    }
+    update();
+  }
+
+  gotochechout() {
+    Get.toNamed(AppRoute.checkout);
   }
 
   @override

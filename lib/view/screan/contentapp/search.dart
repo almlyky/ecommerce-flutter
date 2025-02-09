@@ -13,6 +13,7 @@ class SearchData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductModel productModel;
     favoratecontroller contrllerfav = Get.find();
     // homepagecontrolerimp controllerhome = Get.find();
     Productcontroller controllerproduct = Get.find();
@@ -31,20 +32,19 @@ class SearchData extends StatelessWidget {
                     mainAxisSpacing: 20,
                     childAspectRatio: 0.6,
                   ),
-                  itemCount: controllerhome.dataProductSearch.length,
+                  itemCount: controllerhome.dataproductSearchModel.length,
                   itemBuilder: (context, i) {
-                    contrllerfav.isfavorate[controllerhome.dataProductSearch[i]
-                        ['pr_id']] = controllerhome.dataProductSearch[i]['fav'];
+                    productModel = controllerhome.dataproductSearchModel[i];
+                    contrllerfav.isfavorate[productModel.prId!] =
+                        productModel.fav!;
                     return InkWell(
                       onTap: () {
                         FocusScope.of(context).unfocus();
-                        controllerproduct.productModel = ProductModel.fromJson(
-                            controllerhome.dataProductSearch[i]);
+                        controllerproduct.productModel = productModel;
                         Get.to(() => const ProductDetailPage());
                       },
                       child: myProductCard(
-                        productModel: ProductModel.fromJson(
-                            controllerhome.dataProductSearch[i]),
+                        productModel: productModel,
                       ),
                     );
                   },

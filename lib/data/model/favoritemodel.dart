@@ -1,13 +1,15 @@
+import 'package:eccommerce_new/data/model/ProductModel.dart';
+
 class FavoriteModel {
   int? favNo;
-  PrFk? prFk;
+  ProductModel? prFk;
   int? userFk;
 
   FavoriteModel({this.favNo, this.prFk, this.userFk});
 
   FavoriteModel.fromJson(Map<String, dynamic> json) {
     favNo = json['fav_no'];
-    prFk = json['pr_fk'] != null ? PrFk.fromJson(json['pr_fk']) : null;
+    prFk = json['pr_fk'] != null ? ProductModel.fromJson(json['pr_fk']) : null;
     userFk = json['user_fk'];
   }
 

@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,8 @@ class ProductDetailPage extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Get.to(const cart());
+                Get.toNamed(AppRoute.cart);
+                // Get.to(const cart());
               },
               icon: const Icon(Icons.shopping_cart_rounded))
         ],
@@ -32,8 +34,8 @@ class ProductDetailPage extends StatelessWidget {
             // Image
             Center(
               child: Image(
-                image: NetworkImage(
-                    "${controllerproduct.productModel.prImage}"),
+                image:
+                    NetworkImage("${controllerproduct.productModel.prImage}"),
                 height: 200,
               ),
             ),
@@ -105,32 +107,45 @@ class ProductDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             // Price and Discount
-            Row(
+            Column(
               children: [
-                Text(
-                  '${controllerproduct.productModel.prCost}\$',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    decoration: TextDecoration.lineThrough,
+                if (controllerproduct.productModel.prDiscount == 0)
+                  Text(
+                    '${controllerproduct.productModel.prCost} R.Y',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  )
+                else
+                  Text(
+                    '${controllerproduct.productModel.prCostNew} R.Y',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
                   ),
-                ),
+
+                if (controllerproduct.productModel.prDiscount! > 0)
+                  Text(
+                    '${controllerproduct.productModel.prCost} R.Y',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
                 const SizedBox(width: 8.0),
-                const Text(
-                  '1,500\$',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
-                  ),
-                ),
+
                 const SizedBox(width: 8.0),
-                const Text(
-                  '50% Off',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.green,
-                  ),
-                ),
+                // const Text(
+                //   '50% Off',
+                //   style: TextStyle(
+                //     fontSize: 16,
+                //     color: Colors.green,
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(height: 16.0),

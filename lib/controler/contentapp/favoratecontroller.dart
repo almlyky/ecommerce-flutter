@@ -1,4 +1,8 @@
+import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/core/my_function/curd.dart';
+import 'package:eccommerce_new/data/model/ProductModel.dart';
+import 'package:eccommerce_new/data/model/favoritemodel.dart';
+import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:eccommerce_new/data/remote/favorate_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,43 +12,51 @@ import '../../core/my_function/handledata.dart';
 class favoratecontroller extends GetxController {
   curd c = curd();
 
-  List dataFavorite = [];
+  List<FavoriteModel> dataFavoriteModel = [];
   late StatusRequest statusRequest;
-  Favorite_data favorite_data = Favorite_data();
+  // Favorite_data favorite_data = Favorite_data();
+  Controldata controldata = Controldata();
 
   getFavorite(int userid) async {
-    dataFavorite = [];
+    dataFavoriteModel.clear();
     statusRequest = StatusRequest.loading;
-    var response = await favorite_data.getFavorite(userid);
+    var response = await controldata.getData("$favoriteList/$userid/");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      dataFavorite.addAll(response);
-      // print(dataFavorite[0]);
+      List<FavoriteModel> favorite = response.map<FavoriteModel>((item) {
+        return FavoriteModel.fromJson(item);
+      }).toList();
+      dataFavoriteModel.addAll(favorite);
     }
     update();
   }
 
   addFavorite({required int productID, required int userid}) async {
     statusRequest = StatusRequest.loading;
-    var response = await favorite_data.addFavorite(productID, userid);
+    var data = {"user_fk": "$userid", "pr_fk": "$productID"};
+    var response = await controldata.addData(insert_Fav, data);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
+      FavoriteModel favoriteModel = FavoriteModel.fromJson(response);
+      dataFavoriteModel.add(favoriteModel);
       Get.rawSnackbar(
           title: "اشعار",
           messageText: const Text("تم اضافة المنتج من المفضلة ",
-          style: TextStyle(color: Colors.white)));
-      dataFavorite.add(response);
+              style: TextStyle(color: Colors.white)));
+      // dataFavorite.add(response);
     }
     update();
   }
 
   removeFavorite({required int productID, required int userid}) async {
     statusRequest = StatusRequest.loading;
-    var response = await favorite_data.removeFavorite(productID, userid);
+
+    var response =
+        await controldata.deleteData("$delete_Fav/$productID/$userid/");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      dataFavorite
-          .removeWhere((element) => element['pr_fk']['pr_id'] == productID);
+      dataFavoriteModel
+          .removeWhere((element) => element.prFk!.prId == productID);
       Get.rawSnackbar(
           title: "اشعار",
           messageText: const Text("تم حذف المنتج من المفضلة ",
@@ -59,6 +71,17 @@ class favoratecontroller extends GetxController {
   Map<int, int> isfavorate = {};
   setfavorate(id, value) {
     isfavorate[id] = value;
+  }
+
+  onTapFavorite(ProductModel productModel) {
+    if (isfavorate[productModel.prId] == 0) {
+      setfavorate(productModel.prId, 1);
+      addFavorite(productID: productModel.prId!, userid: 1);
+    } else {
+      setfavorate(productModel.prId, 0);
+      removeFavorite(productID: productModel.prId!, userid: 1);
+    }
+    update();
   }
 
   @override

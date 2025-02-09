@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
 import 'package:eccommerce_new/view/screan/dashboard/addcategories.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,41 +7,39 @@ import '../../../controler/homepagecontroler.dart';
 import '../../../core/constant/linksapi.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class categoriesdash extends StatefulWidget {
+class categoriesdash extends StatelessWidget {
   const categoriesdash({super.key});
 
-  @override
-  State<categoriesdash> createState() => _categoriesdashState();
-}
-
-class _categoriesdashState extends State<categoriesdash> {
-  homepagecontrolerimp controlerhome = Get.put(homepagecontrolerimp());
-  dashhomcontrollerimp controller = Get.put(dashhomcontrollerimp());
+  // dashhomcontrollerimp controller = Get.put(dashhomcontrollerimp());
 
   @override
   Widget build(BuildContext context) {
+    homepagecontrolerimp controlerhome = Get.put(homepagecontrolerimp());
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
           ElevatedButton(
               onPressed: () {
-                controller.gotoinsertcategories();
+                controlerhome.gotoinsertcategories();
               },
               child: const Text("add categories")),
           const SizedBox(height: 20),
           Expanded(
-            child: FutureBuilder(
-                future: controlerhome.getcategories(),
-                builder: (context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemCount: snapshot.data!.length,
+              child: GetBuilder<homepagecontrolerimp>(
+                builder: (controller) => 
+                  Handlingdataview(
+                    statusRequest: controlerhome.statusRequestCat,
+                    widgets:
+                        // future: controlerhome.getcategories(),
+                        ListView.builder(
+                      itemCount: controlerhome.datacatModel.length,
                       itemBuilder: (context, i) {
                         return Card(
                           child: ListTile(
                             leading: CachedNetworkImage(
-                                imageUrl: "${snapshot.data![i]["cat_image"]}",
+                                imageUrl:
+                                    "${controlerhome.datacatModel[i].catImage}",
                                 imageBuilder: (context, imageprovider) =>
                                     Container(
                                       width: 80,
@@ -64,12 +63,10 @@ class _categoriesdashState extends State<categoriesdash> {
                                     child: const Icon(Icons.edit,
                                         color: Colors.greenAccent),
                                     onTap: () async {
-                                      var data = await controller
-                                          .datacatforedete(snapshot.data[i]);
-                                      Get.to(addcategories(
-                                          id: snapshot.data[i]['cat_id'],
-                                          typeevent: "edete",
-                                          data: data));
+                                      controlerhome.categoriesModel =
+                                          controlerhome.datacatModel[i];
+                                      controlerhome.gotoedeteCategories();
+                                      // controlerhome.got
                                     }),
                                 InkWell(
                                   child: const Icon(
@@ -82,12 +79,10 @@ class _categoriesdashState extends State<categoriesdash> {
                                         builder: (context) {
                                           return AlertDialog(
                                             title: const Text('حذف صنف'),
-                                            content:
-                                                const SingleChildScrollView(
+                                            content: const SingleChildScrollView(
                                               child: ListBody(
                                                 children: <Widget>[
-                                                  Text(
-                                                      'هل انت متأكد من الحذف؟'),
+                                                  Text('هل انت متأكد من الحذف؟'),
                                                   // Text('Would you like to approve of this message?'),
                                                 ],
                                               ),
@@ -112,20 +107,14 @@ class _categoriesdashState extends State<categoriesdash> {
                                 ),
                               ],
                             ),
-                            title: Text("${snapshot.data[i]["cat_name"]}"),
+                            title:
+                                Text("${controlerhome.datacatModel[i].catName}"),
                             subtitle: const Text("name"),
                           ),
                         );
                       },
-                    );
-                  } else {
-                    return const Center(
-                        child: CircularProgressIndicator(
-                      color: Colors.red,
-                    ));
-                  }
-                }),
-          ),
+                    )),
+              ))
         ],
       ),
     );

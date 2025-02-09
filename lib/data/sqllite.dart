@@ -2,16 +2,17 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 class dbase{
   static Database? _db;
+
   Future<Database?> get db async{
     if(_db==null){
       _db=await initialdb();
-      print("........................ created database ecommerce_app .....................................");
       return _db;
     }
     else {
       return _db;
     }
   }
+
   initialdb() async {
     try {
       String dbpath = await getDatabasesPath();
@@ -23,34 +24,33 @@ class dbase{
       print("error in database :  $e");
     }
   }
+  
   _oncreate(Database db,int version) async{
     // Batch batch=db.batch();
-    // await db.execute(
-    //     '''
-    //   create table "cart"(
-    //   "cart_no" integer not null primary key autoincrement,
-    //   "car" text not null,
-    //   "dept_loc" text not null,
-    //   "dept_image" text not null
-    //   );
-    //   '''
-    // );
-    // print("........................ created dept .....................................");
-    //
-    // await db.execute('''
-    //
-    //     create table "product"(
-    //     "product_no" integer not null primary key autoincrement,
-    //     "product_disc" text,
-    //     "product_name" text not null,
-    //     "product_image" text not null,
-    //     "product_price" integer not null,
-    //     "dept_foreign" int not null,
-    //      foreign key(dept_foreign) references dept(dept_no)
-    //     );
-    //     '''
-    // );
-    // print("........................ created product .....................................");
+    await db.execute(
+        '''
+      create table "cart"(
+      "cart_no" integer not null primary key autoincrement,
+      "car" text not null,
+      "dept_loc" text not null,
+      "dept_image" text not null
+      );
+      '''
+    );
+    
+    await db.execute('''
+    
+        create table "product"(
+        "product_no" integer not null primary key autoincrement,
+        "product_disc" text,
+        "product_name" text not null,
+        "product_image" text not null,
+        "product_price" integer not null,
+        "dept_foreign" int not null,
+         foreign key(dept_foreign) references dept(dept_no)
+        );
+        '''
+    );
 
     await db.execute('''
         create table "favorite"(
@@ -62,7 +62,6 @@ class dbase{
         "pr_detail" text not null
        );
     ''');
-    print("........................ created favorite .....................................");
 
     await db.execute('''
         create table "cart"(
@@ -74,9 +73,9 @@ class dbase{
         "cart_quantity" integer not null
         );
     ''');
-    print("........................ created cart .....................................");
 
-  }readdata(String sql) async{
+  }
+  readdata(String sql) async{
     Database? mydb=await db;
     var response=await mydb!.rawQuery(sql);
     return response;

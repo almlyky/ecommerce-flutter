@@ -1,4 +1,5 @@
 import 'package:eccommerce_new/controler/auth/signupcontroler.dart';
+import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/view/widget/login/costomtextfiald.dart';
 import 'package:eccommerce_new/view/widget/login/custombuttonlogin.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,113 +20,121 @@ class signup extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          child: Form(
-            key: controler.formsignup,
-            child: ListView(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  alignment: Alignment.bottomLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        child: Form(
+          key: controler.formsignup,
+          child: ListView(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 70),
+                  child: const CircleAvatar(
+                    radius: 50,
+                child: Icon(Icons.person,size: 50,),
+              )),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  child: Text("Let's Get Started!",
+                      style: Theme.of(context).textTheme.displayMedium),
                 ),
-                Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 60),
-                    child: Text("Let's Get Started!",
-                        style: Theme.of(context).textTheme.displayMedium),
-                  ),
-                ),
-                const SizedBox(
-                  height: 60,
-                ),
+              ),
+              const SizedBox(
+                height: 60,
+              ),
 
-                //textfield username
-                customtextfaild(
-                    valid: (val) {
-                      return validinput(
-                          val!, 6, 100, "username", controler.erroremail);
-                    },
-                    typeinput: TextInputType.text,
-                    controller: controler.Username,
-                    hint: "Username",
-                    checkpass: false,
-                    icon: Icons.person),
-                const SizedBox(
-                  height: 20,
-                ),
+              //textfield username
+              customtextfaild(
+                  valid: (val) {
+                    return validinput(
+                        val!, 6, 100, "username", controler.erroremail);
+                  },
+                  typeinput: TextInputType.text,
+                  controller: controler.Username,
+                  hint: "Username",
+                  checkpass: false,
+                  icon: Icons.person),
+              const SizedBox(
+                height: 20,
+              ),
 
-                //textfield email
-                customtextfaild(
-                    chech: (val) {
-                      controler.erroremail = "";
-                    },
-                    valid: (val) {
-                      return validinput(
-                          val!, 6, 100, "email", controler.erroremail);
-                    },
-                    typeinput: TextInputType.emailAddress,
-                    controller: controler.email,
-                    hint: "Email",
-                    checkpass: false,
-                    icon: Icons.email),
-                const SizedBox(
-                  height: 20,
-                ),
+              //textfield email
+              customtextfaild(
+                  chech: (val) {
+                    controler.erroremail = "";
+                  },
+                  valid: (val) {
+                    return validinput(
+                        val!, 6, 100, "email", controler.erroremail);
+                  },
+                  typeinput: TextInputType.emailAddress,
+                  controller: controler.email,
+                  hint: "Email",
+                  checkpass: false,
+                  icon: Icons.email),
+              const SizedBox(
+                height: 20,
+              ),
 
-                //textfield password
-                customtextfaild(
-                    valid: (val) {
-                      return validinput(
-                          val!, 6, 100, "password", controler.erroremail);
-                    },
-                    typeinput: TextInputType.text,
-                    controller: controler.passowrd,
-                    hint: "password",
-                    checkpass: true,
-                    icon: Icons.lock_open_outlined),
-                const SizedBox(
-                  height: 20,
-                ),
+              //textfield password
+              customtextfaild(
+                  valid: (val) {
+                    return validinput(
+                        val!, 6, 100, "password", controler.erroremail);
+                  },
+                  typeinput: TextInputType.text,
+                  controller: controler.passowrd,
+                  hint: "password",
+                  checkpass: true,
+                  icon: Icons.lock_open_outlined),
+              const SizedBox(
+                height: 20,
+              ),
 
-                //textfield password
-                customtextfaild(
-                    valid: (val) {
-                      return validinput(
-                          val!, 6, 100, "password", controler.erroremail);
-                    },
-                    typeinput: TextInputType.text,
-                    controller: controler.cofirmpassowrd,
-                    hint: "Confirm password",
-                    checkpass: true,
-                    icon: Icons.lock_open_outlined),
-                const SizedBox(
-                  height: 40,
-                ),
+              //textfield password
+              customtextfaild(
+                  valid: (val) {
+                    return validinput(
+                        val!, 6, 100, "password", controler.erroremail);
+                  },
+                  typeinput: TextInputType.text,
+                  controller: controler.cofirmpassowrd,
+                  hint: "Confirm password",
+                  checkpass: true,
+                  icon: Icons.lock_open_outlined),
+              const SizedBox(
+                height: 40,
+              ),
 
-                //circle proccessing
-                GetBuilder<signupcontrolerimp>(
-                  init: signupcontrolerimp(),
-                  builder: (contr) => Visibility(
-                    visible: contr.visable,
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
+              //circle proccessing
+              GetBuilder<signupcontrolerimp>(
+                init: signupcontrolerimp(),
+                builder: (contr) => Visibility(
+                  visible: contr.visable,
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
+              ),
 
-                //buttons create acounts
-                ElevatedButton(
-                    onPressed: () {
-                      controler.signupp();
-                    },
-                    child: const Text("create"))
-              ],
-            ),
-          )),
+              //buttons create acounts
+              ElevatedButton(
+                  onPressed: () {
+                    controler.signupp();
+                  },
+                  child: const Text("create")),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Are you have acount?".tr),
+                  TextButton(
+                      onPressed: () {
+                        Get.offNamed(AppRoute.login);
+                      },
+                      child: Text("Log in".tr))
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

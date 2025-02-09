@@ -1,5 +1,6 @@
 // import 'dart:math';
 // import 'package:eccommerce_new/core/constant/route.dart';
+import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/firebase_options.dart';
 import 'package:eccommerce_new/routes.dart';
 import 'package:eccommerce_new/test/home2.dart';
@@ -63,34 +64,47 @@ class _MyhomepageState extends State<Myhomepage> {
       debugShowCheckedModeBanner: false,
       getPages: routeapp,
       initialRoute: "/login",
-      // initialRoute: "/home",
-      // home: const SignUpForm(),
       theme: ThemeData(
-        
-      // textButtonTheme: TextButtonThemeData(
-      // style: TextButton.styleFrom(
-      //   backgroundColor: Colors.red, // لون النص لـ TextButton
-      // ),
-      // ),
-    // outlinedButtonTheme: OutlinedButtonThemeData(
-    //   style: OutlinedButton.styleFrom(
-    //     backgroundColor: Colors.purple, // لون النص لـ OutlinedButton
-    //   ),
-    // ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.amber[600], // لون الخلفية لـ ElevatedButton
-      ),
-    ),
+        fontFamily: "Cairo",
+          appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(color: Appcolor.iconcolor),
+            color: Appcolor.backgroundAppbar,
+            titleTextStyle: TextStyle(
+              color: Appcolor.primarytext, // تغيير لون النص
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+              foregroundColor:Appcolor.textbuttoncolor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+              backgroundColor:Appcolor.buttoncolor, // لون الخلفية لـ ElevatedButton
+            ),
+            // ),
+            // textButtonTheme: TextButtonThemeData(
+            //   style: ButtonStyle(
+            //     foregroundColor: Coloors
+            //   ))
+          ),
+            outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+              // padding: EdgeInsets.symmetric(vertical: 0,horizontal: 20),
+              // foregroundColor:Appcolor.textbuttoncolor,
+              // iconColor: Colors.black,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))
+              
+              // backgroundColor:
+                  // Appcolor.primary, // لون الخلفية لـ ElevatedButton
+            ),),
           textTheme: const TextTheme(
-        displayMedium: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 17, fontFamily: "Cairo"),
-        displaySmall: TextStyle(
-             fontSize: 17),
-        displayLarge: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Cairo"),
-      )),
-      
+            displayMedium: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 17, fontFamily: "Cairo",color: Color.fromARGB(255, 93, 92, 92)),
+            displaySmall: TextStyle(fontWeight: FontWeight.w500, fontSize: 17,color: Color.fromARGB(255, 93, 92, 92)),
+            displayLarge: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, fontFamily: "Cairo"),
+          )
+          ),
     );
   }
 }

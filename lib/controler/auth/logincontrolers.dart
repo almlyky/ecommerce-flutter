@@ -2,6 +2,7 @@ import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
 import 'package:eccommerce_new/data/remote/auth/logindata.dart';
+import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,6 +35,8 @@ class logincontrolersimp extends logincontrolers {
   bool load = false;
 
   Logindata logindata = Logindata();
+  Controldata controldata = Controldata();
+  late StatusRequest statusRequestUser;
 
   @override
   checkacoutnts() {}
@@ -86,25 +89,27 @@ class logincontrolersimp extends logincontrolers {
   // }
 
   Future<UserCredential> signInWithGoogle() async {
-  // Trigger the authentication flow
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  // Obtain the auth details from the request
-  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
-  // Create a new credential
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-  // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
-}
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
+  @override
   login() async {
     if (email.text == "admin2" && passowrd.text == "admin2") {
-      Get.toNamed(AppRoute.dashhome);
+      Get.offNamed(AppRoute.dashhome);
       contrller.shared.setString("rule", "admin");
     } else {
       var formdata = formstae.currentState;
@@ -116,8 +121,22 @@ class logincontrolersimp extends logincontrolers {
         statusRequestlogin = handlingData(response);
         if (StatusRequest.success == statusRequestlogin &&
             response.containsKey("access")) {
-          contrller.shared.setString("rule", "user");
-          gotohome();
+          var res = await controldata.getDataAuthentecation(
+              apiAppGetUser, response['access']);
+          statusRequestUser = handlingData(res);
+          if (statusRequestUser == StatusRequest.success) {
+            if (res['is_active'] == true) {
+              // controllersetting.shared.setString("rule", "user");
+              // controllersetting.shared.setString("username", username.text);
+              contrller.shared.setInt("userId", res['pk']);
+              contrller.shared.setString("rule", "user");
+              print("=======================");
+              print(res['pk']);
+              gotohome();
+              // notificationscontroller.subscribeTopic('TravelApp');
+              // Get.offNamed(Routes.Home);
+            }
+          }
         } else {
           load = false;
           update();
@@ -132,7 +151,7 @@ class logincontrolersimp extends logincontrolers {
 
   @override
   gotohome() {
-    Get.toNamed(AppRoute.homepage);
+    Get.offAllNamed(AppRoute.homepage);
     // var response = await c.postrequest(
     //     linklogin2, {"email": email.text, "passowrd": passowrd.text});
     // if (response["status"] == "success") {

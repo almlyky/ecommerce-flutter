@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class ButonsFilterAndsort extends StatelessWidget {
@@ -12,33 +13,32 @@ class ButonsFilterAndsort extends StatelessWidget {
       children: [
         const Text(
           'All Featured',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Appcolor.primarytext),
         ),
         Row(
           children: [
-            ElevatedButton.icon(
+            OutlinedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.sort),
               label: const Text('Sort'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
+              style: OutlinedButton.styleFrom(
+                // backgroundColor: Colors.white,
+                // foregroundColor: Colors.black,
+                // shape: RoundedRectangleBorder(
+                //   // borderRadius: BorderRadius.circular(20),
+                // ),
               ),
             ),
             const SizedBox(width: 8),
-            ElevatedButton.icon(
+            OutlinedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.filter_alt_outlined),
               label: const Text('Filter'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
+              style: OutlinedButton.styleFrom(
+                // padding: EdgeInsets.symmetric(vertical: 3)
+                // shape: RoundedRectangleBorder(
+                //   // borderRadius: BorderRadius.circular(20),
+                // ),
               ),
             ),
           ],

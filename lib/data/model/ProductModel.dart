@@ -8,6 +8,8 @@ class ProductModel {
   String? prDetail;
   String? prDetailEn;
   int? catFk;
+  int? prDiscount;
+  int? prCostNew;
 
   ProductModel(
       {this.prId,
@@ -18,7 +20,9 @@ class ProductModel {
       this.prCost,
       this.prDetail,
       this.prDetailEn,
-      this.catFk});
+      this.catFk,
+      this.prDiscount,
+      this.prCostNew});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     prId = json['pr_id'];
@@ -30,19 +34,18 @@ class ProductModel {
     prDetail = json['pr_detail'];
     prDetailEn = json['pr_detail_en'];
     catFk = json['cat_fk'];
+    prDiscount = json['pr_discoutn'];
+    prCostNew = json['pr_cost_new'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['pr_id'] = prId;
-    data['fav'] = fav;
     data['pr_name'] = prName;
     data['pr_name_en'] = prNameEn;
-    data['pr_image'] = prImage;
-    data['pr_cost'] = prCost;
+    data['pr_cost'] = "$prCost";
     data['pr_detail'] = prDetail;
     data['pr_detail_en'] = prDetailEn;
-    data['cat_fk'] = catFk;
+    data['cat_fk'] = "$catFk";
     return data;
   }
 }

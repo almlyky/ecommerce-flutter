@@ -15,14 +15,15 @@ class Crud {
   Future<Either<StatusRequest, Map>> postrequst(String url, Map data) async {
     try {
       // if (checkinternet()) {
-      var response =
-          await http.post(Uri.parse(url), body: data, headers: header);
+      var response = await http.post(Uri.parse(url), body: data);
+      print(response.statusCode);
+      print(response.body);
       // print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
         return right(responsebody);
       } else {
-        return left(StatusRequest.serverFailure);
+        return left(StatusRequest.failure);
       }
     }
     // else {
@@ -30,7 +31,7 @@ class Crud {
     // }
     // }
     catch (e) {
-      return left(StatusRequest.failure);
+      return left(StatusRequest.serverFailure);
     }
   }
 
@@ -105,27 +106,28 @@ class Crud {
   Future<Either<StatusRequest, dynamic>> getrequst(String url) async {
     try {
       // if (checkinternet()) {
-      var response = await http.get(Uri.parse(url), headers: header);
+      var response = await http.get(Uri.parse(url));
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
         return right(responsebody);
       } else {
-        return left(StatusRequest.serverFailure);
+        return left(StatusRequest.failure);
       }
       // }
       // else {
       //   return left(StatusRequest.offlineFailure);
       // }
     } catch (e) {
-      return left(StatusRequest.failure);
+      return left(StatusRequest.serverFailure);
     }
   }
 
   Future<Either<StatusRequest, Map>> deleteRequest(String url) async {
     try {
       // if (checkinternet()) {
-      var response = await http.delete(Uri.parse(url), headers: header);
+      var response = await http.delete(Uri.parse(url));
       print("response.statusCode ${response.statusCode} ");
+      print(response.body);
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
@@ -147,7 +149,7 @@ class Crud {
     try {
       // if (checkinternet()) {
       var response =
-          await http.put(Uri.parse(url), headers: header, body: data);
+          await http.put(Uri.parse(url), body: data);
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
         return right(responsebody);

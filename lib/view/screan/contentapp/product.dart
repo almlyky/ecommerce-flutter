@@ -1,4 +1,5 @@
 import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
+import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
 import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
@@ -22,9 +23,10 @@ class product extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductModel productModel;
     // print(controllerproduct.dataProduct);
     // print("=================created product====================");
-    // Productcontroller controllerproduct = Get.find();
+    Productcontroller controllerproduct = Get.find();
 
     return Scaffold(
       appBar: AppBar(
@@ -32,50 +34,83 @@ class product extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Get.to(const favorate());
+                Get.to(() => const favorate());
               },
               icon: const Icon(Icons.favorite)),
           IconButton(
               onPressed: () {
-                Get.to(const cart());
+                Get.toNamed(AppRoute.cart);
               },
               icon: const Icon(Icons.shopping_cart_rounded)),
         ],
       ),
       body: ListView(children: [
-        SizedBox(
-            height: 600,
-            child: GetBuilder<Productcontroller>(
-              // init: Productcontroller(),
-              builder: (controllerproduct) => Handlingdataview(
-                  statusRequest: controllerproduct.statusRequestCatProduct,
-                  widgets: GridView.builder(
-                    scrollDirection: Axis.vertical,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      childAspectRatio: 0.6,
-                    ),
-                    itemCount: controllerproduct.dataProduct.length,
-                    itemBuilder: (context, i) {
-                      contrllerfav.isfavorate[controllerproduct.dataProduct[i]
-                          ['pr_id']] = controllerproduct.dataProduct[i]['fav'];
-                      return InkWell(
-                        onTap: () {
-                          controllerproduct.productModel =
-                              ProductModel.fromJson(
-                                  controllerproduct.dataProduct[i]);
-                          Get.to(()=> const ProductDetailPage());
-                        },
-                        child: myProductCard(
-                          productModel: ProductModel.fromJson(
-                              controllerproduct.dataProduct[i]),
-                        ),
-                      );
+        Container(
+            height: 40,
+            child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: controllerhome.datacatModel.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      controllerproduct.tabController.animateTo(index);
                     },
-                  )),
-            ))
+                    child: Card(
+                      child:
+                          Text("${controllerhome.datacatModel[index].catName}"),
+                    ),
+                  );
+                })),
+        Container(
+          height: 600,
+          child: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: controllerproduct.tabController,
+              children:
+                  List.generate(controllerhome.datacatModel.length, (index) {
+                    return
+                SizedBox(
+                    child: GetBuilder<Productcontroller>(
+                  // init: Productcontroller(),
+                  builder: (controllerproduct) => Handlingdataview(
+                      statusRequest: controllerproduct.statusRequestCatProduct,
+                      widgets: GridView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 20,
+                                childAspectRatio: 0.8
+                                // childAspectRatio: ,
+                                ),
+                        itemCount:
+                            controllerhome.dataproductModels.where((element) => element.catFk==controllerhome.datacatModel[index].catId).toList().length,
+                        itemBuilder: (context, i) {
+                          // if(controllerhome.dataproductModels[i].catFk==controllerhome.datacatModel[index].catId){
+                            productModel =
+                              controllerhome.dataproductModels[i];
+                          contrllerfav.isfavorate[productModel.prId!] =
+                              productModel.fav!;
+                          return InkWell(
+                            onTap: () {
+                              controllerproduct.productModel = controllerhome.dataproductModels[i];
+                              Get.to(() => const ProductDetailPage());
+                            },
+                            child: myProductCard(
+                              productModel: productModel,
+                            ),
+                          );
+                         
+                        //   else{
+                        //   return (); 
+                        // }
+                        }
+                      )),
+                ));
+              })),
+        )
       ]),
     );
   }

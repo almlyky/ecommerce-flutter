@@ -12,7 +12,7 @@ class Authmiddleware extends GetMiddleware {
     }
     if (contrller.shared.getString("rule") == "admin") {
       return const RouteSettings(name: AppRoute.dashhome);
-      return null;
     }
+    return null;
   }
 }

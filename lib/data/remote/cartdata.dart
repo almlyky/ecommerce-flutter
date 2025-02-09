@@ -24,4 +24,9 @@ class CartData {
         .updateRequest("$updatequantity/$cartid/", {"action": action});
     return res.fold((l) => l, (r) => r);
   }
+
+  checkCoupon(String coName) async {
+    var res = await crud.postrequst(checkcoupon,{"co_name":coName});
+    return res.fold((l) => l, (r) => r);
+  }
 }
