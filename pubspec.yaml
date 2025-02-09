@@ -42,10 +42,10 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   shared_preferences: ^2.2.2
   http: ^1.1.0
-  firebase_core: ^2.24.2
-  firebase_messaging: ^14.7.10
+  firebase_core: ^3.11.0
+  firebase_messaging: ^15.2.2
   googleapis_auth: ^1.6.0
-  firebase_auth: ^4.16.0
+  firebase_auth: ^5.4.2
   google_sign_in: ^6.2.1
   image_picker: ^1.1.2
   path_provider: ^2.1.4
@@ -62,6 +62,22 @@ dependencies:
   lottie: ^3.1.2
   carousel_slider: ^5.0.0
   smooth_page_indicator: ^1.2.0+3
+  
+  # amplify_flutter:
+  # amplify_authenticator:
+  # amplify_auth_cognito:
+  flutter_map: ^8.0.0
+  # aws_common: ^0.6.5
+  # aws_signature_v4: ^0.5.2
+
+  
+  
+
+  # amplify_geo: ^1.2.0
+  # aws_common: ^0.2.0
+  # amplify_auth_cognito: ^0.2.5
+  # amplify_flutter: ^2.6.0
+  
 
 
 
@@ -74,7 +90,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

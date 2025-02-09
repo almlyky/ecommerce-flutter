@@ -50,7 +50,7 @@ class signup extends StatelessWidget {
                   },
                   typeinput: TextInputType.text,
                   controller: controler.Username,
-                  hint: "Username",
+                  hint: "username".tr,
                   checkpass: false,
                   icon: Icons.person),
               const SizedBox(
@@ -68,7 +68,7 @@ class signup extends StatelessWidget {
                   },
                   typeinput: TextInputType.emailAddress,
                   controller: controler.email,
-                  hint: "Email",
+                  hint: "email".tr,
                   checkpass: false,
                   icon: Icons.email),
               const SizedBox(
@@ -83,7 +83,7 @@ class signup extends StatelessWidget {
                   },
                   typeinput: TextInputType.text,
                   controller: controler.passowrd,
-                  hint: "password",
+                  hint: "password".tr,
                   checkpass: true,
                   icon: Icons.lock_open_outlined),
               const SizedBox(
@@ -98,7 +98,7 @@ class signup extends StatelessWidget {
                   },
                   typeinput: TextInputType.text,
                   controller: controler.cofirmpassowrd,
-                  hint: "Confirm password",
+                  hint: "confirm_password".tr,
                   checkpass: true,
                   icon: Icons.lock_open_outlined),
               const SizedBox(
@@ -119,16 +119,16 @@ class signup extends StatelessWidget {
                   onPressed: () {
                     controler.signupp();
                   },
-                  child: const Text("create")),
+                  child: Text("signup".tr)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Are you have acount?".tr),
+                  Text("have_acount".tr),
                   TextButton(
                       onPressed: () {
                         Get.offNamed(AppRoute.login);
                       },
-                      child: Text("Log in".tr))
+                      child: Text("login".tr))
                 ],
               ),
             ],

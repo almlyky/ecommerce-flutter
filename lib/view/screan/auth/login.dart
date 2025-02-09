@@ -25,19 +25,21 @@ class login extends StatelessWidget {
           key: controler.formstae,
           child: ListView(
             children: [
-              
               // Center(
               //   child: Container(
               //       margin: const EdgeInsets.only(top: 60),
               //       child: Text("5".tr,
               //           style: Theme.of(context).textTheme.displayMedium)),
               // ),
-               Container(
-                margin: EdgeInsets.only(top: 100),
+              Container(
+                  margin: EdgeInsets.only(top: 100),
                   child: const CircleAvatar(
                     radius: 50,
-                child: Icon(Icons.person,size: 50,),
-              )),
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                    ),
+                  )),
               const SizedBox(
                 height: 60,
               ),
@@ -52,7 +54,7 @@ class login extends StatelessWidget {
                 },
                 typeinput: TextInputType.emailAddress,
                 controller: controler.email,
-                hint: "6".tr,
+                hint: "email".tr,
                 icon: Icons.person,
                 checkpass: false,
               ),
@@ -70,7 +72,7 @@ class login extends StatelessWidget {
                   },
                   typeinput: TextInputType.text,
                   controller: controler.passowrd,
-                  hint: "7".tr,
+                  hint: "password".tr,
                   icon: Icons.lock_open_outlined,
                   checkpass: true),
 
@@ -85,7 +87,7 @@ class login extends StatelessWidget {
                         controler.gotoforget();
                       },
                       child: Text(
-                        "8".tr,
+                        "forget_password".tr,
                       ))),
 
               //button login
@@ -100,7 +102,7 @@ class login extends StatelessWidget {
                             width: 50,
                             child: Lottie.asset("assist/lottie/loading.json"),
                           )
-                        : Text("9".tr)),
+                        : Text("login".tr)),
               ),
               const SizedBox(
                 height: 40,
@@ -108,7 +110,7 @@ class login extends StatelessWidget {
 
               Center(
                   child: Text(
-                "10".tr,
+                "login_using".tr,
                 style: const TextStyle(color: Colors.grey),
               )),
               const SizedBox(
@@ -182,12 +184,12 @@ class login extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("11".tr),
+                  Text("dont_have_acount".tr),
                   TextButton(
                       onPressed: () {
                         controler.gotosignup();
                       },
-                      child: Text("12".tr))
+                      child: Text("signup_new".tr))
                 ],
               )
             ],

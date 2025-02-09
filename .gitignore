@@ -42,7 +42,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app
 /lib/test/camer.dart
 /lib/test/homecamera.dart
 /lib/view/screan/testscrean.dart
+
 

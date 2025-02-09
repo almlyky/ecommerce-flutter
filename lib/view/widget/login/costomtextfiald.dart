@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:flutter/material.dart';
 
 class customtextfaild extends StatefulWidget {
@@ -42,9 +43,12 @@ class _customtextfaildState extends State<customtextfaild> {
       obscureText: showpass,
       keyboardType: widget.typeinput,
       decoration: InputDecoration(
+
           // hintText: widget.hint,
+          filled: true,
+          fillColor:Appcolor.filled_input_color,
           label: Text(widget.hint),
-          contentPadding: const EdgeInsets.all(20),
+          // contentPadding: const EdgeInsets.all(20),
           prefixIcon: Icon(widget.icon),
           suffixIcon: widget.checkpass == true
               ? showpass == true
@@ -75,7 +79,8 @@ class _customtextfaildState extends State<customtextfaild> {
                   height: 2,
                 ),
           border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           )),
     );
   }

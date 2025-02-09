@@ -94,7 +94,7 @@ class cart extends StatelessWidget {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text(
-                                          "كود الخصم",
+                                          "coupon".tr,
                                           style: Theme.of(context)
                                               .textTheme
                                               .displaySmall,
@@ -116,7 +116,7 @@ class cart extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "الإجمالي",
+                                "total".tr,
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                               Text("${controller.totalPrice} ريال",
@@ -133,21 +133,20 @@ class cart extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("الخصم",
+                              Text("discount".tr,
                                   style:
                                       Theme.of(context).textTheme.displaySmall),
                               Text("${controller.discount} ريال",
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium),
-
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                " الإجمالي بعد الخصم",
+                                "total_after".tr,
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                               Text("${controller.totalPrice} ريال",
@@ -185,13 +184,12 @@ class cart extends StatelessWidget {
                       onPressed: () {
                         controller.gotochechout();
                       },
-                      child: const Text("check out")),
+                      child: Text("check_out".tr)),
                   // )
                 ],
               ),
             )),
       ),
-      
     );
   }
 }
@@ -210,12 +208,12 @@ class CouponTextField extends StatelessWidget {
         Expanded(
           child: TextFormField(
             controller: controller.couponName,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(8),
-              hintText: ' ادخل الكودالخصم',
-              fillColor: Color.fromARGB(255, 233, 234, 237),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(8),
+              hintText: 'coupon_hint'.tr,
+              fillColor: const Color.fromARGB(255, 233, 234, 237),
               filled: true,
-              border: OutlineInputBorder(borderSide: BorderSide.none),
+              border: const OutlineInputBorder(borderSide: BorderSide.none),
             ),
           ),
         ),
@@ -231,7 +229,7 @@ class CouponTextField extends StatelessWidget {
                 // topLeft: Radius.circular(10),
                 // bottomLeft: Radius.circular(10)
               ))),
-          child: const Text('تطبيق'),
+          child:  Text('confirm'.tr),
         ),
         // TextFormField(
         //   controller: controller.couponName,

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eccommerce_new/controler/auth/forgetpasscontroler.dart';
 import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
+import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
 import 'package:eccommerce_new/view/widget/onboarding/controler.dart';
@@ -91,7 +92,7 @@ class CardCart extends StatelessWidget {
                    child: InkWell(
                         child: const Icon(
                           Icons.delete,
-                          color: Colors.red,
+                          color: Appcolor.iconcolor,
                         ),
                         onTap: () {
                           showDialog(
