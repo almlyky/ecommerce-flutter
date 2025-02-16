@@ -1,6 +1,6 @@
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
-import 'package:eccommerce_new/test/serveces.dart';
+import 'package:eccommerce_new/core/serveces/serveces.dart';
 import 'package:eccommerce_new/view/screan/auth/login.dart';
 import 'package:eccommerce_new/view/screan/dashboard/categoris.dart';
 import 'package:eccommerce_new/view/screan/dashboard/order.dart';

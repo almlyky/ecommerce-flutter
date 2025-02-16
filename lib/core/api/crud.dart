@@ -10,8 +10,9 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
 class Crud {
-  Future<Either<StatusRequest, dynamic>> postrequst(
-      String url, var data) async {
+
+  Future<Either<StatusRequest, dynamic>> postrequstWitoutToken(
+      String url, var data ) async {
     try {
       // if (checkinternet()) {
       // print("data");
@@ -19,9 +20,33 @@ class Crud {
       var response = await http.post(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(data));
-      print(response.body);
-      print(response.statusCode);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responsebody = json.decode(utf8.decode(response.bodyBytes));
+        // print(responsebody);
+        return right(responsebody);
+      } else {
+        return left(StatusRequest.failure);
+      }
+    }
+    // else {
+    //   return left(StatusRequest.offlineFailure);
+    // }
+    // }
+    catch (e) {
+      print(e);
+      return left(StatusRequest.serverFailure);
+    }
+  }
 
+  Future<Either<StatusRequest, dynamic>> postrequst(
+      String url, var data , String token) async {
+    try {
+      // if (checkinternet()) {
+      // print("data");
+      // print(data);
+      var response = await http.post(Uri.parse(url),
+          headers: {"Content-Type": "application/json","Authorization":"Bearer $token"},
+          body: jsonEncode(data));
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
         // print(responsebody);
@@ -46,7 +71,8 @@ class Crud {
       // if (checkinternet()) {
       var response = await http.post(Uri.parse(url), body: {
         'google_id': user.uid, // استخدم UID الخاص بـ Google كـ username
-        'email': user.email
+        'email': user.email,
+        'username':user.displayName
       });
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
@@ -67,10 +93,11 @@ class Crud {
   }
 
   Future<Either<StatusRequest, Map>> postrequstFile(
-      String url, Map data, File file, String imageName) async {
+      String url, Map data, File file, String imageName, String token) async {
     try {
       // if (checkinternet()) {
       var request = http.MultipartRequest("post", Uri.parse(url));
+      request.headers.addAll({"Authorization":"Bearer $token"});
       var len = await file.length();
 
       var stream = http.ByteStream(file.openRead());
@@ -82,7 +109,6 @@ class Crud {
       });
       var myrequest = await request.send();
       var response = await http.Response.fromStream(myrequest);
-      print(response.body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
@@ -102,10 +128,11 @@ class Crud {
   }
 
   Future<Either<StatusRequest, dynamic>> putrequstFile(
-      String url, dynamic data, File file, String imageName) async {
+      String url, dynamic data, File file, String imageName, String token) async {
     try {
       // if (checkinternet()) {
       var request = http.MultipartRequest("put", Uri.parse(url));
+      request.headers.addAll({"Authorization":"Bearer $token"});
       var len = await file.length();
       var stream = http.ByteStream(file.openRead());
       var multypairfile = http.MultipartFile(imageName, stream, len,
@@ -116,7 +143,6 @@ class Crud {
       });
       var myrequest = await request.send();
       var response = await http.Response.fromStream(myrequest);
-      print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
         return right(responsebody);
@@ -177,10 +203,10 @@ class Crud {
     }
   }
 
-  Future<Either<StatusRequest, Map>> deleteRequest(String url) async {
+  Future<Either<StatusRequest, Map>> deleteRequest(String url, String token) async {
     try {
       // if (checkinternet()) {
-      var response = await http.delete(Uri.parse(url));
+      var response = await http.delete(Uri.parse(url),headers: {"Authorization":"Bearer $token"});
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
           response.statusCode == 204) {
@@ -193,10 +219,10 @@ class Crud {
     }
   }
 
-  Future<Either<StatusRequest, Map>> updateRequest(String url, Map data) async {
+  Future<Either<StatusRequest, Map>> updateRequest(String url, Map data, String token) async {
     try {
       // if (checkinternet()) {
-      var response = await http.put(Uri.parse(url), body: data);
+      var response = await http.put(Uri.parse(url), body: data, headers: {"Authorization":"Bearer $token"});
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
         return right(responsebody);
@@ -208,10 +234,10 @@ class Crud {
     }
   }
 
-  Future<Either<StatusRequest, Map>> patchRequest(String url, Map data) async {
+  Future<Either<StatusRequest, Map>> patchRequest(String url, Map data, String token) async {
     try {
       // if (checkinternet()) {
-      var response = await http.patch(Uri.parse(url), body: data);
+      var response = await http.patch(Uri.parse(url), body: data, headers: {"Authorization":"Bearer $token"});
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responsebody = json.decode(utf8.decode(response.bodyBytes));
         return right(responsebody);

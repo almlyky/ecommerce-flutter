@@ -15,7 +15,7 @@ abstract class signupcontroler extends GetxController {
   late TextEditingController email;
   late TextEditingController Username;
   late TextEditingController passowrd;
-  late TextEditingController cofirmpassowrd;
+  late TextEditingController confirmpassowrd;
   // gotologin();
   signupp();
 }
@@ -23,7 +23,8 @@ abstract class signupcontroler extends GetxController {
 class signupcontrolerimp extends signupcontroler {
   GlobalKey<FormState> formsignup = GlobalKey<FormState>();
   // curd c = curd();
-  Signupdata signupdata = Signupdata();
+  // Signupdata signupdata = Signupdata();
+
   late StatusRequest statusRequestsignup;
 
   String erroremail = "";
@@ -38,10 +39,8 @@ class signupcontrolerimp extends signupcontroler {
   chechoTp() async {
     statusRequest = StatusRequest.loading;
     // var data={"otp":otp}
-    var response =
-        await controldata.addData("$chechotp/$userId/", {"otp": otp});
-    print(otp);
-    print(response);
+    var response = await controldata
+        .addDataWithoutToken("$chechotp/$userId/", {"otp": otp});
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       Get.offNamed(AppRoute.login);
@@ -53,7 +52,7 @@ class signupcontrolerimp extends signupcontroler {
 
   @override
   void onInit() {
-    cofirmpassowrd = TextEditingController();
+    confirmpassowrd = TextEditingController();
     Username = TextEditingController();
     email = TextEditingController();
     passowrd = TextEditingController();
@@ -65,7 +64,7 @@ class signupcontrolerimp extends signupcontroler {
     Username.dispose();
     email.dispose();
     passowrd.dispose();
-    cofirmpassowrd.dispose();
+    confirmpassowrd.dispose();
     super.dispose();
   }
 
@@ -91,23 +90,17 @@ class signupcontrolerimp extends signupcontroler {
   //
   // }
 
-  validate() {
-    visable = false;
-    update();
-    var formdata = formsignup.currentState;
-    if (formdata!.validate()) {
-    } else {
-      print("not valid");
-    }
-  }
-
   @override
   signupp() async {
     var formdata = formsignup.currentState;
     if (formdata!.validate()) {
       statusRequestsignup = StatusRequest.loading;
-      var response = await signupdata.signup(
-          Username.text, passowrd.text, cofirmpassowrd.text, email.text);
+      var response = await controldata.addDataWithoutToken(djsignup, {
+        "username": Username.text,
+        "password": passowrd.text,
+        "confirmPassword": confirmpassowrd,
+        "email": email.text
+      });
       // print(response);
       statusRequestsignup = handlingData(response);
       if (StatusRequest.success == statusRequestsignup &&

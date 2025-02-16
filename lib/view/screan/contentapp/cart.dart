@@ -11,19 +11,19 @@ class cart extends StatelessWidget {
   const cart({super.key});
   @override
   Widget build(BuildContext context) {
-    Ordercontroller ordercontroller = Get.put(Ordercontroller());
+    // Ordercontroller ordercontroller = Get.put(Ordercontroller());
     // double hieght = MediaQuery.of(context).size.height;
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("cart product"),
-      //   actions: [
-      //     TextButton(
-      //         onPressed: () {
-      //           //  controller.removeall();
-      //         },
-      //         child: const Text("delete all"))
-      //   ],
-      // ),
+      appBar: AppBar(
+        title: Text("cart".tr),
+        actions: [
+          TextButton(
+              onPressed: () {
+                //  controller.removeall();
+              },
+              child:  Text("delete_all".tr))
+        ],
+      ),
       body: GetBuilder<Cartcontroller>(
         builder: (controller) => Handlingdataview(
             statusRequest: controller.statusRequest,

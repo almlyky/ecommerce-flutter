@@ -101,9 +101,9 @@ class CardOrder extends StatelessWidget {
                           ],
                         ),
                       )
-                    : const SizedBox(
+                    : SizedBox(
                         child: Text(
-                          "details",
+                          "detail".tr,
                           style: TextStyle(color: Colors.blue),
                         ),
                       ),

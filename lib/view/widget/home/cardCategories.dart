@@ -24,7 +24,7 @@ class CardCategories extends StatelessWidget {
           child: InkWell(
             onTap: () {
               // Productcontroller controllerpr = Get.find();
-              controllerpr.getproduct(catmodel.catId!, 1);
+              controllerpr.getproduct(catmodel.catId!);
               //print(controllerpr.dataProduct);
               controlerhome.gotoproduct();
               // controlerhome.dataCat[i]["cat_id"]);

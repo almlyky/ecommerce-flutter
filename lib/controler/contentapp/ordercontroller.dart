@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
+import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
@@ -18,6 +19,7 @@ class Ordercontroller extends GetxController {
   List<OrderModel> dataOrderModel = [];
   List<OrderItemModel> dataOrderItem = [];
   OrderModel? orderModel;
+  Settingcontroller settingcontroller = Get.find();
 
   int? orderId;
 
@@ -38,8 +40,8 @@ class Ordercontroller extends GetxController {
 
   updataOrder(int id) async {
     statusRequest = StatusRequest.loading;
-    var response =
-        await controldata.patchData("$Order$id/", {"status": "delivered"});
+    var response = await controldata.patchData(
+        "$Order$id/", {"status": "delivered"}, settingcontroller.accesstoken!);
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       for (int i = 0; i < dataOrderModel.length; i++) {
@@ -80,12 +82,13 @@ class Ordercontroller extends GetxController {
   addOrder() async {
     statusRequest = StatusRequest.loading;
     var data = {
-      "user": "1",
+      "user": "${settingcontroller.userid}",
       "address": "ib alodain",
       "total_order": "${cartcontroller.totalPrice}",
       "order_code": "ABuBDder23"
     };
-    var response = await controldata.addData(Order, data);
+    var response =
+        await controldata.addData(Order, data, settingcontroller.accesstoken!);
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       OrderModel orderModel = OrderModel.fromJson(response);
@@ -126,10 +129,10 @@ class Ordercontroller extends GetxController {
     }).toList();
     // products = Js(products) as List<Map<String, String>>;
     int count = cartcontroller.dataCartModels.length;
-    var response = await controldata.addData(OrderItem, products);
+    var response = await controldata.addData(OrderItem, products,settingcontroller.accesstoken!);
     statusRequestOrderItem = handlingData(response);
     if (statusRequestOrderItem == StatusRequest.success) {
-      await cartcontroller.deleteAllcart(1);
+      await cartcontroller.deleteAllcart();
       List<OrderItemModel> orders = response.map<OrderItemModel>((order) {
         return OrderItemModel.fromJson(order);
       }).toList();

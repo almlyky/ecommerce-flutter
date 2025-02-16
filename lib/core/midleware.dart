@@ -1,5 +1,5 @@
 import 'package:eccommerce_new/core/constant/route.dart';
-import 'package:eccommerce_new/test/serveces.dart';
+import 'package:eccommerce_new/core/serveces/serveces.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 

@@ -12,7 +12,7 @@ class Orders extends StatelessWidget {
     Ordercontroller ordercontroller = Get.put(Ordercontroller());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Orders"),
+        title:  Text("order".tr),
       ),
       body: GetBuilder<Ordercontroller>(
         builder: (controller) => ListView.builder(

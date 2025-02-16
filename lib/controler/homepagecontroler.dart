@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/data/model/addsmodel.dart';
 import 'package:eccommerce_new/view/screan/contentapp/setting.dart';
 import 'package:eccommerce_new/view/screan/dashboard/addcategories.dart';
@@ -40,7 +41,7 @@ class homepagecontrolerimp extends GetxController {
   // List dataProductSearch = [];
 
   late StatusRequest statusRequestCat;
-  late StatusRequest statusRequestOffer;
+  late StatusRequest statusRequestOffer = StatusRequest.loading;
 
   // late StatusRequest statusRequestCatProduct;
   late StatusRequest statusRequestSearch;
@@ -55,14 +56,17 @@ class homepagecontrolerimp extends GetxController {
   final ScrollController scrollController = ScrollController();
   RxDouble innerOffset = 0.0.obs;
   RxDouble totalhigtscroll = 1.0.obs;
-   final CarouselSliderController carouselController = CarouselSliderController();
-   RxInt currentIndex=0.obs;
+  final CarouselSliderController carouselController =
+      CarouselSliderController();
+  RxInt currentIndex = 0.obs;
+  Settingcontroller settingcontroller = Get.put(Settingcontroller());
+
   // late StatusRequest statusRequestAllProduct;
 
   getallproduct() async {
     dataproductModels.clear();
     statusRequestAllProduct = StatusRequest.loading;
-    var response = await controldata.getData("$allproduct/1/");
+    var response = await controldata.getData("$allproduct/${settingcontroller.userid}/");
     // productdata.getAllproduct(1);
     statusRequestAllProduct = handlingData(response);
     if (StatusRequest.success == statusRequestAllProduct) {
@@ -87,7 +91,7 @@ class homepagecontrolerimp extends GetxController {
   //   }
   //   update();
   // }
-   getAdds() async {
+  getAdds() async {
     statusRequestOffer = StatusRequest.loading;
     var response = await controldata.getData(apiGetAdds);
     statusRequestOffer = handlingData(response);
@@ -118,11 +122,11 @@ class homepagecontrolerimp extends GetxController {
     update();
   }
 
-  getSearchproduct(int userid, String search) async {
+  getSearchproduct(String search) async {
     // dataProductSearch = [];
     statusRequestSearch = StatusRequest.loading;
-    var response =
-        await controldata.getData("$searchproduct/$userid/?keyword=$search");
+    var response = await controldata
+        .getData("$searchproduct/${settingcontroller.userid}/?keyword=$search");
     statusRequestSearch = handlingData(response);
     if (StatusRequest.success == statusRequestSearch) {
       List<ProductModel> products = response.map<ProductModel>((item) {
@@ -146,7 +150,7 @@ class homepagecontrolerimp extends GetxController {
       innerOffset.value = scrollController.offset;
       totalhigtscroll.value = scrollController.position.maxScrollExtent;
     });
-    
+
     super.onInit();
   }
 
@@ -160,7 +164,7 @@ class homepagecontrolerimp extends GetxController {
 
   onSearchItems() {
     isSearch = true;
-    getSearchproduct(1, searchtext.text);
+    getSearchproduct(searchtext.text);
     update();
   }
 
@@ -269,7 +273,7 @@ class homepagecontrolerimp extends GetxController {
     var data = productModel.toJson();
 
     var response = await controldata.addDatawithFile(
-        productList, data, image!, "pr_image");
+        productList, data, image!, "pr_image", settingcontroller.accesstoken!);
     statusRequestaddProduct = handlingData(response);
     if (StatusRequest.success == statusRequestaddProduct) {
       ProductModel productModel = ProductModel.fromJson(response);
@@ -285,7 +289,8 @@ class homepagecontrolerimp extends GetxController {
   // ================= remove product ========================
   removeProduct(int id) async {
     statusRequestRemoveProduct = StatusRequest.loading;
-    var response = await controldata.deleteData("$productFk/$id/");
+    var response = await controldata.deleteData(
+        "$productFk/$id/", settingcontroller.accesstoken!);
     statusRequestRemoveProduct = handlingData(response);
     if (StatusRequest.success == statusRequestRemoveProduct) {
       // dataAllProduct.addAll(response);
@@ -311,8 +316,8 @@ class homepagecontrolerimp extends GetxController {
     productModel.catFk = catid;
     var data = productModel.toJson();
 
-    var response = await controldata.uppdateDatawithFile(
-        "$productFk/$id/", data, image!, "pr_image");
+    var response = await controldata.uppdateDatawithFile("$productFk/$id/",
+        data, image!, "pr_image", settingcontroller.accesstoken!);
     statusRequestUpdateProduct = handlingData(response);
     if (StatusRequest.success == statusRequestUpdateProduct) {
       ProductModel productModel = ProductModel.fromJson(response);
@@ -340,8 +345,8 @@ class homepagecontrolerimp extends GetxController {
     categoriesModelinsert.catNameEn = nameCatEn.text;
     var data = categoriesModelinsert.toJson();
 
-    var response =
-        await controldata.addDatawithFile(djcatlist, data, image!, "cat_image");
+    var response = await controldata.addDatawithFile(
+        djcatlist, data, image!, "cat_image", settingcontroller.accesstoken!);
     // homedata.getdatacat();
     statusRequestCat = handlingData(response);
     if (StatusRequest.success == statusRequestCat) {
@@ -366,8 +371,8 @@ class homepagecontrolerimp extends GetxController {
     var data = categoriesModelinsert.toJson();
     // print(data);
 
-    var response = await controldata.uppdateDatawithFile(
-        "$djcatlist$id/", data, image!, "cat_image");
+    var response = await controldata.uppdateDatawithFile("$djcatlist$id/", data,
+        image!, "cat_image", settingcontroller.accesstoken!);
     // homedata.getdatacat();
     print(response);
     statusRequestCat = handlingData(response);

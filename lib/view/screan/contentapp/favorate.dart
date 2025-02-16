@@ -11,7 +11,7 @@ class favorate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("favorate product")),
+        appBar: AppBar(title:Text("favorite".tr)),
         body: GetBuilder<favoratecontroller>(
             // init: favoratecontroller(),
             builder: (controller) {

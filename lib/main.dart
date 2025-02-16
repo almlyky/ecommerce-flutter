@@ -8,7 +8,7 @@ import 'package:eccommerce_new/test/homework.dart';
 // import 'package:eccommerce_new/test/AuthPhone.dart';
 // import 'package:eccommerce_new/test/FilesPicker.dart';
 // import 'package:eccommerce_new/test/homecamera.dart';
-import 'package:eccommerce_new/test/serveces.dart';
+import 'package:eccommerce_new/core/serveces/serveces.dart';
 import 'package:eccommerce_new/view/screan/contentapp/map.dart';
 // import 'package:eccommerce_new/test/test.dart';
 // import 'package:eccommerce_new/view/screan/auth/login.dart';
@@ -73,22 +73,24 @@ class _MyhomepageState extends State<Myhomepage> {
   @override
   Widget build(BuildContext context) {
     localecontroler controller = Get.put(localecontroler());
+    
     return GetMaterialApp(
       locale: controller.language,
       translations: Mytranslte(),
       debugShowCheckedModeBanner: false,
       getPages: routeapp,
-      home: MyMapPage(),
-      // initialRoute: "/login",
+      // home: MyMapPage(),
+      initialRoute: "/login",
       theme: ThemeData(
         fontFamily: "Cairo",
           appBarTheme: const AppBarTheme(
             iconTheme: IconThemeData(color: Appcolor.iconcolor),
             color: Appcolor.backgroundAppbar,
             titleTextStyle: TextStyle(
+              fontFamily: "Cairo",
               color: Appcolor.primarytext, // تغيير لون النص
               fontSize: 20,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(

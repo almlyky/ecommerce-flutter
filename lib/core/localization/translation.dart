@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 class Mytranslte extends Translations{
+
   @override
-  // TODO: implement keys
-  Map<String, Map<String, String>> get keys => {
+  Map<String, Map<String, String>> get
+   keys => {
     "ar":{
       "homepage":"الصفحه الرئسية",
       "increment":"زياده",
       "delete":"حذف",
+      "delete_all":"حذف الكل",
       "next":"التالي",
       "wellcome":"مرحبا بكم!",
       "email":"البريد الإلكتروني",
@@ -26,13 +28,30 @@ class Mytranslte extends Translations{
       "coupon":"كود الخصم",
       "coupon_hint":"ادخل كود الخصم",
       "confirm":"تطبيق",
-      "check_out":"متابعة الشراء"
-
-    },
+      "check_out":"متابعة الشراء",
+      "products":"المنتجات",
+      "favorite":"المفضلة",
+      "cart":"سلة التسوق",
+      "address":"العنوان",
+      "change":"تغيير",
+      "order_note":"ملاحظة الطلب",
+      "add":"إضافة",
+      "payment":"طريقة الدفع",
+      "cash_on_delivery":"الدفع عند الإستلام",
+      "cash":"الدفع نقدا",
+      "payment_details":"تفاصيل الدفع",
+      "type_order":"نوع الطلب",
+      "delivery":"توصيل",
+      "recive":"إستلام",
+      "confirm_order":"متابعة الطلب",
+      "order":"طلباتي",
+      "detail":"التفاصيل"
+        },
     "en":{
       "homepage":"Home page",
       "increment":"Increment",
       "delete":"delete",
+      "delete_all":"Delete All",
       "next":"contenue",
       "wellcome":"Welcome back!",
       "email":"Email",
@@ -52,9 +71,24 @@ class Mytranslte extends Translations{
       "coupon":"Coupon",
       "coupon_hint":"Enter coupon",
       "confirm":"Confirm",
-      "check_out":"Check out"
-
-      
+      "check_out":"Check out",
+      "products":"Products",
+      "favorite":"Favorite",
+      "cart":"Cart",
+      "address":"Address",
+      "change":"change",
+      "order_note":"Order Note",
+      "add":"add",
+      "payment":"Payment Methods",
+      "cash_on_delivery":"cash on delivery",
+      "cash":"Cash",
+      "payment_details":"Payment Details",
+      "type_order":"Type order",
+      "delivery":"Delivery",
+      "recive":"Recive",
+      "confirm_order":"Confirm Order",
+      "order":"Orders",
+      "detail":"Detail"
     }
   };
 }

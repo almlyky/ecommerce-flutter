@@ -30,7 +30,7 @@ class product extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Products"),
+        title:  Text("products".tr),
         actions: [
           IconButton(
               onPressed: () {
@@ -45,31 +45,32 @@ class product extends StatelessWidget {
         ],
       ),
       body: ListView(children: [
-        Container(
-            height: 40,
-            child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: controllerhome.datacatModel.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      controllerproduct.tabController.animateTo(index);
-                    },
-                    child: Card(
-                      child:
-                          Text("${controllerhome.datacatModel[index].catName}"),
-                    ),
-                  );
-                })),
+        // Container(
+        //     height: 40,
+        //     child: ListView.builder(
+        //         shrinkWrap: true,
+        //         scrollDirection: Axis.horizontal,
+        //         itemCount: controllerhome.datacatModel.length,
+        //         itemBuilder: (context, index) {
+        //           return InkWell(
+        //             onTap: () {
+        //               controllerproduct.tabController.animateTo(index);
+        //             },
+        //             child: Card(
+        //               child:
+        //                   Text("${controllerhome.datacatModel[index].catName}"),
+        //             ),
+        //           );
+        //         })),
         Container(
           height: 600,
-          child: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: controllerproduct.tabController,
-              children:
-                  List.generate(controllerhome.datacatModel.length, (index) {
-                    return
+          // child: TabBarView(
+          //     physics: NeverScrollableScrollPhysics(),
+          //     controller: controllerproduct.tabController,
+          //     children:
+          //         List.generate(controllerhome.datacatModel.length, (index) {
+          //           return
+          child: 
                 SizedBox(
                     child: GetBuilder<Productcontroller>(
                   // init: Productcontroller(),
@@ -82,20 +83,21 @@ class product extends StatelessWidget {
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 20,
-                                childAspectRatio: 0.8
+                                childAspectRatio: 0.76
                                 // childAspectRatio: ,
                                 ),
                         itemCount:
-                            controllerhome.dataproductModels.where((element) => element.catFk==controllerhome.datacatModel[index].catId).toList().length,
+                        controllerproduct.dataproductCategoristModel.length,
+                            // controllerhome.dataproductModels.where((element) => element.catFk==controllerhome.datacatModel[index].catId).toList().length,
                         itemBuilder: (context, i) {
                           // if(controllerhome.dataproductModels[i].catFk==controllerhome.datacatModel[index].catId){
                             productModel =
-                              controllerhome.dataproductModels[i];
+                              controllerproduct.dataproductCategoristModel[i];
                           contrllerfav.isfavorate[productModel.prId!] =
                               productModel.fav!;
                           return InkWell(
                             onTap: () {
-                              controllerproduct.productModel = controllerhome.dataproductModels[i];
+                              controllerproduct.productModel = controllerproduct.dataproductCategoristModel[i];
                               Get.to(() => const ProductDetailPage());
                             },
                             child: myProductCard(
@@ -107,9 +109,14 @@ class product extends StatelessWidget {
                         //   return (); 
                         // }
                         }
-                      )),
-                ));
-              })),
+                      )
+                      ),
+                
+                )
+                )
+              // }
+              // )
+              // ),
         )
       ]),
     );

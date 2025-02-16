@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/core/my_function/curd.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
@@ -16,11 +17,12 @@ class favoratecontroller extends GetxController {
   late StatusRequest statusRequest;
   // Favorite_data favorite_data = Favorite_data();
   Controldata controldata = Controldata();
+  Settingcontroller settingcontroller = Get.find();
 
-  getFavorite(int userid) async {
+  getFavorite() async {
     dataFavoriteModel.clear();
     statusRequest = StatusRequest.loading;
-    var response = await controldata.getData("$favoriteList/$userid/");
+    var response = await controldata.getData("$favoriteList/${settingcontroller.userid}/");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       List<FavoriteModel> favorite = response.map<FavoriteModel>((item) {
@@ -31,10 +33,10 @@ class favoratecontroller extends GetxController {
     update();
   }
 
-  addFavorite({required int productID, required int userid}) async {
+  addFavorite({required int productID}) async {
     statusRequest = StatusRequest.loading;
-    var data = {"user_fk": "$userid", "pr_fk": "$productID"};
-    var response = await controldata.addData(insert_Fav, data);
+    var data = {"user_fk": "${settingcontroller.userid}", "pr_fk": "$productID"};
+    var response = await controldata.addData(insert_Fav, data,settingcontroller.accesstoken!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       FavoriteModel favoriteModel = FavoriteModel.fromJson(response);
@@ -48,11 +50,11 @@ class favoratecontroller extends GetxController {
     update();
   }
 
-  removeFavorite({required int productID, required int userid}) async {
+  removeFavorite({required int productID}) async {
     statusRequest = StatusRequest.loading;
 
     var response =
-        await controldata.deleteData("$delete_Fav/$productID/$userid/");
+        await controldata.deleteData("$delete_Fav/$productID/${settingcontroller.userid}/",settingcontroller.accesstoken!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       dataFavoriteModel
@@ -76,17 +78,17 @@ class favoratecontroller extends GetxController {
   onTapFavorite(ProductModel productModel) {
     if (isfavorate[productModel.prId] == 0) {
       setfavorate(productModel.prId, 1);
-      addFavorite(productID: productModel.prId!, userid: 1);
+      addFavorite(productID: productModel.prId!);
     } else {
       setfavorate(productModel.prId, 0);
-      removeFavorite(productID: productModel.prId!, userid: 1);
+      removeFavorite(productID: productModel.prId!);
     }
     update();
   }
 
   @override
   void onInit() {
-    getFavorite(1);
+    getFavorite();
     super.onInit();
   }
   // addfavorite(int user_id,int pr_id)async{

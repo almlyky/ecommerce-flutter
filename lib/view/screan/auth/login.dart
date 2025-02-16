@@ -156,7 +156,7 @@ class login extends StatelessWidget {
                         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                       ),
                       onPressed: () {
-                        controler.signInWithGoogle();
+                        controler.loginWithGoogle();
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

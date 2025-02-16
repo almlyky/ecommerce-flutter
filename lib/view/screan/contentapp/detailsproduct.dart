@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
 import 'package:flutter/material.dart';
@@ -164,7 +165,6 @@ class ProductDetailPage extends StatelessWidget {
                       //print(controllerproduct.productModel.prId);
                       controllercart.addcart(
                           productID: controllerproduct.productModel.prId!,
-                          userid: 1,
                           quantity: controllerproduct.quantity);
                     },
                     child: const Text('add to cart'),

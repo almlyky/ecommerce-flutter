@@ -26,11 +26,14 @@ class signup extends StatelessWidget {
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 70),
+                  margin: EdgeInsets.only(top: 70),
                   child: const CircleAvatar(
                     radius: 50,
-                child: Icon(Icons.person,size: 50,),
-              )),
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                    ),
+                  )),
               Center(
                 child: Container(
                   margin: const EdgeInsets.only(top: 50),
@@ -97,7 +100,7 @@ class signup extends StatelessWidget {
                         val!, 6, 100, "password", controler.erroremail);
                   },
                   typeinput: TextInputType.text,
-                  controller: controler.cofirmpassowrd,
+                  controller: controler.confirmpassowrd,
                   hint: "confirm_password".tr,
                   checkpass: true,
                   icon: Icons.lock_open_outlined),

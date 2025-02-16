@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:eccommerce_new/test/serveces.dart';
+import 'package:eccommerce_new/core/serveces/serveces.dart';
 import 'package:get/get.dart';
 
 class localecontroler extends GetxController {

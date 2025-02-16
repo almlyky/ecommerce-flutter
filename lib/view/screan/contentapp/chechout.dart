@@ -1,5 +1,6 @@
 import 'package:eccommerce_new/controler/contentapp/checkoutcontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/ordercontroller.dart';
+import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,46 +14,45 @@ class Chechout extends StatelessWidget {
     Checkoutcontroller checkoutcontroller = Get.put(Checkoutcontroller());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Check out"),
+        title: Text("check_out".tr),
       ),
       body: ListView(
         children: [
           Card(
             child: ListTile(
-              title: const Text("Address"),
-              subtitle: const Text("alodain streat"),
+              title: Text("address".tr),
+              subtitle: Text("شارع العدين"),
               leading: const CircleAvatar(
-                backgroundColor: Colors.red,
+                backgroundColor: Appcolor.iconcolor,
                 child: Icon(
                   Icons.location_on,
                   color: Colors.white,
                 ),
               ),
-              trailing:
-                  TextButton(onPressed: () {}, child: const Text("change")),
+              trailing: TextButton(onPressed: () {}, child: Text("change".tr)),
             ),
           ),
           Card(
             child: ListTile(
-              title: const Text("Order Note"),
+              title: Text("order_note".tr),
               leading: const CircleAvatar(
-                backgroundColor: Colors.red,
+                backgroundColor: Appcolor.iconcolor,
                 child: Icon(
                   Icons.event_note_rounded,
                   color: Colors.white,
                 ),
               ),
-              trailing: TextButton(onPressed: () {}, child: const Text("add")),
+              trailing: TextButton(onPressed: () {}, child: Text("add".tr)),
             ),
           ),
           Card(
             child: GetBuilder<Checkoutcontroller>(
               builder: (checkoutcontroller) => Column(
                 children: [
-                  const ListTile(
-                    title: Text("Payment"),
+                  ListTile(
+                    title: Text("payment".tr),
                     leading: CircleAvatar(
-                      backgroundColor: Colors.red,
+                      backgroundColor: Appcolor.iconcolor,
                       child: Icon(
                         Icons.attach_money_outlined,
                         color: Colors.white,
@@ -68,7 +68,7 @@ class Chechout extends StatelessWidget {
                             checkoutcontroller.setselected(value!);
                           }),
                       Text(
-                        "cash on delivery",
+                        "cash_on_delivery".tr,
                         style: Theme.of(context).textTheme.displaySmall,
                       )
                     ],
@@ -81,7 +81,7 @@ class Chechout extends StatelessWidget {
                           onChanged: (value) {
                             checkoutcontroller.setselected(value!);
                           }),
-                      Text("transfer",
+                      Text("cash".tr,
                           style: Theme.of(context).textTheme.displaySmall)
                     ],
                   ),
@@ -90,74 +90,69 @@ class Chechout extends StatelessWidget {
             ),
           ),
           Card(
-            child: Container(
-              child: const Column(
-                children: [
-                  ListTile(
-                    title: Text("payment details"),
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.red,
-                      child: Icon(
-                        Icons.payment_rounded,
-                        color: Colors.white,
-                      ),
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text("payment_details".tr),
+                  leading: CircleAvatar(
+                    backgroundColor: Appcolor.iconcolor,
+                    child: Icon(
+                      Icons.payment_rounded,
+                      color: Colors.white,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Card(
-            child: Container(
-              child: Column(
-                children: [
-                  const ListTile(
-                    title: Text("Type order"),
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.red,
-                      child: Icon(
-                        Icons.payment_rounded,
-                        color: Colors.white,
-                      ),
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text("type_order".tr),
+                  leading: CircleAvatar(
+                    backgroundColor: Appcolor.iconcolor,
+                    child: Icon(
+                      Icons.payment_rounded,
+                      color: Colors.white,
                     ),
                   ),
-                  GetBuilder<Checkoutcontroller>(
-                    builder: (controller) => 
-                     Column(
-                      children: [
-                        InkWell(
-                          child: Container(
-                            color: checkoutcontroller.typeorder == "delivery"
-                                ? Colors.blue[200]
-                                : null,
-                            child: ListTile(
-                              leading: Icon(Icons.delivery_dining_sharp),
-                              title: Text("Deivery"),
-                            ),
+                ),
+                GetBuilder<Checkoutcontroller>(
+                  builder: (controller) => Column(
+                    children: [
+                      InkWell(
+                        child: Container(
+                          color: checkoutcontroller.typeorder == "delivery"
+                              ? Colors.blue[200]
+                              : null,
+                          child: ListTile(
+                            leading: Icon(Icons.delivery_dining_sharp),
+                            title: Text("delivery".tr),
                           ),
-                          onTap: () {
-                            checkoutcontroller.changeTypeOrder("delivery");
-                          },
                         ),
-                        InkWell(
-                          child: Container(
-                            color: checkoutcontroller.typeorder == "recive"
-                                ? Colors.blue[200]
-                                : null,
-                            child: ListTile(
-                              leading: Icon(Icons.arrow_circle_left_sharp),
-                              title: Text("Recive"),
-                            ),
+                        onTap: () {
+                          checkoutcontroller.changeTypeOrder("delivery");
+                        },
+                      ),
+                      InkWell(
+                        child: Container(
+                          color: checkoutcontroller.typeorder == "recive"
+                              ? Colors.blue[200]
+                              : null,
+                          child: ListTile(
+                            leading: Icon(Icons.arrow_circle_left_sharp),
+                            title: Text("recive".tr),
                           ),
-                          onTap: () {
-                            checkoutcontroller.changeTypeOrder("recive");
-                          },
-                        )
-                      ],
-                    ),
+                        ),
+                        onTap: () {
+                          checkoutcontroller.changeTypeOrder("recive");
+                        },
+                      )
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           ElevatedButton(
@@ -165,7 +160,7 @@ class Chechout extends StatelessWidget {
                 ordercontroller.addOrder();
                 Get.toNamed(AppRoute.order);
               },
-              child: const Text("Confirm Order"))
+              child: Text("confirm_order".tr))
         ],
       ),
     );

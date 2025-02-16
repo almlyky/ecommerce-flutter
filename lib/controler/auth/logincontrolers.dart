@@ -5,14 +5,14 @@ import 'package:eccommerce_new/data/remote/auth/logindata.dart';
 import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/constant/linksapi.dart';
 import '../../core/my_function/curd.dart';
-import '../../test/serveces.dart';
+import '../../core/serveces/serveces.dart';
 
 abstract class logincontrolers extends GetxController {
   setteng contrller = Get.find();
@@ -64,48 +64,49 @@ class logincontrolersimp extends logincontrolers {
     Get.toNamed(AppRoute.forgerpassowrd);
   }
 
-  @override
-  valid() {
-    var formdata = formstae.currentState;
-    if (formdata!.validate()) {
-    } else {}
+  // signin in firebase with google acount
+  Future<User?> signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+    if (googleUser != null) {
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      return userCredential.user;
+    }
+    return null;
   }
 
-  // @override
-  // login() {
-  //   if (email.text == "admin" && passowrd.text == "admin") {
-  //     Get.toNamed(AppRoute.dashhome);
-  //     contrller.shared.setString("rule", "admin");
-  //   } else {
-  //     var formdata = formstae.currentState;
-  //     if (formdata!.validate()) {
-  //       contrller.shared.setString("rule", "user");
-  //       // if()
-  //       // gotohome();
-  //     } else {
-  //       print("not valid");
-  //     }
-  //   }
-  // }
-
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+  // signin in App with google acount
+  loginWithGoogle() async {
+    statusRequestlogin = StatusRequest.loading;
+    var user = await signInWithGoogle();
+    var response = await controldata.signinWithgoogle(user!);
+    statusRequestlogin = handlingData(response);
+    if (statusRequestlogin == StatusRequest.success) {
+      contrller.shared.setInt("userId", response['pk']);
+      contrller.shared.setString("rule", "user");
+      contrller.shared.setString("accesstoken", response["access_token"]);
+      gotohome();
+    } else {
+      Get.rawSnackbar(
+          title: "إشعار",
+          messageText: Text("يوجد خطأ ",
+              style: const TextStyle(
+                color: Colors.white,
+              )));
+    }
   }
 
+  // signin in App with email and password
   @override
   login() async {
     if (email.text == "admin2" && passowrd.text == "admin2") {
@@ -117,7 +118,10 @@ class logincontrolersimp extends logincontrolers {
         statusRequestlogin = StatusRequest.loading;
         load = true;
         update();
-        var response = await logindata.login(email.text, passowrd.text);
+        print(djlogin);
+        var response = await   controldata.addDataWithoutToken(
+            djlogin, {"username": email.text, "password": passowrd.text});
+
         statusRequestlogin = handlingData(response);
         if (StatusRequest.success == statusRequestlogin &&
             response.containsKey("access")) {
@@ -126,15 +130,10 @@ class logincontrolersimp extends logincontrolers {
           statusRequestUser = handlingData(res);
           if (statusRequestUser == StatusRequest.success) {
             if (res['is_active'] == true) {
-              // controllersetting.shared.setString("rule", "user");
-              // controllersetting.shared.setString("username", username.text);
               contrller.shared.setInt("userId", res['pk']);
               contrller.shared.setString("rule", "user");
-              print("=======================");
-              print(res['pk']);
+              contrller.shared.setString("accesstoken", response["access"]);
               gotohome();
-              // notificationscontroller.subscribeTopic('TravelApp');
-              // Get.offNamed(Routes.Home);
             }
           }
         } else {
@@ -152,15 +151,6 @@ class logincontrolersimp extends logincontrolers {
   @override
   gotohome() {
     Get.offAllNamed(AppRoute.homepage);
-    // var response = await c.postrequest(
-    //     linklogin2, {"email": email.text, "passowrd": passowrd.text});
-    // if (response["status"] == "success") {
-    //   Get.toNamed(AppRoute.homepage);
-    // }
-    // else {
-    //   error = "login";
-    //   valid();
-    // }
   }
   // gotohome() async{
 

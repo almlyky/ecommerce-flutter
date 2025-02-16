@@ -53,26 +53,29 @@ class DefaultFirebaseOptions {
     projectId: 'ecommerce-b3479',
     authDomain: 'ecommerce-b3479.firebaseapp.com',
     databaseURL: 'https://ecommerce-b3479-default-rtdb.firebaseio.com',
-    storageBucket: 'ecommerce-b3479.appspot.com',
+    storageBucket: 'ecommerce-b3479.firebasestorage.app',
     measurementId: 'G-E38HNM1LGG',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCcIN2-F8U2PCIpGKD3aHTeUzNMcQ8bKBQ',
-    appId: '1:752711510771:android:4b8e10e64c2564ecbe6586',
+    appId: '1:752711510771:android:889b44ae6ca5850dbe6586',
     messagingSenderId: '752711510771',
     projectId: 'ecommerce-b3479',
     databaseURL: 'https://ecommerce-b3479-default-rtdb.firebaseio.com',
-    storageBucket: 'ecommerce-b3479.appspot.com',
+    storageBucket: 'ecommerce-b3479.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCregACHBtJYT3OscHbQ8jrp46zNhIMaoI',
-    appId: '1:752711510771:ios:bfe4fee6b23e9232be6586',
+    appId: '1:752711510771:ios:937cf7131f3f7ba5be6586',
     messagingSenderId: '752711510771',
     projectId: 'ecommerce-b3479',
     databaseURL: 'https://ecommerce-b3479-default-rtdb.firebaseio.com',
-    storageBucket: 'ecommerce-b3479.appspot.com',
-    iosBundleId: 'com.example.ecommerceProject',
+    storageBucket: 'ecommerce-b3479.firebasestorage.app',
+    androidClientId: '752711510771-5gg5a225mf2ljn3eme81eh4ibk5h74bf.apps.googleusercontent.com',
+    iosClientId: '752711510771-n573ob21spki1jmn6dqecqlc8nbet9dj.apps.googleusercontent.com',
+    iosBundleId: 'com.example.eccommerceNew',
   );
+
 }
