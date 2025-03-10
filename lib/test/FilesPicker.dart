@@ -28,8 +28,8 @@
 //
 //   loadmodel() async {
 //     await Tflite.loadModel(
-//       model: "assist/model/model_unquant.tflite",
-//       labels: "assist/model/labels.txt",
+//       model: "assets/model/model_unquant.tflite",
+//       labels: "assets/model/labels.txt",
 //     );
 //   }
 //

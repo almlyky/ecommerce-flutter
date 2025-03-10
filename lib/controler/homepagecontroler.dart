@@ -2,21 +2,15 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/data/model/addsmodel.dart';
+import 'package:eccommerce_new/view/screan/contentapp/favorate.dart';
 import 'package:eccommerce_new/view/screan/contentapp/setting.dart';
-import 'package:eccommerce_new/view/screan/dashboard/addcategories.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:dartz/dartz_unsafe.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
-import 'package:eccommerce_new/core/my_function/curd.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/data/model/CategoriesModel.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
-import 'package:eccommerce_new/data/model/offermodel.dart';
 import 'package:eccommerce_new/data/remote/controlData.dart';
-import 'package:eccommerce_new/data/remote/dashboard/productdata.dart';
-import 'package:eccommerce_new/data/remote/homedata.dart';
-import 'package:eccommerce_new/data/remote/items_data.dart';
 import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
 import 'package:eccommerce_new/view/screan/contentapp/homepage.dart';
 import 'package:flutter/material.dart';
@@ -28,22 +22,15 @@ import '../core/my_classes/statusrequest.dart';
 import '../core/my_function/handledata.dart';
 
 class homepagecontrolerimp extends GetxController {
-  curd c = curd();
   int selectedIndex = 0;
-  // Homedata homedata = Homedata();
-  // ItemsData itemsData = ItemsData();
   bool isSearch = false;
 
-  // List dataCat = [];
   List catName = [];
   List<AddsModel> dataAdds = [];
-  // List dataProduct = [];
-  // List dataProductSearch = [];
 
   late StatusRequest statusRequestCat;
   late StatusRequest statusRequestOffer = StatusRequest.loading;
 
-  // late StatusRequest statusRequestCatProduct;
   late StatusRequest statusRequestSearch;
   late StatusRequest statusRequestAllProduct;
   List dataAllProduct = [];
@@ -51,7 +38,6 @@ class homepagecontrolerimp extends GetxController {
   List<CategoriesModel> datacatModel = [];
   List<ProductModel> dataproductSearchModel = [];
 
-  // Productdata productdata = Productdata();
   Controldata controldata = Controldata();
   final ScrollController scrollController = ScrollController();
   RxDouble innerOffset = 0.0.obs;
@@ -61,12 +47,11 @@ class homepagecontrolerimp extends GetxController {
   RxInt currentIndex = 0.obs;
   Settingcontroller settingcontroller = Get.put(Settingcontroller());
 
-  // late StatusRequest statusRequestAllProduct;
-
   getallproduct() async {
     dataproductModels.clear();
     statusRequestAllProduct = StatusRequest.loading;
-    var response = await controldata.getData("$allproduct/${settingcontroller.userid}/");
+    var response =
+        await controldata.getData("$allproduct/${settingcontroller.userid}/");
     // productdata.getAllproduct(1);
     statusRequestAllProduct = handlingData(response);
     if (StatusRequest.success == statusRequestAllProduct) {
@@ -74,26 +59,13 @@ class homepagecontrolerimp extends GetxController {
         return ProductModel.fromJson(item);
       }).toList();
       dataproductModels.addAll(products);
-      // dataAllProduct.addAll(response);
     }
     update();
   }
 
-  // getOffers() async {
-  //   statusRequestOffer = StatusRequest.loading;
-  //   var response = await controldata.getData(offer);
-  //   statusRequestOffer = handlingData(response);
-  //   if (StatusRequest.success == statusRequestOffer) {
-  //     List<OfferModel> offer = response.map<OfferModel>((offer) {
-  //       return OfferModel.fromJson(offer);
-  //     }).toList();
-  //     dataOffer.addAll(offer);
-  //   }
-  //   update();
-  // }
   getAdds() async {
     statusRequestOffer = StatusRequest.loading;
-    var response = await controldata.getData(apiGetAdds);
+    var response = await controldata.getData(apiAdsView);
     statusRequestOffer = handlingData(response);
     if (StatusRequest.success == statusRequestOffer) {
       List<AddsModel> addmodel = response.map<AddsModel>((adds) {
@@ -168,20 +140,6 @@ class homepagecontrolerimp extends GetxController {
     update();
   }
 
-  // getcategories() async{
-  //   var respons=await c.getrequest(djcatlist);
-  //   return respons;
-  // }
-  //
-  // getallproduct()async{
-  //   var response=await c.postrequest(linkproduct2, {});
-  //   return response;
-  // }
-  // getproduct(int id)async{
-  //   // String id2=id.toString();
-  //   var response=await c.getrequest("$djproduct/$id/");
-  //   return response;
-  // }
   gotoproduct() {
     Get.toNamed(AppRoute.product);
   }
@@ -189,6 +147,7 @@ class homepagecontrolerimp extends GetxController {
   List<Widget> widgetOptions = <Widget>[
     const home(),
     const cart(),
+    const favorate(),
     const Setting()
   ];
   onItemTapped(int index) {
@@ -200,9 +159,21 @@ class homepagecontrolerimp extends GetxController {
 
   GlobalKey<FormState> forminsertCategories = GlobalKey<FormState>();
   GlobalKey<FormState> forminsertproduct = GlobalKey<FormState>();
+  GlobalKey<FormState> forminsertads = GlobalKey<FormState>();
+  GlobalKey<FormState> forminsertcoupon = GlobalKey<FormState>();
+
 
   TextEditingController nameCat = TextEditingController();
   TextEditingController nameCatEn = TextEditingController();
+
+  TextEditingController url = TextEditingController();
+  TextEditingController expireddate = TextEditingController();
+
+  TextEditingController couponName = TextEditingController();
+  TextEditingController couponCount = TextEditingController();
+  TextEditingController couponDiscount = TextEditingController();
+  TextEditingController couponExpiredDate = TextEditingController();
+
 
   ProductModel? productModel;
   CategoriesModel? categoriesModel;
@@ -227,6 +198,12 @@ class homepagecontrolerimp extends GetxController {
   late StatusRequest statusRequestOneProduct;
   late StatusRequest statusRequestaddProduct;
   late StatusRequest statusRequestRemoveProduct;
+
+  late StatusRequest statusRequestaddAds;
+  late StatusRequest statusRequestremoveAds;
+  late StatusRequest statusRequestUpdateAds;
+
+  late AddsModel addsModel;
 
   // Productdata productdata = Productdata();
   late int productId;
@@ -395,6 +372,86 @@ class homepagecontrolerimp extends GetxController {
     update();
   }
 
+  // ============== add ads =======================
+
+  addads() async {
+    if (forminsertads.currentState!.validate()) {
+      statusRequestaddAds = StatusRequest.loading;
+      var response = await controldata.addDatawithFile(
+          apiAdsView,
+          {"url": url.text, "expired_adds": expireddate.text},
+          image!,
+          "image",
+          settingcontroller.accesstoken!);
+      statusRequestaddAds = handlingData(response);
+      if (StatusRequest.success == statusRequestaddAds) {
+        dataAdds.add(AddsModel.fromJson(response));
+        Get.rawSnackbar(
+            title: "اشعار",
+            messageText: const Text("تم اضافه اعلان جديد ",
+                style: TextStyle(color: Colors.white)));
+      }
+      update();
+    }
+  }
+
+  // ================= remove ads =======================
+
+  removeads(int id) async {
+    statusRequestremoveAds = StatusRequest.loading;
+    var response = await controldata.deleteData(
+        "$apiAdsView$id/", settingcontroller.accesstoken!);
+    statusRequestremoveAds = handlingData(response);
+    if (StatusRequest.success == statusRequestremoveAds) {
+      dataAdds.removeWhere((element) => element.id == id);
+      Get.rawSnackbar(
+          title: "اشعار",
+          messageText: const Text("تم حذف الاعلان ",
+              style: TextStyle(color: Colors.white)));
+    }
+    update();
+  }
+
+  // ================= update ads =======================
+
+  updateads(int id) async {
+    if (forminsertads.currentState!.validate()) {
+      statusRequestUpdateAds = StatusRequest.loading;
+      var response = await controldata.uppdateDatawithFile(
+          "$apiAdsView$id/",
+          {"url": url.text, "expired_adds": expireddate.text},
+          image!,
+          "image",
+          settingcontroller.accesstoken!);
+      statusRequestUpdateAds = handlingData(response);
+      if (StatusRequest.success == statusRequestUpdateAds) {
+        for (int i = 0; i < dataAdds.length; i++) {
+          if (dataAdds[i].id == id) {
+            dataAdds[i] = AddsModel.fromJson(response);
+          }
+        }
+        Get.rawSnackbar(
+            title: "اشعار",
+            messageText: const Text("تم تعديل الاعلان ",
+                style: TextStyle(color: Colors.white)));
+      }
+      update();
+    }
+  }
+
+  // ================= chose date =======================
+
+  choseDate(BuildContext context,TextEditingController controller) async {
+    DateTime? dateTimepicker = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(DateTime.now().year),
+        lastDate: DateTime(2100));
+    if (dateTimepicker != null) {
+      controller.text = "${dateTimepicker.toLocal()}".split(' ')[0];
+    }
+  }
+
   //==========================================================
   gotoinsertcategories() {
     Get.toNamed(AppRoute.insertcategories);
@@ -404,11 +461,24 @@ class homepagecontrolerimp extends GetxController {
     Get.toNamed(AppRoute.insertproduct);
   }
 
+  gotoEditeAds() async {
+    url.text = addsModel.url!;
+    expireddate.text = addsModel.expiredAdds!;
+    print(addsModel.image);
+    image = await saveimagetofile(addsModel.image!);
+    Get.toNamed(AppRoute.editeads);
+  }
+
   gotoedeteCategories() async {
     nameCat.text = categoriesModel!.catName!;
     nameCatEn.text = categoriesModel!.catNameEn!;
+    image = await saveimagetofile(categoriesModel!.catImage!);
+    Get.toNamed(AppRoute.edetecategories);
+  }
+  // ==================== save image from network to file ========================
 
-    Uri uri = Uri.parse(categoriesModel!.catImage!);
+  saveimagetofile(String imageurl) async {
+    Uri uri = Uri.parse(imageurl);
     String fileName = uri.pathSegments.last;
     var img = await http.get(uri);
     Directory tempDir = await getTemporaryDirectory();
@@ -416,8 +486,7 @@ class homepagecontrolerimp extends GetxController {
 
     final file = File('$tempPath/$fileName');
     await file.writeAsBytes(img.bodyBytes);
-    image = file;
-    Get.toNamed(AppRoute.edetecategories);
+    return file;
   }
 
   //==========================================================
@@ -450,135 +519,4 @@ class homepagecontrolerimp extends GetxController {
       print("not file ");
     }
   }
-
-  // ========================================================
-  //
-
-  //==========================================================
-  //function inserting categories data
-  // insertdatacategories() async {
-  //   var formstat = forminsert.currentState;
-  //   if (formstat!.validate()) {
-  //     var response = await c.Fielpostrequest(
-  //         linkinsertdata2, {"name": name.text, 'table': 'categories'}, image!);
-  //     if (response["status"] == "success") {
-  //       Get.snackbar("edet data", "successful insert categories",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     } else {
-  //       Get.snackbar("edet data", "failer insert categories",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     }
-  //   }
-  // }
-
-//==========================================================
-//  function inserting product data
-  // insertdataproduct() async {
-  //   var formstat = forminsertproduct.currentState;
-  //   var id = await getcatid(selectedcategories);
-  //   if (formstat!.validate()) {
-  //     // print(id.runtimeType);
-  //     int pr = int.parse(price.text);
-  //     var response = await c.Fielpostrequest(
-  //         linkinsertdata2,
-  //         {
-  //           "name": prname.text,
-  //           "details": details.text,
-  //           "price": '$pr',
-  //           "categories": '$id',
-  //           'table': 'product'
-  //         },
-  //         image!);
-  //     if (response["status"] == "success") {
-  //       Get.snackbar("edet data", "successful insert product",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     } else {
-  //       Get.snackbar("edet data", "failer insert product",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     }
-  //   }
-  // }
-
-//==========================================================
-  //  function send categories data fro show in editing page
-  // datacatforedete(var snapshot) async {
-  //   List<dynamic> data = [];
-  //   var im = await http.get(Uri.parse('{snapshot["cat_image"]}'));
-  //   Directory tempDir = await getTemporaryDirectory();
-  //   String tempPath = tempDir.path;
-  //   final file = File('$tempPath/${snapshot["cat_image"]}');
-  //   await file.writeAsBytes(im.bodyBytes);
-  //   data.add(snapshot["cat_name"]);
-  //   data.add(file);
-  //   return data;
-  // }
-
-//==========================================================
-//  function send product data fro show in editing page
-  // dataproductforedete(int i, var snapshot) async {
-  //   List<dynamic> cat = await controlerhome.getcategories();
-  //   String catname = "";
-  //   for (int i = 0; i < cat.length; i++) {
-  //     if (snapshot["cat_fk"] == cat[i]['cat_id']) catname = cat[i]["cat_name"];
-  //   }
-  //   List<dynamic> data = [];
-  //   var im = await http.get(Uri.parse(
-  //       'http://10.0.2.2/ecomerceApp/categories/${snapshot["pr_image"]}'));
-  //   Directory tempDir = await getTemporaryDirectory();
-  //   String tempPath = tempDir.path;
-  //   final file = File('$tempPath/${snapshot["pr_image"]}');
-  //   await file.writeAsBytes(im.bodyBytes);
-  //   data.add(snapshot["pr_name"]);
-  //   data.add(snapshot["pr_detail"]);
-  //   data.add(snapshot["pr_cost"]);
-  //   data.add(catname);
-  //   data.add(file);
-  //   return data;
-  // }
-
-//==========================================================
-//  function edete prodduct
-  // edetedataproduct(int id) async {
-  //   var formstat = forminsertproduct.currentState;
-  //   var catid = await getcatid(selectedcategories);
-  //   if (formstat!.validate()) {
-  //     // print(id.runtimeType);
-  //     int pr = int.parse(price.text);
-  //     var response = await c.Fielpostrequest(
-  //         linkedetedata2,
-  //         {
-  //           "name": prname.text,
-  //           "details": details.text,
-  //           "price": '$pr',
-  //           "categories": '$catid',
-  //           'id': '$id',
-  //           'table': 'product'
-  //         },
-  //         image!);
-  //     if (response["status"] == "success") {
-  //       Get.snackbar("edet data", "successful edete product",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     } else {
-  //       Get.snackbar("edet data", "failer edete produt",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     }
-  //   }
-  // }
-
-//==========================================================
-//  function edete categories
-  // edetecategories(int id) async {
-  //   var formstat = forminsert.currentState;
-  //   if (formstat!.validate()) {
-  //     var response = await c.Fielpostrequest(linkedetedata2,
-  //         {"name": name.text, 'table': 'categories', 'id': '$id'}, image!);
-  //     if (response["status"] == "success") {
-  //       Get.snackbar("edet data", "successful edete categories",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     } else {
-  //       Get.snackbar("edet data", "failer edete categories",
-  //           snackPosition: SnackPosition.BOTTOM);
-  //     }
-  //   }
-  // }
 }

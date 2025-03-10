@@ -1,4 +1,5 @@
 import 'package:eccommerce_new/controler/contentapp/ordercontroller.dart';
+import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/view/widget/order/cardorder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,12 +10,11 @@ class Orderdash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Ordercontroller ordercontroller = Get.put(Ordercontroller());
-    return
-     Scaffold(
-       appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: const Text("Orders"),
       ),
-       body: GetBuilder<Ordercontroller>(
+      body: GetBuilder<Ordercontroller>(
         builder: (controller) => ListView.builder(
             itemCount: ordercontroller.dataOrderModel.length,
             itemBuilder: (context, index) => Padding(
@@ -35,7 +35,7 @@ class Orderdash extends StatelessWidget {
             //   title: Text("${ordercontroller.dataOrderModel[index].address}"),
             //   subtitle:Text("${ordercontroller.dataOrderModel[index].orderCode}") ,
             ),
-           ),
-     );
+      ),
+    );
   }
 }

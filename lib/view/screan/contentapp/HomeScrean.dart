@@ -1,9 +1,6 @@
 import 'package:eccommerce_new/controler/contentapp/refreshalldatacontroller.dart';
-import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/core/constant/colors.dart';
-import 'package:eccommerce_new/core/constant/route.dart';
-import 'package:eccommerce_new/core/serveces/serveces.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,22 +26,27 @@ class Homescrean extends StatelessWidget {
           //     index: contrllerhom.selectedIndex,
           //     children: contrllerhom.widgetOptions),
           bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
               selectedItemColor: Appcolor.primary, // لون العنصر المحدد
               // unselectedItemColor: Colors.grey,
               onTap: contrllerhome.onItemTapped,
               currentIndex: contrllerhome.selectedIndex,
-              items: const [
+              items:  [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
-                  label: 'الرئيسية',
+                  label: 'homebar'.tr,
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_cart_rounded),
-                  label: 'السلة',
+                  label: 'cartbar'.tr,
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite),
+                  label: 'favorite'.tr,
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
-                  label: 'الإعدادات',
+                  label: 'settingbar'.tr,
                 ),
               ]),
         ),

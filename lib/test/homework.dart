@@ -37,7 +37,7 @@ class UserProfileScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage("assist/image/logo.jpg"),
+                    image: AssetImage("assets/image/logo.jpg"),
                   ),
                 ),
               ),

@@ -10,7 +10,6 @@ class Settingcontroller extends GetxController {
   void onInit() {
     userid = settingcontroller.shared.getInt('userId');
     accesstoken = settingcontroller.shared.getString('accesstoken');
-
     super.onInit();
   }
 }

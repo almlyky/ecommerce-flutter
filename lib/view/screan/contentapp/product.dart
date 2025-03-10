@@ -1,13 +1,12 @@
+import 'package:eccommerce_new/controler/contentapp/favoratecontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
-import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
 import 'package:eccommerce_new/view/screan/contentapp/favorate.dart';
 import 'package:eccommerce_new/view/widget/product/cardproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../controler/contentapp/favoratecontroller.dart';
 import '../../../controler/homepagecontroler.dart';
 import 'detailsproduct.dart';
 
@@ -15,10 +14,7 @@ class product extends StatelessWidget {
   // final id;
   product({super.key});
 
-  favoratecontroller contrllerfav = Get.put(favoratecontroller());
-  // localecontroler controller = Get.put(localecontroler());
-  // Productcontroller controllerproduct = Get.put(Productcontroller());
-  // Productcontroller controllerproduct=Get.find();
+  Favoratecontroller contrllerfav = Get.put(Favoratecontroller());
   homepagecontrolerimp controllerhome = Get.find();
 
   @override
@@ -30,7 +26,7 @@ class product extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title:  Text("products".tr),
+        title: Text("products".tr),
         actions: [
           IconButton(
               onPressed: () {
@@ -62,62 +58,58 @@ class product extends StatelessWidget {
         //             ),
         //           );
         //         })),
-        Container(
-          height: 600,
-          // child: TabBarView(
-          //     physics: NeverScrollableScrollPhysics(),
-          //     controller: controllerproduct.tabController,
-          //     children:
-          //         List.generate(controllerhome.datacatModel.length, (index) {
-          //           return
-          child: 
-                SizedBox(
-                    child: GetBuilder<Productcontroller>(
-                  // init: Productcontroller(),
-                  builder: (controllerproduct) => Handlingdataview(
-                      statusRequest: controllerproduct.statusRequestCatProduct,
-                      widgets: GridView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 20,
-                                childAspectRatio: 0.76
-                                // childAspectRatio: ,
-                                ),
-                        itemCount:
-                        controllerproduct.dataproductCategoristModel.length,
-                            // controllerhome.dataproductModels.where((element) => element.catFk==controllerhome.datacatModel[index].catId).toList().length,
-                        itemBuilder: (context, i) {
-                          // if(controllerhome.dataproductModels[i].catFk==controllerhome.datacatModel[index].catId){
-                            productModel =
-                              controllerproduct.dataproductCategoristModel[i];
-                          contrllerfav.isfavorate[productModel.prId!] =
-                              productModel.fav!;
-                          return InkWell(
-                            onTap: () {
-                              controllerproduct.productModel = controllerproduct.dataproductCategoristModel[i];
-                              Get.to(() => const ProductDetailPage());
-                            },
-                            child: myProductCard(
-                              productModel: productModel,
-                            ),
-                          );
-                         
+        SizedBox(
+            height: 600,
+            // child: TabBarView(
+            //     physics: NeverScrollableScrollPhysics(),
+            //     controller: controllerproduct.tabController,
+            //     children:
+            //         List.generate(controllerhome.datacatModel.length, (index) {
+            //           return
+            child: SizedBox(
+                child: GetBuilder<Productcontroller>(
+              // init: Productcontroller(),
+              builder: (controllerproduct) => Handlingdataview(
+                  statusRequest: controllerproduct.statusRequestCatProduct,
+                  widgets: GridView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 20,
+                              childAspectRatio: 0.76
+                              // childAspectRatio: ,
+                              ),
+                      itemCount:
+                          controllerproduct.dataproductCategoristModel.length,
+                      // controllerhome.dataproductModels.where((element) => element.catFk==controllerhome.datacatModel[index].catId).toList().length,
+                      itemBuilder: (context, i) {
+                        // if(controllerhome.dataproductModels[i].catFk==controllerhome.datacatModel[index].catId){
+                        productModel =
+                            controllerproduct.dataproductCategoristModel[i];
+                        contrllerfav.isfavorate[productModel.prId!] =
+                            productModel.fav!;
+                        return InkWell(
+                          onTap: () {
+                            controllerproduct.productModel =
+                                controllerproduct.dataproductCategoristModel[i];
+                            Get.to(() => const ProductDetailPage());
+                          },
+                          child: myProductCard(
+                            productModel: productModel,
+                          ),
+                        );
+
                         //   else{
-                        //   return (); 
+                        //   return ();
                         // }
-                        }
-                      )
-                      ),
-                
-                )
-                )
-              // }
-              // )
-              // ),
-        )
+                      })),
+            ))
+            // }
+            // )
+            // ),
+            )
       ]),
     );
   }

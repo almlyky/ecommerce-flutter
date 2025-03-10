@@ -13,16 +13,12 @@ class customdropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homepagecontrolerimp controller = Get.find();
-
-    // String v = value!;
-    // dashhomcontrollerimp controller = Get.put(dashhomcontrollerimp());
     return DropdownButton(
       value: value,
       items: controller.catName
           .map((e) => DropdownMenuItem(value: e, child: Text("$e")))
           .toList(),
       onChanged: onChanged,
-      //value: value,
     );
   }
 }

@@ -11,13 +11,13 @@ class Handlingdataview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return statusRequest == StatusRequest.loading
-        ? Center(child: Lottie.asset("assist/lottie/loading.json"))
+        ? Center(child: Lottie.asset("assets/lottie/loading.json"))
         : statusRequest == StatusRequest.offlineFailure
-            ? Center(child: Lottie.asset("assist/lottie/offline.json"))
+            ? Center(child: Lottie.asset("assets/lottie/offline.json"))
             : statusRequest == StatusRequest.failure ||
                     statusRequest == StatusRequest.serverFailure
                 ? Center(
-                    child: Lottie.asset("assist/lottie/server_failure.json"))
+                    child: Lottie.asset("assets/lottie/server_failure.json"))
                 : widgets;
   }
 }

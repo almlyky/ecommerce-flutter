@@ -44,12 +44,14 @@ const String djcatlist = "$djServer/pages/categoties/";
 
 // api auth
 const String djsignup = "$djServer/acounts/signup/";
-const String chechotp = "$djServer/acounts/checkotp";
+const String chechotp = "$djServer/acounts/checkotp/";
 const String djlogin = "$djServer/pages/gettoken/";
 const String apiAppGetUser = "$djServer/acounts/userinfo/";
 const String apiSignGoogle = "$djServer/acounts/register_google/";
+const String forgetpasswordapi = "$djServer/acounts/forgetpassword/";
+const String resetpasswordapi = "$djServer/acounts/resetpassword/";
 
-const String apiGetAdds = "$djServer/pages/adds/";
+const String apiAdsView = "$djServer/pages/adds/";
 
 // api home
 const String allproduct = "$djServer/pages/productAll";

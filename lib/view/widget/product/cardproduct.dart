@@ -4,30 +4,16 @@ import 'package:eccommerce_new/data/model/ProductModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/constant/linksapi.dart';
 
 class myProductCard extends StatelessWidget {
   final ProductModel productModel;
-
-  // final images;
-  // final String name, details;
-  // final int price;
-  // final int pr_id;
   myProductCard({
     super.key,
     required this.productModel,
-    // this.images,
-    // required this.name,
-    // required this.details,
-    // required this.price,
-    // required this.pr_id,
   });
-
-  favoratecontroller controller = Get.find();
-
+  Favoratecontroller controller = Get.find();
   @override
   // late int id,price;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -35,8 +21,6 @@ class myProductCard extends StatelessWidget {
       child: Stack(
         children: [
           Card(
-            // elevation: 5,
-            // shadowColor: Colors.blue[200],
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             ),
@@ -73,14 +57,7 @@ class myProductCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 4.0),
-                      // Text(
-                      //   productModel.prDetail!,
-                      //   style: TextStyle(
-                      //     color: Colors.grey[600],
-                      //   ),
-                      // ),
-                      const SizedBox(height: 4.0),
+                      const SizedBox(height: 8.0),
                       const Row(
                         children: [
                           Icon(Icons.star, color: Colors.orange, size: 16.0),
@@ -92,25 +69,7 @@ class myProductCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8.0),
-                      const Row(
-                        children: [
-                          // Text(
-                          //   'avlilable',
-                          //   style: TextStyle(color: Colors.green),
-                          // ),
-                          // Spacer(),
-                          // Text(
-                          //   '35% OFF',
-                          //   style: TextStyle(
-                          //     color: Colors.red,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                      // const SizedBox(height: 8.0),
                       if (productModel.prDiscount == 0)
-                      
                         Text(
                           '${productModel.prCost} R.Y',
                           style: const TextStyle(
@@ -143,41 +102,39 @@ class myProductCard extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            // top: 10,
-            bottom: 15,
-            left: 15,
-            child: InkWell(onTap: () {
-              controller.onTapFavorite(productModel);
-            }, child: GetBuilder<favoratecontroller>(builder: (controller) {
-              return  Icon(
-                  controller.isfavorate[productModel.prId] == 0
-                      ? Icons.favorite_border
-                      : Icons.favorite,
-                  color: const Color.fromARGB(255, 9, 9, 9),
-                  // size: 25,
+      
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Align(
                 
-              );
-            })
-
-                // child:fav == 0
-                //     ?  Icon(Icons.favorite_border,
-                //             color: Colors.red[700])
-                //     :Icon(Icons.favorite, color: Colors.red[700]),
-                ),
-          ),
+                alignment: AlignmentDirectional.bottomEnd,
+                child: InkWell(onTap: () {
+                  controller.onTapFavorite(productModel);
+                }, child: GetBuilder<Favoratecontroller>(builder: (controller) {
+                  return Icon(
+                    controller.isfavorate[productModel.prId] == 0
+                        ? Icons.favorite_border
+                        : Icons.favorite,
+                    color: const Color.fromARGB(255, 9, 9, 9),
+                    // size: 25,
+                  );
+                })
+                    ),
+              ),
+            ),
+          
           if (productModel.prDiscount! > 0)
             const Positioned(
                 top: 0,
                 right: 0,
                 // left: ,
                 child: Image(
-                  height: 50,
-                  width: 70,
-                  image: AssetImage("assist/image/discount.png")
-                  // Icons.discount_outlined,
-                  // color: Colors.green,
-                ))
+                    height: 50,
+                    width: 70,
+                    image: AssetImage("assets/image/discount.png")
+                    // Icons.discount_outlined,
+                    // color: Colors.green,
+                    ))
         ],
       ),
     );

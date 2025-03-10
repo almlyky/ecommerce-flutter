@@ -21,7 +21,6 @@ class Orderdetails extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Order Detals"),
-          backgroundColor: Appcolor.primary,
         ),
         body: GetBuilder<Ordercontroller>(
             builder: (controller) => Handlingdataview(

@@ -1,4 +1,4 @@
-import 'package:eccommerce_new/controler/contentapp/favoratecontroller.dart';
+import 'package:eccommerce_new/controler/contentapp/Favoratecontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
@@ -14,7 +14,7 @@ class SearchData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductModel productModel;
-    favoratecontroller contrllerfav = Get.find();
+    Favoratecontroller contrllerfav = Get.find();
     // homepagecontrolerimp controllerhome = Get.find();
     Productcontroller controllerproduct = Get.find();
 

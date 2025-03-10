@@ -1,28 +1,30 @@
 import 'package:get/get.dart';
 
-validinput(String val, int min, int max, String type, String error) {
+validinput(String val, int min, int max, String type){
   if (val.isEmpty) {
-    return "cann't be empty";
+    return "cannot_be_empty".tr;
   }
-  if (type == "username") {
-    if (!GetUtils.isUsername(val)) {
-      return "not valid username";
+  if(type=="url"){
+    if(!GetUtils.isURL(val)){
+      return "not_a_valid_url".tr;
     }
   }
 
-  if (type == "email") {
-    if (!GetUtils.isEmail(val)) {
-      return "not valid email";
-    } else if ((error == "sign")) {
-      return "the email is exist alredy";
-    } else if (error == "login") {
-      return "the acounts is not found";
-    }
+  if (type == "username" && !GetUtils.isUsername(val)) {
+    return "not_a_valid_username".tr;
   }
+
+  if (type == "email" && !GetUtils.isEmail(val)) {
+    return "not_a_valid_email".tr;
+  }
+
   if (val.length < min) {
-    return "cann't be less than $min";
+    return "${"cannot_be_less_than".tr}$min";
   }
+
   if (val.length > max) {
-    return "can't be larger than $max";
+    return "${"cannot_be_larger_than".tr}$max";
   }
+  
+  return null; // لا يوجد خطأ
 }

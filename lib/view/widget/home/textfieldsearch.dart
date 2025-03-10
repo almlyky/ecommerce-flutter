@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TextFieldSearch extends StatelessWidget {
   final void Function()? onPressedSearch;
@@ -25,7 +26,7 @@ class TextFieldSearch extends StatelessWidget {
             icon: const Icon(Icons.search,
                 color: Color.fromARGB(255, 113, 176, 227))),
         suffixIcon: IconButton(onPressed: () {}, icon: const Icon(Icons.mic)),
-        hintText: 'البحث عن منتج..',
+        hintText: 'search'.tr,
         border: OutlineInputBorder(
           
           borderRadius: BorderRadius.circular(20),

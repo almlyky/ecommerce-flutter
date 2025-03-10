@@ -1,11 +1,8 @@
-import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
-import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controler/contentapp/cartcontroller.dart';
 import '../../../controler/contentapp/productcontroller.dart';
-import '../../../core/constant/linksapi.dart';
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key});
@@ -17,7 +14,7 @@ class ProductDetailPage extends StatelessWidget {
     controllerproduct.initquantity(controllerproduct.productModel.prId!);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product Details'),
+        title: Text('product_details'.tr),
         actions: [
           IconButton(
               onPressed: () {
@@ -167,7 +164,7 @@ class ProductDetailPage extends StatelessWidget {
                           productID: controllerproduct.productModel.prId!,
                           quantity: controllerproduct.quantity);
                     },
-                    child: const Text('add to cart'),
+                    child: Text('add_to_cart'.tr),
                   ),
                 ),
                 const SizedBox(width: 16.0),
@@ -176,7 +173,7 @@ class ProductDetailPage extends StatelessWidget {
                     onPressed: () {},
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    child: const Text('Buy Now'),
+                    child: Text('buy_now'.tr),
                   ),
                 ),
               ],

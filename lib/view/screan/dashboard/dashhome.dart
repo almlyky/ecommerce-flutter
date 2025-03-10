@@ -1,8 +1,11 @@
+import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/serveces/serveces.dart';
 import 'package:eccommerce_new/view/screan/auth/login.dart';
+import 'package:eccommerce_new/view/screan/dashboard/ads.dart';
 import 'package:eccommerce_new/view/screan/dashboard/categoris.dart';
+import 'package:eccommerce_new/view/screan/dashboard/coupon.dart';
 import 'package:eccommerce_new/view/screan/dashboard/order.dart';
 import 'package:eccommerce_new/view/screan/dashboard/product.dart';
 import 'package:eccommerce_new/view/screan/dashboard/users.dart';
@@ -13,14 +16,16 @@ class dashhome extends StatelessWidget {
   const dashhome({super.key});
   @override
   Widget build(BuildContext context) {
-    // homepagecontrolerimp controllerhome = Get.put(homepagecontrolerimp());
+    homepagecontrolerimp c= Get.put( homepagecontrolerimp());
     setteng controller = Get.find();
-    List<String> grid = ["Users", "Categories", "product","order"];
+    List<String> grid = ["Categories", "product","order","Ads","coupons"];
     List<Object> page = [
-      const usersdash(),
+      // const usersdash(),
       const categoriesdash(),
       const productdash(),
-      const Orderdash()
+      const Orderdash(),
+      const Ads(),
+      const Coupon()
     ];
     return Scaffold(
       appBar: AppBar(

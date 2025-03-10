@@ -1,5 +1,4 @@
 import 'package:eccommerce_new/controler/contentapp/favoratecontroller.dart';
-import 'package:eccommerce_new/data/model/ProductModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,9 +10,8 @@ class favorate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title:Text("favorite".tr)),
-        body: GetBuilder<favoratecontroller>(
-            // init: favoratecontroller(),
+        appBar: AppBar(title: Text("favorite".tr)),
+        body: GetBuilder<Favoratecontroller>(
             builder: (controller) {
           return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -21,7 +19,7 @@ class favorate extends StatelessWidget {
                 mainAxisSpacing: 20,
                 childAspectRatio: 0.8,
               ),
-              itemCount:  controller.dataFavoriteModel.length,
+              itemCount: controller.dataFavoriteModel.length,
               itemBuilder: (context, i) {
                 return InkWell(
                   child: myProductCard(
@@ -29,16 +27,6 @@ class favorate extends StatelessWidget {
                   ),
                 );
               });
-          // return ListView.builder(
-          //     itemCount: controller.dataFavorite.length,
-          //     itemBuilder: (context, i) {
-          //       return InkWell(
-          //         child: myProductCard(
-          //           productModel: ProductModel.fromJson(
-          //               controller.dataFavorite[i]['pr_fk']),
-          //         ),
-          //       );
-          //     });
         }));
   }
 }

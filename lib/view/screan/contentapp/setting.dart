@@ -1,5 +1,5 @@
-import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
+import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/core/serveces/serveces.dart';
 import 'package:eccommerce_new/view/screan/contentapp/HomeScrean.dart';
 import 'package:flutter/material.dart';
@@ -11,37 +11,39 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     setteng controller = Get.find();
+    localecontroler localcontroller = Get.put(localecontroler());
     return Scaffold(
         // appBar: AppBar(
         //   title: const Text("Setting"),
         // ),
         body: ListView(
       children: [
-         UserAccountsDrawerHeader(
+        UserAccountsDrawerHeader(
           // arrowColor: Appcolor.primary,
           decoration: BoxDecoration(color: Color.fromARGB(255, 255, 255, 255)),
-          accountName:
-              Text("accountName", style: TextStyle(color: Colors.black)),
-          accountEmail:
-              Text("accountEmail", style: TextStyle(color: Colors.black)),
+          accountName: Text(controller.shared.getString("username")!,
+              style: TextStyle(color: Colors.black)),
+          accountEmail: Text(controller.shared.getString("email")!,
+              style: TextStyle(color: Colors.black)),
           currentAccountPicture: CircleAvatar(
-            backgroundImage: AssetImage("assist/image/logo.jpg"),
+            backgroundImage: AssetImage("assets/image/logo.jpg"),
           ),
         ),
         CostumListTile(
-          title: "تغيير اللغة",
+          title: "change_lang".tr,
           icon: Icons.language,
           onTap: () {
             Get.dialog(
               AlertDialog(
-                title: const Text('تغيير اللغة'),
+                title: Text('change_lang'.tr),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ListTile(
                       leading: const Icon(Icons.language),
-                      title: const Text('إنجليزية'),
+                      title: const Text('English'),
                       onTap: () {
+                        localcontroller.changelang('en');
                         // contrllerhom.changeLanguage('en');
                         Get.back();
                       },
@@ -50,7 +52,7 @@ class Setting extends StatelessWidget {
                       leading: const Icon(Icons.language),
                       title: const Text('العربية'),
                       onTap: () {
-                        // contrllerhom.changeLanguage('ar');
+                        localcontroller.changelang('ar');
                         Get.back();
                       },
                     ),
@@ -60,26 +62,28 @@ class Setting extends StatelessWidget {
             );
           },
         ),
-        CostumListTile(icon: Icons.help, title: "المساعدة", onTap: () {}),
+        CostumListTile(icon: Icons.help, title: "helps".tr, onTap: () {}),
         CostumListTile(
-            icon: Icons.support_agent, title: "الدعم الفني", onTap: () {}),
+            icon: Icons.support_agent, title: "support".tr, onTap: () {}),
         CostumListTile(
             icon: Icons.logout,
-            title: "تسجيل الخروج",
+            title: "logout".tr,
             onTap: () {
               controller.shared.remove('rule');
+              controller.shared.remove('userId');
+              controller.shared.remove('accesstoken');
               Get.offAllNamed(AppRoute.login);
               Get.deleteAll();
             }),
         CostumListTile(
             icon: Icons.shopping_cart,
-            title: "طلباتي",
+            title: "order".tr,
             onTap: () {
               Get.toNamed(AppRoute.order);
             }),
         CostumListTile(
             icon: Icons.perm_device_info_rounded,
-            title: "الإصدار",
+            title: "version".tr,
             subtitle: "1.3.4",
             onTap: () {})
       ],

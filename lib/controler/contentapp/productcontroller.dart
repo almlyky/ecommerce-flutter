@@ -2,26 +2,18 @@ import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
-// import 'package:eccommerce_new/core/constant/linksapi.dart';
-// import 'package:eccommerce_new/core/constant/route.dart';
-import 'package:eccommerce_new/core/my_function/curd.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
 import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:http/http.dart' as http;
-
 import '../../core/my_classes/statusrequest.dart';
 import '../../core/my_function/handledata.dart';
-import '../../data/remote/items_data.dart';
 
 class Productcontroller extends GetxController
-    with GetSingleTickerProviderStateMixin {
+ {
   Cartcontroller cartcontroller = Get.put(Cartcontroller());
   homepagecontrolerimp homecontroller = Get.find();
-  curd c = curd();
 
   late ProductModel productModel;
 
@@ -37,7 +29,7 @@ class Productcontroller extends GetxController
   Controldata controldata = Controldata();
 
   late StatusRequest statusRequestCatProduct;
-  late TabController tabController;
+  // late TabController tabController;
   Settingcontroller settingcontroller = Get.find();
 
   initquantity(int productid) {
@@ -49,7 +41,6 @@ class Productcontroller extends GetxController
   }
 
   getproduct(int catid) async {
-    print(catid);
     dataproductCategoristModel.clear();
     statusRequestCatProduct = StatusRequest.loading;
     var response = await controldata
@@ -64,15 +55,6 @@ class Productcontroller extends GetxController
     update();
   }
 
-  // getallproduct() async {
-  //   statusRequestAllProduct = StatusRequest.loading;
-  //   var response = await itemsData.getdataAllproduct();
-  //   statusRequestAllProduct = handlingData(response);
-  //   if (StatusRequest.success == statusRequestAllProduct) {
-  //     dataAllProduct.addAll(response);
-  //   }
-  // }
-
   updatequantity(String event) {
     if (event == "plus") {
       quantity++;
@@ -82,25 +64,4 @@ class Productcontroller extends GetxController
     update();
   }
 
-  // @override
-  // getallproductwithfavorite() async {
-  //   var res = await c.postrequest(linkfavorite, {});
-  //   return res["data"];
-  // }
-
-  @override
-  void onInit() {
-    print("+++++++++++++++++++++++++++++++++++++++++++++init product");
-    tabController =
-        TabController(length: homecontroller.datacatModel.length, vsync: this);
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    print("+++++++++++++++++++++++++++++++++++++++++++++closed product");
-    tabController.dispose();
-    super.onClose();
-  }
 }

@@ -16,3 +16,4 @@ class Authmiddleware extends GetMiddleware {
     return null;
   }
 }
+

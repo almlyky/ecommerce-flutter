@@ -1,8 +1,6 @@
-import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
-import 'package:eccommerce_new/core/my_classes/crud.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
@@ -14,7 +12,6 @@ import 'package:get/get.dart';
 class Cartcontroller extends GetxController {
   CartData cartData = CartData();
   int totalPrice = 0;
-  List dataCart = [];
   List<CartModel> dataCartModels = [];
 
   List dataCoupon = [];
@@ -26,33 +23,31 @@ class Cartcontroller extends GetxController {
   Controldata controldata = Controldata();
   Settingcontroller settingcontroller = Get.find();
 
-  // Map<int, Map> data = {};
 
   getdatacart() async {
-    dataCart.clear();
     statusRequest = StatusRequest.loading;
-    var response = await controldata.getData("$cartList/${settingcontroller.userid}/");
+    var response =
+        await controldata.getData("$cartList/${settingcontroller.userid}/");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       List<CartModel> cartList = response.map<CartModel>((cart) {
-        int prCost = cart['pr_fk']['pr_cost'];
-        totalPrice += prCost;
-        // print(prCost);
         return CartModel.fromJson(cart);
       }).toList();
       dataCartModels.addAll(cartList);
-      // dataCart.addAll(response);
+      initTotal();
     }
     update();
   }
 
-  addcart(
-      {required int productID,
-      required int quantity}) async {
+  addcart({required int productID, required int quantity}) async {
     statusRequest = StatusRequest.loading;
     var response = await controldata.addData(
         insertcart,
-        {"user_fk": "${settingcontroller.userid}", "pr_fk": "$productID", "quantity": "$quantity"},
+        {
+          "user_fk": "${settingcontroller.userid}",
+          "pr_fk": "$productID",
+          "quantity": "$quantity"
+        },
         settingcontroller.accesstoken!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
@@ -61,12 +56,10 @@ class Cartcontroller extends GetxController {
         for (var element in dataCartModels) {
           if (element.prFk!.prId == productID) {
             element.quantity = cartModel.quantity;
-            // int price = response['data']['pr_fk']['pr_cost'];
             totalPrice += cartModel.prFk!.prCost!;
           }
         }
       } else {
-        // dataCart.add(response['data']);
         dataCartModels.add(cartModel);
         int price = cartModel.prFk!.prCost!;
         totalPrice += price;
@@ -78,7 +71,8 @@ class Cartcontroller extends GetxController {
   deleteAllcart() async {
     statusRequest = StatusRequest.loading;
     var response = await controldata.deleteData(
-        "$deleteallcart/${settingcontroller.userid}/", settingcontroller.accesstoken!);
+        "$deleteallcart/${settingcontroller.userid}/",
+        settingcontroller.accesstoken!);
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       dataCartModels.clear();
@@ -93,14 +87,15 @@ class Cartcontroller extends GetxController {
         "$deletecart/$cartId/", settingcontroller.accesstoken!);
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
+      // CartModel cartModel=
       dataCartModels.removeWhere((element) => element.cartId == cartId);
-      // dataCart.removeWhere((element) => element['pr_fk']['pr_id'] == productID);
+
       initTotal();
     }
     update();
   }
 
-  updatequantity(String action, int cartid) async {
+  updatequantitys(String action, int cartid) async {
     statusRequest = StatusRequest.loading;
     var response = await controldata.uppdateData("$updatequantity/$cartid/",
         {"action": action}, settingcontroller.accesstoken!);
@@ -114,7 +109,6 @@ class Cartcontroller extends GetxController {
             totalPrice += element.prFk!.prCost!;
           } else if (action == "minus" && element.quantity! > 1) {
             element.quantity = element.quantity! - 1;
-            // int price = element['pr_fk']['pr_cost'];
             totalPrice -= element.prFk!.prCost!;
           }
         }
@@ -125,8 +119,8 @@ class Cartcontroller extends GetxController {
 
   initTotal() {
     totalPrice = 0;
-    for (var element in dataCart) {
-      int price1 = element['pr_fk']['pr_cost'] * element['quantity'];
+    for (var element in dataCartModels) {
+      int price1 = element.prFk!.prCost! * element.quantity!;
       totalPrice += price1;
     }
   }
@@ -161,9 +155,8 @@ class Cartcontroller extends GetxController {
   }
 
   @override
-  void onInit() async {
-    await getdatacart();
-    initTotal();
+  void onInit() {
+    getdatacart();
     super.onInit();
   }
 }

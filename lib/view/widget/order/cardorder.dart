@@ -21,7 +21,7 @@ class CardOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -84,10 +84,10 @@ class CardOrder extends StatelessWidget {
                           color: const Color.fromARGB(255, 234, 233, 244),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Row(
+                        child:  Row(
                           children: [
                             Text(
-                              'details',
+                              "detail".tr,
                               style: TextStyle(
                                   color: Color.fromARGB(255, 69, 131, 213)),
                             ),
@@ -133,11 +133,12 @@ class CardOrder extends StatelessWidget {
                 ),
               ),
               if (typeAcount == "admin")
-                ElevatedButton(
+                TextButton(
                     onPressed: () {
                       ordercontroller.updataOrder(orderModel.id!);
                     },
-                    child: const Text("Accept Order"))
+                    child: const Text("Accept Order")
+                    )
             ],
           ),
         ],

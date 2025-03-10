@@ -5,9 +5,9 @@ class customtextfaild extends StatefulWidget {
   final hint;
   final icon;
   final checkpass;
+  final errorText;
   final TextInputType typeinput;
-  final String? Function(String?) valid;
-  final ValueChanged<String>? chech;
+  final String? Function(String?) valid ;
   final TextEditingController controller;
   const customtextfaild(
       {super.key,
@@ -16,8 +16,7 @@ class customtextfaild extends StatefulWidget {
       this.checkpass,
       required this.controller,
       required this.typeinput,
-      required this.valid,
-      this.chech});
+      required this.valid, this.errorText});
   @override
   State<customtextfaild> createState() => _customtextfaildState();
 }
@@ -25,7 +24,6 @@ class customtextfaild extends StatefulWidget {
 class _customtextfaildState extends State<customtextfaild> {
   late bool showpass;
   late final String? Function(String?) v;
-  late final String? Function(String?) check;
 
   @override
   void initState() {
@@ -38,12 +36,15 @@ class _customtextfaildState extends State<customtextfaild> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      validator: v,
-      onChanged: widget.chech,
+      validator: (value){
+        if(value!.isEmpty){
+          return  v(value);
+        }
+      },
       obscureText: showpass,
       keyboardType: widget.typeinput,
       decoration: InputDecoration(
-
+        errorText:widget.errorText,
           // hintText: widget.hint,
           filled: true,
           fillColor:Appcolor.filled_input_color,

@@ -14,17 +14,23 @@ class categoriesdash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    homepagecontrolerimp controlerhome = Get.put(homepagecontrolerimp());
+    homepagecontrolerimp controlerhome = Get.find();
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+                controlerhome.gotoinsertcategories();
+          }, icon: Icon(Icons.add))
+        ],
+      ),
       body: Column(
         children: [
-          ElevatedButton(
-              onPressed: () {
-                controlerhome.gotoinsertcategories();
-              },
-              child: const Text("add categories")),
-          const SizedBox(height: 20),
+          // ElevatedButton(
+          //     onPressed: () {
+          //       controlerhome.gotoinsertcategories();
+          //     },
+          //     child: const Text("add categories")),
+          // const SizedBox(height: 20),
           Expanded(
               child: GetBuilder<homepagecontrolerimp>(
                 builder: (controller) => 

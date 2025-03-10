@@ -25,7 +25,7 @@ class addcategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    homepagecontrolerimp homecontroller = Get.put(homepagecontrolerimp());
+    homepagecontrolerimp homecontroller = Get.find();
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +45,14 @@ class addcategories extends StatelessWidget {
                   children: [
                     CustomTextfild(
                       validate: (v) {
-                        return validinput(v!, 5, 50, "", "");
+                        return validinput(
+                          v!,
+                          6,
+                          100,
+                          "",
+                        );
+
+                        // return validinput(v!, 5, 50, "", "");
                       },
                       hintext: "Name Arabic",
                       icon: Icons.category,
@@ -56,7 +63,9 @@ class addcategories extends StatelessWidget {
                     ),
                     CustomTextfild(
                       validate: (v) {
-                        return validinput(v!, 5, 50, "", "");
+                        return v != null
+                            ? validinput(v, 6, 100, "")
+                            : "Invalid input";
                       },
                       hintext: "Name English",
                       icon: Icons.category,
@@ -96,7 +105,8 @@ class addcategories extends StatelessWidget {
                       child: const Text("add data"))
                   : ElevatedButton(
                       onPressed: () {
-                        homecontroller.uppdatecategories(homecontroller.categoriesModel!.catId!);
+                        homecontroller.uppdatecategories(
+                            homecontroller.categoriesModel!.catId!);
                       },
                       child: const Text("edete data"))
             ],

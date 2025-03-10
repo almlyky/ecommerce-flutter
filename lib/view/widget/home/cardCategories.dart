@@ -23,11 +23,8 @@ class CardCategories extends StatelessWidget {
           flex: 1,
           child: InkWell(
             onTap: () {
-              // Productcontroller controllerpr = Get.find();
               controllerpr.getproduct(catmodel.catId!);
-              //print(controllerpr.dataProduct);
               controlerhome.gotoproduct();
-              // controlerhome.dataCat[i]["cat_id"]);
             },
             child: Container(
               margin: const EdgeInsets.all(10),

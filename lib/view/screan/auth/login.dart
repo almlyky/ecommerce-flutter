@@ -1,23 +1,16 @@
 import 'package:eccommerce_new/controler/auth/logincontrolers.dart';
-import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
+import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/core/my_function/validinput.dart';
-import 'package:eccommerce_new/view/screan/auth/signup.dart';
 import 'package:eccommerce_new/view/widget/login/costomtextfiald.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
-
-import '../../widget/login/custombuttonlogin.dart';
-import '../../widget/onboarding/buttons.dart';
 
 class login extends StatelessWidget {
   const login({super.key});
-
   @override
   Widget build(BuildContext context) {
-    logincontrolersimp controler = Get.put(logincontrolersimp());
+    Logincontrolers controler = Get.put(Logincontrolers());
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -25,36 +18,31 @@ class login extends StatelessWidget {
           key: controler.formstae,
           child: ListView(
             children: [
-              // Center(
-              //   child: Container(
-              //       margin: const EdgeInsets.only(top: 60),
-              //       child: Text("5".tr,
-              //           style: Theme.of(context).textTheme.displayMedium)),
-              // ),
-              Container(
-                  margin: EdgeInsets.only(top: 100),
-                  child: const CircleAvatar(
-                    radius: 50,
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                    ),
-                  )),
+              SizedBox(
+                height: 70,
+              ),
+              Center(
+                child: Container(
+                    margin: const EdgeInsets.only(top: 60),
+                    child: Text("login".tr,
+                        style: Theme.of(context).textTheme.displayLarge)),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Center(child: Text("welcom_login".tr)),
               const SizedBox(
                 height: 60,
               ),
 
               //textfield email
               customtextfaild(
-                chech: (val) {
-                  controler.error = "";
-                },
                 valid: (val) {
-                  return validinput(val!, 5, 50, "username", controler.error);
+                  return validinput(val!, 6, 60, "username");
                 },
                 typeinput: TextInputType.emailAddress,
                 controller: controler.email,
-                hint: "email".tr,
+                hint: "username".tr,
                 icon: Icons.person,
                 checkpass: false,
               ),
@@ -63,12 +51,8 @@ class login extends StatelessWidget {
               ),
               //textfield password
               customtextfaild(
-                  chech: (val) {
-                    controler.error = "";
-                  },
                   valid: (val) {
-                    return validinput(
-                        val!, 5, 100, "password", controler.error);
+                    return validinput(val!, 6, 20, "password");
                   },
                   typeinput: TextInputType.text,
                   controller: controler.passowrd,
@@ -81,18 +65,26 @@ class login extends StatelessWidget {
                 height: 10,
               ),
               Container(
-                  alignment: Alignment.topRight,
-                  child: TextButton(
-                      onPressed: () {
-                        controler.gotoforget();
-                      },
-                      child: Text(
-                        "forget_password".tr,
-                      ))),
+                alignment: AlignmentDirectional.centerStart,
+                child: TextButton(
+                    onPressed: () {
+                      controler.gotoforget();
+                    },
+                    child: Text(
+                      textAlign: TextAlign.start,
+                      "forget_password".tr,
+                    )),
+              ),
 
               //button login
-              GetBuilder<logincontrolersimp>(
-                builder: (controlerlogin) => ElevatedButton(
+              GetBuilder<Logincontrolers>(
+                builder: (controlerlogin) => AbsorbPointer(
+                  absorbing: controler.load,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: controler.load
+                            ? const Color.fromARGB(255, 140, 139, 139)
+                            : Appcolor.buttoncolor),
                     onPressed: () {
                       controler.login();
                     },
@@ -100,9 +92,11 @@ class login extends StatelessWidget {
                         ? SizedBox(
                             height: 50,
                             width: 50,
-                            child: Lottie.asset("assist/lottie/loading.json"),
+                            child: Lottie.asset("assets/lottie/loading.json"),
                           )
-                        : Text("login".tr)),
+                        : Text("login".tr),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 40,
@@ -128,7 +122,33 @@ class login extends StatelessWidget {
                             horizontal: 20, vertical: 0),
                         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.defaultDialog(
+                          title: "نجاح",
+                          titleStyle: TextStyle(
+                              color: Colors.green,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                          content: Column(
+                            children: [
+                              Icon(Icons.check_circle,
+                                  color: Colors.green, size: 70),
+                              SizedBox(height: 10),
+                              Text('تمت العملية بنجاح!',
+                                  textAlign: TextAlign.center),
+                            ],
+                          ),
+                          // textConfirm: "موافق",
+                          confirm: TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text("موافق")),
+                          // confirmTextColor: Colors.white,
+                          // textCancel: "إلغاء"
+                          // onConfirm: ()=>Get.back()
+                        );
+                      },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

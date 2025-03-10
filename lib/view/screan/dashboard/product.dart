@@ -23,20 +23,26 @@ class productdash extends StatefulWidget {
 class _productdashState extends State<productdash> {
   //  Productcontroller controllerproduct = Get.put(Productcontroller());
   // dashhomcontrollerimp controller = Get.put(dashhomcontrollerimp());
-  homepagecontrolerimp homecontroller = Get.put(homepagecontrolerimp());
+  homepagecontrolerimp homecontroller = Get.find();
   ProductModel? productModel;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            homecontroller.gotoinsertproduct();
+          }, icon: Icon(Icons.add))
+        ],
+      ),
       body: Column(
         children: [
-          ElevatedButton(
-              onPressed: () {
-                homecontroller.gotoinsertproduct();
-              },
-              child: const Text("add product")),
+          // ElevatedButton(
+          //     onPressed: () {
+          //       homecontroller.gotoinsertproduct();
+          //     },
+          //     child: const Text("add product")),
           Expanded(
               child: GetBuilder<homepagecontrolerimp>(
             // init: dashhomcontrollerimp(),
