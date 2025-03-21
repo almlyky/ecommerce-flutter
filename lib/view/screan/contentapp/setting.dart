@@ -1,7 +1,7 @@
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/core/serveces/serveces.dart';
-import 'package:eccommerce_new/view/screan/contentapp/HomeScrean.dart';
+import 'package:eccommerce_new/view/widget/settings/customlistTile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,9 +13,6 @@ class Setting extends StatelessWidget {
     setteng controller = Get.find();
     localecontroler localcontroller = Get.put(localecontroler());
     return Scaffold(
-        // appBar: AppBar(
-        //   title: const Text("Setting"),
-        // ),
         body: ListView(
       children: [
         UserAccountsDrawerHeader(

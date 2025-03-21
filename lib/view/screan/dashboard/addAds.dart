@@ -1,10 +1,8 @@
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
-import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/core/my_function/validinput.dart';
 import 'package:eccommerce_new/view/widget/shared/customTextfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
 class Addads extends StatelessWidget {
   final String action;
@@ -14,7 +12,7 @@ class Addads extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add ads"),
+        title: Text(action == "add" ? "add_ad".tr : "edit_ad".tr),
       ),
       body: GetBuilder<homepagecontrolerimp>(
         builder: (controller) => Padding(
@@ -27,6 +25,7 @@ class Addads extends StatelessWidget {
                     spacing: 10,
                     children: [
                       CustomTextfild(
+                          textInputType: TextInputType.url,
                           validate: (v) {
                             return validinput(
                               v!,
@@ -36,16 +35,17 @@ class Addads extends StatelessWidget {
                             );
                             // return validinput(v!, 5, 50, "", "");
                           },
-                          hintext: "ادخل رابط الإعلان",
+                          hintext: "enter_url_ads".tr,
                           icon: Icons.link,
                           controller: controller.url),
                       InkWell(
                         onTap: () {
-                          controller.choseDate(context,controller.expireddate);
+                          controller.choseDate(context, controller.expireddate);
                         },
                         child: AbsorbPointer(
                           absorbing: true,
                           child: CustomTextfild(
+                              textInputType: TextInputType.datetime,
                               validate: (v) {
                                 return validinput(
                                   v!,
@@ -55,7 +55,7 @@ class Addads extends StatelessWidget {
                                 );
                                 // return validinput(v!, 5, 50, "", "");
                               },
-                              hintext: "اختر تأريخ انتهاء الإعلان",
+                              hintext: "enter_expiry_date_ads".tr,
                               icon: Icons.date_range_outlined,
                               controller: controller.expireddate),
                         ),
@@ -87,26 +87,17 @@ class Addads extends StatelessWidget {
                                     ),
                                   )),
                       ),
-                      // ElevatedButton(
-                      //     onPressed: () {
-                      //       controller.choseimage();
-                      //     },
-                      //     child: Text("اختر الصورة")),
-                      // controller.image != null
-                      //     ? Image.file(
-                      //         controller.image!,
-                      //         height: 100,
-                      //         fit: BoxFit.cover,
-                      //       )
-                      //     : SizedBox(),
-                      ElevatedButton(
-                          onPressed: () {
-                            action == "add"
-                                ? controller.addads()
-                                : controller
-                                    .updateads(controller.addsModel.id!);
-                          },
-                          child: Text(action == "add" ? "add".tr : "edite".tr))
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              action == "add"
+                                  ? controller.addads()
+                                  : controller
+                                      .updateads(controller.addsModel.id!);
+                            },
+                            child: Text(action == "add" ? "add".tr : "edite".tr)),
+                      )
                     ],
                   ))
             ],

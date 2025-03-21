@@ -10,6 +10,7 @@ class Ads extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("ads".tr),
         actions: [
           IconButton(
               onPressed: () {
@@ -20,12 +21,6 @@ class Ads extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // SizedBox(height: 30),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       Get.toNamed(AppRoute.addads);
-          //     },
-          //     child: const Text("Add Ads")),
           Expanded(
             child: GetBuilder<homepagecontrolerimp>(
                 builder: (controller) => Padding(
@@ -52,10 +47,6 @@ class Ads extends StatelessWidget {
                                         controller.addsModel =
                                             controller.dataAdds[index];
                                         controller.gotoEditeAds();
-                                        // controlerhome.categoriesModel =
-                                        //     controlerhome.datacatModel[i];
-                                        // controlerhome.gotoedeteCategories();
-                                        // controlerhome.got
                                       }),
                                   InkWell(
                                     child: const Icon(

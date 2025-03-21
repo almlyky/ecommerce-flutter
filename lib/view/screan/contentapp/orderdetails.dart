@@ -1,14 +1,9 @@
 import 'package:eccommerce_new/controler/contentapp/ordercontroller.dart';
-import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/data/model/orderitemmodel.dart';
-import 'package:eccommerce_new/view/widget/cart/cardcart.dart';
 import 'package:eccommerce_new/view/widget/order/cardorder.dart';
-import 'package:eccommerce_new/view/widget/order/cardorderDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../controler/contentapp/cartcontroller.dart';
 import '../../../core/my_classes/HandlingDataView.dart';
 
 class Orderdetails extends StatelessWidget {
@@ -16,11 +11,11 @@ class Orderdetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  Ordercontroller ordercontroller = Get.put(Ordercontroller());
+    Ordercontroller ordercontroller = Get.put(Ordercontroller());
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Order Detals"),
+          title: Text("order_detail".tr),
         ),
         body: GetBuilder<Ordercontroller>(
             builder: (controller) => Handlingdataview(
@@ -29,8 +24,8 @@ class Orderdetails extends StatelessWidget {
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CardOrder(
-                        typeAcount: "user",
-                         showdetails: "show",
+                          typeAcount: "user",
+                          showdetails: "show",
                           orderModel: controller.orderModel!,
                           ordercontroller: ordercontroller),
                       Container(
@@ -44,11 +39,6 @@ class Orderdetails extends StatelessWidget {
                                   ProductCard(
                                       orderItemModel:
                                           controller.dataOrderItem[i])
-                                  // Cardorderdetails(
-                                  //   orderItemModel:
-                                  //       controller.dataOrderItem[i],
-                                  // ),
-                                  // Divider()
                                 ],
                               );
                             }),
@@ -100,36 +90,10 @@ class ProductCard extends StatelessWidget {
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                   const SizedBox(height: 8),
-                  // Row(
-                  //   children: [
-                  //     Text(
-                  //       'Color: ',
-                  //       style: TextStyle(color: Colors.grey),
-                  //     ),
-                  //     Text(
-                  //       "color",
-                  //       style: TextStyle(color: Colors.grey[800]),
-                  //     ),
-                  //     const SizedBox(width: 16),
-                  //     Text(
-                  //       'Size: ',
-                  //       style: TextStyle(color: Colors.grey),
-                  //     ),
-                  //     Text(
-                  //       "size",
-                  //       style: TextStyle(color: Colors.grey[800]),
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(height: 8),
-                  // Text(
-                  //   "Units: unit",
-                  //   style: TextStyle(color: Colors.grey[800]),
-                  // ),
                 ],
               ),
             ),
-            // Product price
             Text(
               '\$${orderItemModel.product!.prCost}',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

@@ -55,30 +55,30 @@ class home extends StatelessWidget {
                 body: ListView(
                   children: [
                     const SizedBox(height: 10),
-                    Adsview(controlerhome: controlerhome),
-                    const SizedBox(height: 10),
-                    if (controlerhome.dataAdds.isNotEmpty)
-                      Center(
-                        child: Obx(
-                          () => AnimatedSmoothIndicator(
-                            activeIndex: controlerhome.currentIndex.value,
-                            count: controlerhome.dataAdds.length,
-                            effect: const ExpandingDotsEffect(
-                              activeDotColor: Colors.black,
-                              dotColor: Colors.grey,
-                              dotHeight: 8,
-                              dotWidth: 8,
-                              expansionFactor: 3,
-                            ),
-                          ),
-                        ),
-                      ),
                     controlerhome.isSearch == false
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Adsview(controlerhome: controlerhome),
+                              const SizedBox(height: 10),
+                              if (controlerhome.dataAdds.isNotEmpty)
+                                Center(
+                                  child: Obx(
+                                    () => AnimatedSmoothIndicator(
+                                      activeIndex:
+                                          controlerhome.currentIndex.value,
+                                      count: controlerhome.dataAdds.length,
+                                      effect: const ExpandingDotsEffect(
+                                        activeDotColor: Colors.black,
+                                        dotColor: Colors.grey,
+                                        dotHeight: 8,
+                                        dotWidth: 8,
+                                        expansionFactor: 3,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               const SizedBox(height: 16),
-                              // const ButonsFilterAndsort(),
                               SizedBox(
                                   height: 140,
                                   child: Handlingdataview(
@@ -88,8 +88,6 @@ class home extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: ListView.builder(
-                                              controller: controlerhome
-                                                  .scrollController,
                                               scrollDirection: Axis.horizontal,
                                               itemCount: controlerhome
                                                   .datacatModel.length,
@@ -114,7 +112,7 @@ class home extends StatelessWidget {
                               const SizedBox(height: 10),
 
                               const SizedBox(height: 10),
-                               Text(
+                              Text(
                                 "foryou".tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 24),

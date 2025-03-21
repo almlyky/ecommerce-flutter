@@ -5,7 +5,6 @@ import 'package:eccommerce_new/core/constant/linksapi.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
 import 'package:eccommerce_new/data/remote/controlData.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/my_classes/statusrequest.dart';
 import '../../core/my_function/handledata.dart';
@@ -51,6 +50,11 @@ class Productcontroller extends GetxController
         return ProductModel.fromJson(item);
       }).toList();
       dataproductCategoristModel.addAll(products);
+    }
+    else if (statusRequestCatProduct == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }

@@ -44,6 +44,7 @@ class ProductModel {
     data['pr_name_en'] = prNameEn;
     data['pr_cost'] = "$prCost";
     data['pr_detail'] = prDetail;
+    data['pr_discoutn'] = "$prDiscount";
     data['pr_detail_en'] = prDetailEn;
     data['cat_fk'] = "$catFk";
     return data;

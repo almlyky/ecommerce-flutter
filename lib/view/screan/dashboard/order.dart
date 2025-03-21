@@ -1,5 +1,4 @@
 import 'package:eccommerce_new/controler/contentapp/ordercontroller.dart';
-import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/view/widget/order/cardorder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +11,7 @@ class Orderdash extends StatelessWidget {
     Ordercontroller ordercontroller = Get.put(Ordercontroller());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Orders"),
+        title: Text("orders".tr),
       ),
       body: GetBuilder<Ordercontroller>(
         builder: (controller) => ListView.builder(
@@ -30,11 +29,7 @@ class Orderdash extends StatelessWidget {
                       orderModel: ordercontroller.dataOrderModel[index],
                     ),
                   ),
-                )
-            // child: ListTile(
-            //   title: Text("${ordercontroller.dataOrderModel[index].address}"),
-            //   subtitle:Text("${ordercontroller.dataOrderModel[index].orderCode}") ,
-            ),
+                )),
       ),
     );
   }

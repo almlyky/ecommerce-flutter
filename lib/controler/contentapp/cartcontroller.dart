@@ -4,25 +4,21 @@ import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
-import 'package:eccommerce_new/data/remote/cartdata.dart';
 import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Cartcontroller extends GetxController {
-  CartData cartData = CartData();
   int totalPrice = 0;
   List<CartModel> dataCartModels = [];
 
-  List dataCoupon = [];
   late StatusRequest statusRequest;
   int discount = 0;
-
+  RxInt cartcount = 0.obs;
   late StatusRequest statusRequestCoupon;
   TextEditingController couponName = TextEditingController();
   Controldata controldata = Controldata();
   Settingcontroller settingcontroller = Get.find();
-
 
   getdatacart() async {
     statusRequest = StatusRequest.loading;
@@ -34,7 +30,12 @@ class Cartcontroller extends GetxController {
         return CartModel.fromJson(cart);
       }).toList();
       dataCartModels.addAll(cartList);
+      cartcount.value = dataCartModels.length;
       initTotal();
+    } else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }
@@ -61,9 +62,14 @@ class Cartcontroller extends GetxController {
         }
       } else {
         dataCartModels.add(cartModel);
+        cartcount.value += 1;
         int price = cartModel.prFk!.prCost!;
         totalPrice += price;
       }
+    } else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }
@@ -76,6 +82,8 @@ class Cartcontroller extends GetxController {
     statusRequest = handlingData(response);
     if (statusRequest == StatusRequest.success) {
       dataCartModels.clear();
+      totalPrice = 0;
+      cartcount = 0.obs;
     }
     update();
   }
@@ -89,9 +97,15 @@ class Cartcontroller extends GetxController {
     if (StatusRequest.success == statusRequest) {
       // CartModel cartModel=
       dataCartModels.removeWhere((element) => element.cartId == cartId);
+      cartcount.value -= 1;
 
       initTotal();
+    } else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
+
     update();
   }
 
@@ -114,6 +128,11 @@ class Cartcontroller extends GetxController {
         }
       }
     }
+    else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
+    }
     update();
   }
 
@@ -129,28 +148,28 @@ class Cartcontroller extends GetxController {
     statusRequestCoupon = StatusRequest.loading;
     var response = await controldata.addData(checkcoupon,
         {"co_name": couponName.text}, settingcontroller.accesstoken!);
-    //  cartData.checkCoupon(couponName.text);
     statusRequestCoupon = handlingData(response);
     if (statusRequestCoupon == StatusRequest.success) {
       discount = response['data']['co_discount'];
-      // if (check == 0) {
-      totalPrice -= discount;
-      //   check++;
-      // }
     } else if (statusRequestCoupon == StatusRequest.failure) {
       discount = 0;
-      // initTotal();
       Get.rawSnackbar(
           title: "اشعار",
-          messageText: const Text("the coupon not found or expired !",
+          messageText: Text("the_coupon_not_exist_or_is_expired".tr,
               style: TextStyle(
                 color: Colors.white,
               )));
+    }
+    else if (statusRequestCoupon == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }
 
   gotochechout() {
+    discount = 0;
     Get.toNamed(AppRoute.checkout);
   }
 

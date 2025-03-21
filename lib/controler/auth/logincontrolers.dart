@@ -1,7 +1,7 @@
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
+import 'package:eccommerce_new/core/my_function/checkinternet.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
-import 'package:eccommerce_new/data/remote/auth/logindata.dart';
 import 'package:eccommerce_new/data/remote/controlData.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,6 @@ class Logincontrolers extends GetxController {
   late StatusRequest statusRequestlogin;
   bool load = false;
 
-  Logindata logindata = Logindata();
   Controldata controldata = Controldata();
   late StatusRequest statusRequestUser;
 
@@ -39,8 +38,6 @@ class Logincontrolers extends GetxController {
     super.dispose();
   }
 
-
-
   gotosignup() {
     Get.offNamed(AppRoute.signup);
   }
@@ -55,23 +52,28 @@ class Logincontrolers extends GetxController {
 
   // signin in firebase with google acount
   Future<User?> signInWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    if (checkinternet()) {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-    if (googleUser != null) {
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
 
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
 
-      final userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      return userCredential.user;
+        final userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        return userCredential.user;
+      }
+      return null;
     }
-    return null;
+    else{
+      Get.rawSnackbar(message: "لا يوجد اتصال بالانترنت");
+    }
   }
 
   // signin in App with google acount
@@ -85,7 +87,14 @@ class Logincontrolers extends GetxController {
       contrller.shared.setString("rule", "user");
       contrller.shared.setString("accesstoken", response["access_token"]);
       gotohome();
-    } else {
+    }
+    else if (statusRequestlogin == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
+    }
+    
+     else {
       Get.rawSnackbar(
           title: "إشعار",
           messageText: Text("يوجد خطأ ",
@@ -128,7 +137,13 @@ class Logincontrolers extends GetxController {
             Get.offNamed(AppRoute.dashhome);
           }
         }
-      } else {
+      }
+      else if (statusRequestUser == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
+    }
+       else {
         load = false;
         update();
       }

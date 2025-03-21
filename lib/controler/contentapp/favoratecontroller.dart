@@ -16,6 +16,8 @@ class Favoratecontroller extends GetxController {
   Controldata controldata = Controldata();
   Settingcontroller settingcontroller = Get.find();
 
+  RxInt favoriteCount = 0.obs;
+
   getFavorite() async {
     dataFavoriteModel.clear();
     statusRequest = StatusRequest.loading;
@@ -27,6 +29,12 @@ class Favoratecontroller extends GetxController {
         return FavoriteModel.fromJson(item);
       }).toList();
       dataFavoriteModel.addAll(favorite);
+      favoriteCount.value = favorite.length;
+    }
+    else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }
@@ -44,12 +52,18 @@ class Favoratecontroller extends GetxController {
       if (StatusRequest.success == statusRequest) {
         FavoriteModel favoriteModel = FavoriteModel.fromJson(response);
         dataFavoriteModel.add(favoriteModel);
+        favoriteCount.value++;
         Get.rawSnackbar(
             title: "اشعار",
             messageText: const Text("تم اضافة المنتج من المفضلة ",
                 style: TextStyle(color: Colors.white)));
         // dataFavorite.add(response);
       }
+      else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
+    }
       update();
     } else {
       Get.toNamed(AppRoute.login);
@@ -66,6 +80,7 @@ class Favoratecontroller extends GetxController {
     if (StatusRequest.success == statusRequest) {
       dataFavoriteModel
           .removeWhere((element) => element.prFk!.prId == productID);
+          favoriteCount.value--;
       Get.rawSnackbar(
           title: "اشعار",
           messageText: const Text("تم حذف المنتج من المفضلة ",
@@ -73,6 +88,11 @@ class Favoratecontroller extends GetxController {
                 color: Colors.white,
               )));
       // dataFavorite.addAll(response);
+    }
+    else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }

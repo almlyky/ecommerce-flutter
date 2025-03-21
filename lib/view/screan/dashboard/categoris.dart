@@ -1,22 +1,19 @@
 import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
-import 'package:eccommerce_new/view/screan/dashboard/addcategories.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../controler/dashboard/dashhomecontroller.dart';
 import '../../../controler/homepagecontroler.dart';
-import '../../../core/constant/linksapi.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class categoriesdash extends StatelessWidget {
   const categoriesdash({super.key});
 
-  // dashhomcontrollerimp controller = Get.put(dashhomcontrollerimp());
 
   @override
   Widget build(BuildContext context) {
     homepagecontrolerimp controlerhome = Get.find();
     return Scaffold(
       appBar: AppBar(
+        title: Text("categories".tr),
         actions: [
           IconButton(onPressed: (){
                 controlerhome.gotoinsertcategories();
@@ -25,12 +22,6 @@ class categoriesdash extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // ElevatedButton(
-          //     onPressed: () {
-          //       controlerhome.gotoinsertcategories();
-          //     },
-          //     child: const Text("add categories")),
-          // const SizedBox(height: 20),
           Expanded(
               child: GetBuilder<homepagecontrolerimp>(
                 builder: (controller) => 
@@ -101,7 +92,6 @@ class categoriesdash extends StatelessWidget {
                                               ),
                                               TextButton(
                                                 onPressed: () {
-                                                  print("ok");
                                                   Navigator.pop(context, 'OK');
                                                 },
                                                 child: const Text('نعم'),

@@ -15,7 +15,7 @@ class addproduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$typeevent product"),
+        title: Text(typeevent == "add" ? "add_product".tr : "edit_product".tr),
       ),
       body: GetBuilder<homepagecontrolerimp>(
           // init: dashhomcontrollerimp(),
@@ -30,8 +30,9 @@ class addproduct extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomTextfild(
+                      textInputType: TextInputType.text ,
                         controller: controller.prname,
-                        hintext: "name arabic",
+                        hintext: "enter_name_arabic".tr,
                         icon: Icons.cancel_outlined,
                         validate: (v) {
                           return validinput(v!, 6, 100, "");
@@ -40,8 +41,9 @@ class addproduct extends StatelessWidget {
                       height: 10,
                     ),
                     CustomTextfild(
-                        controller: controller.prname,
-                        hintext: "name english",
+                      textInputType: TextInputType.text ,
+                        controller: controller.prnameEn,
+                        hintext: "enter_name_english".tr,
                         icon: Icons.cancel_outlined,
                         validate: (v) {
                           return validinput(v!, 6, 100, "");
@@ -50,8 +52,9 @@ class addproduct extends StatelessWidget {
                       height: 10,
                     ),
                     CustomTextfild(
+                      textInputType: TextInputType.text ,
                         controller: controller.details,
-                        hintext: "details arabic",
+                        hintext: "enter_details_arabic".tr,
                         icon: Icons.cancel_outlined,
                         validate: (v) {
                           return validinput(v!, 6, 100, "");
@@ -60,8 +63,9 @@ class addproduct extends StatelessWidget {
                       height: 10,
                     ),
                     CustomTextfild(
+                      textInputType: TextInputType.text ,
                         controller: controller.detailsEn,
-                        hintext: "details english",
+                        hintext: "enter_details_english".tr,
                         icon: Icons.details,
                         validate: (v) {
                           return validinput(v!, 6, 100, "");
@@ -70,12 +74,27 @@ class addproduct extends StatelessWidget {
                       height: 10,
                     ),
                     CustomTextfild(
+                      textInputType: TextInputType.number,
                         controller: controller.price,
-                        hintext: "pricte",
+                        hintext: "enter_price".tr,
                         icon: Icons.price_change,
                         validate: (v) {
                           return validinput(v!, 6, 100, "");
                         }),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CustomTextfild(
+                      textInputType: TextInputType.number,
+                        controller: controller.prdiscount,
+                        hintext: "enter_discount".tr,
+                        icon: Icons.discount_rounded,
+                        validate: (v) {
+                          return validinput(v!, 6, 100, "");
+                        }),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     customdropdown(
                         datadrop: controller.catName,
                         onChanged: (v) {
@@ -96,20 +115,16 @@ class addproduct extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: controller.choseimage,
-                  child: const Text("chose image")),
+                  child: Text("chose_image".tr)),
               const SizedBox(height: 20),
-              typeevent == "add"
-                  ? ElevatedButton(
+             ElevatedButton(
                       onPressed: () {
-                        controller.addProduct();
+                          typeevent == "add"?
+                        controller.addProduct():
+                        controller.updateProduct(controller.productModel!.prId!);
                       },
-                      child: const Text("add data"))
-                  : ElevatedButton(
-                      onPressed: () {
-                        controller
-                            .updateProduct(controller.productModel!.prId!);
-                      },
-                      child: const Text("edete data"))
+                      child:  Text( typeevent == "add"?"add".tr:"edite".tr))
+                 
             ],
           ),
         );

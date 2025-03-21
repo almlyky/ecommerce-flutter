@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/core/midleware.dart';
 import 'package:eccommerce_new/view/screan/auth/forgerpass.dart';
@@ -23,9 +22,11 @@ import 'package:eccommerce_new/view/screan/contentapp/product.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 import 'package:eccommerce_new/view/screan/contentapp/order.dart';
+import 'package:eccommerce_new/view/screan/onboarding.dart';
 import 'package:get/get.dart';
 
 List<GetPage<dynamic>>? routeapp = [
+  GetPage(name: AppRoute.onboarding, page: ()=>onboarding(),middlewares: [Onboardingmiddleware()]),
   GetPage(
       name: AppRoute.login,
       page: () => const login(),
@@ -46,7 +47,7 @@ List<GetPage<dynamic>>? routeapp = [
   GetPage(name: AppRoute.homepage, page: () => const Homescrean()),
   GetPage(name: AppRoute.product, page: () => product()),
   GetPage(name: AppRoute.detailsProduct, page: () => const ProductDetailPage()),
-  GetPage(name: AppRoute.dashhome, page: () => const dashhome()),
+  GetPage(name: AppRoute.dashhome, page: () => const Dashhome()),
   GetPage(name: AppRoute.categorishome, page: () => const categoriesdash()),
   GetPage(name: AppRoute.homepage, page: () => const home()),
   GetPage(name: AppRoute.cart, page: () => const cart()),
@@ -68,5 +69,7 @@ List<GetPage<dynamic>>? routeapp = [
       page: () => const addcategories(typeevent: "edete")),
   GetPage(name: AppRoute.addads, page: () => const Addads(action: "add")),
   GetPage(name: AppRoute.editeads, page: () => const Addads(action: "edite")),
-  GetPage(name: AppRoute.addcoupon, page: ()=> const Addcoupon())
+  GetPage(name: AppRoute.addcoupon, page: ()=> const Addcoupon(action: "add")),
+  GetPage(name: AppRoute.editecoupon, page: ()=> const Addcoupon(action:"edite"))
+
 ];

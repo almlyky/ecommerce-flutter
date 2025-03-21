@@ -16,12 +16,44 @@ class ProductDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('product_details'.tr),
         actions: [
-          IconButton(
-              onPressed: () {
-                Get.toNamed(AppRoute.cart);
-                // Get.to(const cart());
-              },
-              icon: const Icon(Icons.shopping_cart_rounded))
+          Obx(
+            () =>
+             Stack(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoute.cart);
+                      // Get.to(const cart());
+                    },
+                    icon: const Icon(Icons.shopping_cart_rounded)),
+                    if(controllercart.cartcount.value>0)
+                Positioned(
+                  right: 3,
+                  top: 3,
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    constraints: BoxConstraints(
+                      minWidth: 18,
+                      minHeight: 18,
+                    ),
+                    child: Text(
+                      controllercart.cartcount.value.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
       body: Padding(

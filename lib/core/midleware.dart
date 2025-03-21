@@ -13,7 +13,20 @@ class Authmiddleware extends GetMiddleware {
     if (contrller.shared.getString("rule") == "admin") {
       return const RouteSettings(name: AppRoute.dashhome);
     }
+    if(contrller.shared.getString("rule") == "login"){
+      return const RouteSettings(name: AppRoute.login);
+    }
     return null;
   }
 }
 
+class Onboardingmiddleware extends GetMiddleware {
+  setteng contrller = Get.find();
+  @override
+  RouteSettings? redirect(String? s) {
+    if (contrller.shared.getBool("onboarding") == false) {
+      return const RouteSettings(name: AppRoute.login);
+    }
+    return null;
+  }
+}

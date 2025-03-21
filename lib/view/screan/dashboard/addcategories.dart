@@ -1,39 +1,21 @@
-import 'dart:io';
-import 'package:eccommerce_new/controler/dashboard/dashhomecontroller.dart';
 import 'package:eccommerce_new/core/my_function/validinput.dart';
-import 'package:eccommerce_new/view/widget/login/costomtextfiald.dart';
 import 'package:eccommerce_new/view/widget/shared/customTextfield.dart';
 import 'package:get/get.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:flutter/material.dart';
-import 'dashhome.dart';
-import 'package:image_picker/image_picker.dart';
 
 class addcategories extends StatelessWidget {
   final String typeevent;
-  // final id;
-  // final data;
   const addcategories({super.key, required this.typeevent});
-
-  // void initState() {
-  //   if (widget.typeevent == "edete") {
-  //     controller.name.text = widget.data[0];
-  //     controller.image = widget.data[1];
-  //   }
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     homepagecontrolerimp homecontroller = Get.find();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("$typeevent categories"),
+        title: Text(typeevent == "add" ? "add_category".tr : "edit_category".tr),
       ),
-      body: GetBuilder<homepagecontrolerimp>(
-          // init: dashhomcontrollerimp(),
-          builder: (control) {
+      body: GetBuilder<homepagecontrolerimp>(builder: (control) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
@@ -44,6 +26,7 @@ class addcategories extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomTextfild(
+                      textInputType: TextInputType.text,
                       validate: (v) {
                         return validinput(
                           v!,
@@ -54,7 +37,7 @@ class addcategories extends StatelessWidget {
 
                         // return validinput(v!, 5, 50, "", "");
                       },
-                      hintext: "Name Arabic",
+                      hintext: "enter_name_arabic".tr,
                       icon: Icons.category,
                       controller: homecontroller.nameCat,
                     ),
@@ -62,25 +45,14 @@ class addcategories extends StatelessWidget {
                       height: 20,
                     ),
                     CustomTextfild(
+                      textInputType: TextInputType.text,
                       validate: (v) {
-                        return v != null
-                            ? validinput(v, 6, 100, "")
-                            : "Invalid input";
+                     return validinput(v!, 6, 100, "");
                       },
-                      hintext: "Name English",
+                      hintext: "enter_name_english".tr,
                       icon: Icons.category,
                       controller: homecontroller.nameCatEn,
                     ),
-                    // TextFormField(
-                    //   controller: homecontroller.nameCatEn,
-                    //   validator: (v) {
-                    //     return validinput(v!, 5, 50, "", "");
-                    //   },
-                    //   decoration: const InputDecoration(
-                    //       contentPadding: EdgeInsets.all(10),
-                    //       hintText: "Name English ",
-                    //       prefixIcon: Icon(Icons.category)),
-                    // )
                   ],
                 ),
               ),
@@ -95,20 +67,16 @@ class addcategories extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                   onPressed: homecontroller.choseimage,
-                  child: const Text("chose image")),
+                  child: Text("chose_image".tr)),
               const SizedBox(height: 20),
-              typeevent == "add"
-                  ? ElevatedButton(
-                      onPressed: () {
-                        homecontroller.addcategories();
-                      },
-                      child: const Text("add data"))
-                  : ElevatedButton(
-                      onPressed: () {
-                        homecontroller.uppdatecategories(
+              ElevatedButton(
+                  onPressed: () {
+                    typeevent == "add"
+                        ? homecontroller.addcategories()
+                        : homecontroller.uppdatecategories(
                             homecontroller.categoriesModel!.catId!);
-                      },
-                      child: const Text("edete data"))
+                  },
+                  child: Text(typeevent == "add" ? "add".tr : "edite".tr)),
             ],
           ),
         );

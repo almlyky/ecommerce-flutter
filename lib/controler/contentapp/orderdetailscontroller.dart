@@ -3,6 +3,7 @@ import 'package:eccommerce_new/core/my_classes/statusrequest.dart';
 import 'package:eccommerce_new/core/my_function/handledata.dart';
 import 'package:eccommerce_new/data/model/orderitemmodel.dart';
 import 'package:eccommerce_new/data/remote/controlData.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class Orderdetailscontroller extends GetxController {
@@ -20,6 +21,11 @@ class Orderdetailscontroller extends GetxController {
         return OrderItemModel.fromJson(order);
       }).toList();
       dataOrderItem.addAll(orders);
+    }
+    else if (statusRequestOrderItem == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }

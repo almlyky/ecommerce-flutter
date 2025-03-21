@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:eccommerce_new/controler/contentapp/settingcontroller.dart';
+import 'package:eccommerce_new/core/my_function/checkinternet.dart';
 import 'package:eccommerce_new/data/model/addsmodel.dart';
 import 'package:eccommerce_new/view/screan/contentapp/favorate.dart';
 import 'package:eccommerce_new/view/screan/contentapp/setting.dart';
@@ -39,7 +40,6 @@ class homepagecontrolerimp extends GetxController {
   List<ProductModel> dataproductSearchModel = [];
 
   Controldata controldata = Controldata();
-  final ScrollController scrollController = ScrollController();
   RxDouble innerOffset = 0.0.obs;
   RxDouble totalhigtscroll = 1.0.obs;
   final CarouselSliderController carouselController =
@@ -60,6 +60,9 @@ class homepagecontrolerimp extends GetxController {
       }).toList();
       dataproductModels.addAll(products);
     }
+    else if(statusRequestAllProduct == StatusRequest.offlineFailure){
+      statusRequestAllProduct = StatusRequest.offlineFailure;
+    }
     update();
   }
 
@@ -72,6 +75,9 @@ class homepagecontrolerimp extends GetxController {
         return AddsModel.fromJson(adds);
       }).toList();
       dataAdds.addAll(addmodel);
+    }
+    else if(statusRequestOffer == StatusRequest.offlineFailure){
+      statusRequestOffer = StatusRequest.offlineFailure;
     }
     update();
   }
@@ -87,6 +93,9 @@ class homepagecontrolerimp extends GetxController {
       }).toList();
       datacatModel.addAll(categories);
       // dataCat.addAll(response);
+    }
+    else if(statusRequestCat == StatusRequest.offlineFailure){
+      statusRequestCat = StatusRequest.offlineFailure;
     }
     for (var items in datacatModel) {
       catName.add(items.catName);
@@ -106,6 +115,9 @@ class homepagecontrolerimp extends GetxController {
       }).toList();
       dataproductSearchModel.addAll(products);
     }
+    else if(statusRequestSearch == StatusRequest.offlineFailure){
+      statusRequestSearch = StatusRequest.offlineFailure;
+    }
     update();
   }
 
@@ -118,11 +130,6 @@ class homepagecontrolerimp extends GetxController {
   @override
   void onInit() {
     getDate();
-    scrollController.addListener(() {
-      innerOffset.value = scrollController.offset;
-      totalhigtscroll.value = scrollController.position.maxScrollExtent;
-    });
-
     super.onInit();
   }
 
@@ -160,20 +167,12 @@ class homepagecontrolerimp extends GetxController {
   GlobalKey<FormState> forminsertCategories = GlobalKey<FormState>();
   GlobalKey<FormState> forminsertproduct = GlobalKey<FormState>();
   GlobalKey<FormState> forminsertads = GlobalKey<FormState>();
-  GlobalKey<FormState> forminsertcoupon = GlobalKey<FormState>();
-
 
   TextEditingController nameCat = TextEditingController();
   TextEditingController nameCatEn = TextEditingController();
 
   TextEditingController url = TextEditingController();
   TextEditingController expireddate = TextEditingController();
-
-  TextEditingController couponName = TextEditingController();
-  TextEditingController couponCount = TextEditingController();
-  TextEditingController couponDiscount = TextEditingController();
-  TextEditingController couponExpiredDate = TextEditingController();
-
 
   ProductModel? productModel;
   CategoriesModel? categoriesModel;
@@ -184,6 +183,7 @@ class homepagecontrolerimp extends GetxController {
   TextEditingController details = TextEditingController();
   TextEditingController detailsEn = TextEditingController();
   TextEditingController price = TextEditingController();
+  TextEditingController prdiscount = TextEditingController();
 
   var selectedcategories;
   // curd c = curd();
@@ -205,9 +205,7 @@ class homepagecontrolerimp extends GetxController {
 
   late AddsModel addsModel;
 
-  // Productdata productdata = Productdata();
   late int productId;
-
 //===================== go to edet page ===============
   gotoEdeteProduct() async {
     prname.text = productModel!.prName!;
@@ -222,17 +220,7 @@ class homepagecontrolerimp extends GetxController {
       }
     }
     selectedcategories = catname;
-
-    Uri uri = Uri.parse(productModel!.prImage!);
-    String fileName = uri.pathSegments.last;
-    var img = await http.get(uri);
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-
-    final file = File('$tempPath/$fileName');
-    await file.writeAsBytes(img.bodyBytes);
-
-    image = file;
+    image = await saveimagetofile(productModel!.prImage!);
     Get.toNamed(AppRoute.edeteproduct);
   }
 
@@ -246,6 +234,7 @@ class homepagecontrolerimp extends GetxController {
     productModel.prDetail = details.text;
     productModel.prDetailEn = detailsEn.text;
     productModel.prCost = int.parse(price.text);
+    productModel.prDiscount = prdiscount.text.isNotEmpty?int.parse(prdiscount.text):0;
     productModel.catFk = catid;
     var data = productModel.toJson();
 
@@ -290,6 +279,7 @@ class homepagecontrolerimp extends GetxController {
     productModel.prDetail = details.text;
     productModel.prDetailEn = detailsEn.text;
     productModel.prCost = int.parse(price.text);
+    productModel.prDiscount = prdiscount.text.isNotEmpty?int.parse(prdiscount.text):0;
     productModel.catFk = catid;
     var data = productModel.toJson();
 
@@ -346,29 +336,22 @@ class homepagecontrolerimp extends GetxController {
     categoriesModelinsert.catName = nameCat.text;
     categoriesModelinsert.catNameEn = nameCatEn.text;
     var data = categoriesModelinsert.toJson();
-    // print(data);
-
     var response = await controldata.uppdateDatawithFile("$djcatlist$id/", data,
         image!, "cat_image", settingcontroller.accesstoken!);
-    // homedata.getdatacat();
-    print(response);
     statusRequestCat = handlingData(response);
     if (StatusRequest.success == statusRequestCat) {
       CategoriesModel categoriesModel = CategoriesModel.fromJson(response);
-      // datacatModel.add(categoriesModel);
       for (int i = 0; i < datacatModel.length; i++) {
         if (categoriesModel.catId == datacatModel[i].catId) {
           datacatModel[i] = categoriesModel;
           catName[i] = categoriesModel.catName;
         }
       }
-      // catName.add(categoriesModel.catName);
       Get.rawSnackbar(
           title: "اشعار",
           messageText: const Text("تم تعديل الصنف  ",
               style: TextStyle(color: Colors.white)));
     }
-    // dataCat.addAll(response);
     update();
   }
 
@@ -441,7 +424,7 @@ class homepagecontrolerimp extends GetxController {
 
   // ================= chose date =======================
 
-  choseDate(BuildContext context,TextEditingController controller) async {
+  choseDate(BuildContext context, TextEditingController controller) async {
     DateTime? dateTimepicker = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),

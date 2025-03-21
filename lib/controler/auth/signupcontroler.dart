@@ -62,7 +62,13 @@ class Signupcontroler extends GetxController {
           userId = response['user']['pk'];
           Get.toNamed(AppRoute.verfycodesignup);
           // return null;
-        } else {
+        }
+        else if ( statusRequestsignup == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
+    }
+         else {
           // errorText = response["message"];
           Get.rawSnackbar(
               // title: "اشعار",

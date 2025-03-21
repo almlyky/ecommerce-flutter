@@ -9,6 +9,7 @@ class Mytranslte extends Translations {
           "delete": "حذف",
           "delete_all": "حذف الكل",
           "next": "التالي",
+          "skip":"تخطي",
           "welcom_sign": "مرحبا بك قم بإنشاء حساب !",
           "welcom_login": "مرحبا بك قم بتسجيل الدخول !",
           "email": "البريد الإلكتروني",
@@ -31,7 +32,13 @@ class Mytranslte extends Translations {
           "coupon_hint": "ادخل كود الخصم",
           "confirm": "تطبيق",
           "check_out": "متابعة الشراء",
+
           "products": "المنتجات",
+          "categories": "التصنيفات",
+          "ads":"الاعلانات",
+          "coupons":"الكوبونات",
+          "orders":"الطلبات",
+
           "favorite": "المفضلة",
           "cart": "سلة التسوق",
           "address": "العنوان",
@@ -75,14 +82,53 @@ class Mytranslte extends Translations {
           "verification_code": "كود التحقق",
           "enter_code": "ادخل كود التحقق",
           "error_otp":"الكود الذي ادخلته غير صحيح!",
-          "foryou":"مقترحة"
+          "foryou":"مقترحة",
+          "chose_image":"اختر صورة",
+
+          "dashboard":"لوحة التحكم",
+          "add_product":"اضافة منتج",
+          "add_category":"اضافة تصنيف",
+          "add_coupon":"اضافة كوبون",
+          "add_ad":"اضافة اعلان",
+
+          "edit_product":"تعديل المنتج",
+          "edit_category":"تعديل التصنيف",
+          "edit_coupon":"تعديل الكوبون",
+          "edit_ad":"تعديل الاعلان",
+
+          "enter_name_arabic":"ادخل الاسم بالعربية",
+          "enter_name_english":"ادخل الاسم بالانجليزية",
+          "enter_price":"ادخل السعر",
+          "enter_discount":"ادخل الخصم",
+          "enter_details_arabic":"ادخل التفاصيل بالعربية",
+          "enter_details_english":"ادخل التفاصيل بالانجليزية",
+          "enter_url_ads":"ادخل رابط الاعلان",
+          "enter_expiry_date_ads":"ادخل تاريخ انتهاء الاعلان",
+          "enter_expiry_date_coupon":"ادخل تاريخ انتهاء الكوبون",
+          "enter_coupon":"ادخل الكوبون",
+          "enter_coupon_discount":"ادخل خصم الكوبون",
+          "enter_count_coupon":"ادخل عدد الكوبونات",  
+
+          "the_coupon_not_exist_or_is_expired":"الكوبون غير موجود او انه تم انتهاء صلاحيته",  
+
+          "fast_delivery":"توصيل سريع",
+          "fast_delivery_disc":"توصيل موثوق وسريع. نوصل منتجك بأسرع طريقة ممكنة.",
+          "choose_product":"اختر منتجك",
+          "choose_product_disc":"لدينا أكثر من 100 ألف منتج. اختر منتجك من متجرنا الإلكتروني.",
+          "easy_safe_payment":"دفع سهل وآمن",
+          "easy_safe_payment_disc":"عملية دفع سهلة وطريقة دفع آمنة. موثوقة من قبل عملائنا في جميع أنحاء العالم.",
+          "track_order":"تتبع الطلب",
+          "track_order_disc":"تم استخدام أفضل نظام تتبع لمعرفة حالة طلبك. ستعرف مكان منتجك في أي لحظة.", 
+
+          "start":"ابدأ التطبيق",      
         },
         "en": {
           "homepage": "Home page",
           "increment": "Increment",
           "delete": "delete",
           "delete_all": "Delete All",
-          "next": "contenue",
+          "next": "Contenue",
+          "skip":"Skip",
           "welcom_sign": "Wellcome to sign up",
           "welcom_login": "Wellcome to login",
           "email": "Email",
@@ -105,7 +151,15 @@ class Mytranslte extends Translations {
           "coupon_hint": "Enter coupon",
           "confirm": "Confirm",
           "check_out": "Check out",
+
           "products": "Products",
+          "categories": "Categories",
+          "ads": "Ads",
+          "coupons": "Coupons",
+          "orders": "Orders",
+
+
+
           "favorite": "Favorite",
           "cart": "Cart",
           "address": "Address",
@@ -150,7 +204,46 @@ class Mytranslte extends Translations {
           "verification_code": "Verification code",
           "enter_code": "Enter code",
           "error_otp":"Tho otp incorrect!",
-          "foryou":"For you"
+          "foryou":"For you",
+          "chose_image":"Chose image",
+
+          "dashboard":"Dashboard",
+          "add_product":"Add product",
+          "add_category":"Add category",
+          "add_coupon":"Add coupon",
+          "add_ad":"Add ad",
+
+          "edit_product":"Edit product",
+          "edit_category":"Edit category",
+          "edit_coupon":"Edit coupon",
+          "edit_ad":"Edit ad",
+
+          "enter_name_arabic":"Enter name arabic",
+          "enter_name_english":"Enter name english",
+          "enter_price":"Enter price",
+          "enter_discount":"Enter discount",
+          "enter_details_arabic":"Enter details arabic",
+          "enter_details_english":"Enter details english",
+          "enter_url_ads":"Enter url ads",
+          "enter_expiry_date_ads":"Enter expiry date ads",
+          "enter_expiry_date_coupon":"Enter expiry date coupon",
+          "enter_coupon":"Enter coupon",
+          "enter_coupon_discount":"Enter coupon discount",
+          "enter_count_coupon":"Enter count coupon",
+
+          "the_coupon_not_exist_or_is_expired":"The coupon not exist or is expired",
+
+          "fast_delivery":"Fast delivery",
+          "fast_delivery_disc":"Reliable and fast delivery. We deliver your product the fastest way possible.",
+          "choose_product":"Choose product",
+          "choose_product_disc":"We have 100k+ products. Choose your product from our e-commerce shop.",
+          "easy_safe_payment":"Easy & Safe Payment",
+          "easy_safe_payment_disc":"Easy checkout & safe payment method. Trusted by our customers from all over the world.",
+          "track_order":"Track Your Order",
+          "track_order_disc":"Best tracker has been used for track your order. You'll know where your product is at the moment.",
+
+          "start":"Start App",
+          
         }
       };
 }

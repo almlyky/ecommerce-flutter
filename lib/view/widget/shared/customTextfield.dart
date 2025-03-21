@@ -6,35 +6,29 @@ class CustomTextfild extends StatelessWidget {
     required this.controller,
     required this.hintext,
     required this.icon,
-    required this.validate,
-
+    required this.validate, required this.textInputType,
   });
 
   final TextEditingController controller;
   final String hintext;
   final IconData icon;
   final String? Function(String?) validate;
-
-
+  final TextInputType textInputType;
 
   @override
-  // void initState() {
-  //   super.initState();
-  //   visible = widget.obscureText;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: textInputType,
       validator: validate,
       controller: controller,
       decoration: InputDecoration(
-        fillColor:  Colors.grey[200],
+        fillColor: Colors.grey[200],
         filled: true,
         border: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(12)),
-        prefixIcon:Icon(icon) ,
+        prefixIcon: Icon(icon),
         hintText: hintext,
       ),
     );

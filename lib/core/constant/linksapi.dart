@@ -31,11 +31,11 @@ const String linkfavorite = "$linkserver/favorite.php";
 
 //=============================== link api django========================================
 // const djServer = "http://192.168.1.4:8000";
-const djServer = "http://10.0.2.2:8000";
+// const djServer = "http://10.0.2.2:8000";
 // const djServer = "http://192.168.1.2:8000";
 // const djServer = "http://192.168.8.33:8000";
 // const djServer = "http://0.0.0.0:8000";
-// const djServer = "https://abubaker77.pythonanywhere.com";
+const djServer = "https://abubaker77.pythonanywhere.com";
 
 // api categories
 const String djcatlist = "$djServer/pages/categoties/";
@@ -69,8 +69,9 @@ const String insertcart = "$djServer/pages/cartinsert/";
 const String updatequantity = "$djServer/pages/update";
 const String updateCart = "$djServer/pages/cartupdate";
 const String deleteallcart = "$djServer/pages/cartdeleteall";
-
+// coupon
 const String checkcoupon = "$djServer/pages/checkcoupon/";
+const String coupon = "$djServer/pages/coupon/";
 // =====================  api dashboard ===========================
 // product
 const String productFk = "$djServer/pages/product";

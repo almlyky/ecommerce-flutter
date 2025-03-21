@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/favoratecontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
@@ -12,60 +13,100 @@ import 'detailsproduct.dart';
 
 class product extends StatelessWidget {
   // final id;
-  product({super.key});
-
-  Favoratecontroller contrllerfav = Get.put(Favoratecontroller());
-  homepagecontrolerimp controllerhome = Get.find();
+  const product({super.key});
 
   @override
   Widget build(BuildContext context) {
     ProductModel productModel;
     // print(controllerproduct.dataProduct);
     // print("=================created product====================");
+    Favoratecontroller contrllerfav = Get.put(Favoratecontroller());
+    homepagecontrolerimp controllerhome = Get.find();
     Productcontroller controllerproduct = Get.find();
+    Cartcontroller cartcontroller = Get.find();
 
     return Scaffold(
       appBar: AppBar(
         title: Text("products".tr),
         actions: [
-          IconButton(
-              onPressed: () {
-                Get.to(() => const favorate());
-              },
-              icon: const Icon(Icons.favorite)),
-          IconButton(
-              onPressed: () {
-                Get.toNamed(AppRoute.cart);
-              },
-              icon: const Icon(Icons.shopping_cart_rounded)),
+          Obx(
+            () => Stack(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Get.to(() => const favorate());
+                    },
+                    icon: const Icon(Icons.favorite)),
+                if (contrllerfav.favoriteCount.value > 0)
+                  Positioned(
+                    right: 3,
+                    top: 3,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 18,
+                        minHeight: 18,
+                      ),
+                      child: Text(
+                        contrllerfav.favoriteCount.value.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+              ],
+            ),
+          ),
+          Obx(
+            () => Stack(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoute.cart);
+                      // Get.to(const cart());
+                    },
+                    icon: const Icon(Icons.shopping_cart_rounded)),
+                if (cartcontroller.cartcount.value > 0)
+                  Positioned(
+                    right: 3,
+                    top: 3,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 18,
+                        minHeight: 18,
+                      ),
+                      child: Text(
+                        cartcontroller.cartcount.value.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+              ],
+            ),
+          )
         ],
       ),
       body: ListView(children: [
-        // Container(
-        //     height: 40,
-        //     child: ListView.builder(
-        //         shrinkWrap: true,
-        //         scrollDirection: Axis.horizontal,
-        //         itemCount: controllerhome.datacatModel.length,
-        //         itemBuilder: (context, index) {
-        //           return InkWell(
-        //             onTap: () {
-        //               controllerproduct.tabController.animateTo(index);
-        //             },
-        //             child: Card(
-        //               child:
-        //                   Text("${controllerhome.datacatModel[index].catName}"),
-        //             ),
-        //           );
-        //         })),
         SizedBox(
             height: 600,
-            // child: TabBarView(
-            //     physics: NeverScrollableScrollPhysics(),
-            //     controller: controllerproduct.tabController,
-            //     children:
-            //         List.generate(controllerhome.datacatModel.length, (index) {
-            //           return
             child: SizedBox(
                 child: GetBuilder<Productcontroller>(
               // init: Productcontroller(),
@@ -78,14 +119,10 @@ class product extends StatelessWidget {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               mainAxisSpacing: 20,
-                              childAspectRatio: 0.76
-                              // childAspectRatio: ,
-                              ),
+                              childAspectRatio: 0.76),
                       itemCount:
                           controllerproduct.dataproductCategoristModel.length,
-                      // controllerhome.dataproductModels.where((element) => element.catFk==controllerhome.datacatModel[index].catId).toList().length,
                       itemBuilder: (context, i) {
-                        // if(controllerhome.dataproductModels[i].catFk==controllerhome.datacatModel[index].catId){
                         productModel =
                             controllerproduct.dataproductCategoristModel[i];
                         contrllerfav.isfavorate[productModel.prId!] =

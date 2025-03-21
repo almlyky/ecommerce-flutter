@@ -1,3 +1,5 @@
+import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
+import 'package:eccommerce_new/controler/contentapp/favoratecontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/refreshalldatacontroller.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/core/constant/colors.dart';
@@ -9,39 +11,100 @@ class Homescrean extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // setteng contrller = Get.find();
     homepagecontrolerimp contrllerhom = Get.put(homepagecontrolerimp());
     DataController dataController = Get.put(DataController());
+    Cartcontroller cartcontroller = Get.put(Cartcontroller());
+    Favoratecontroller favoratecontroller=Get.put(Favoratecontroller());
     return GetBuilder<homepagecontrolerimp>(
-      // init: homepagecontrolerimp(),
       builder: (contrllerhome) => RefreshIndicator(
         onRefresh: dataController.fetchData,
         child: Scaffold(
-          // resizeToAvoidBottomInset: true,
-        
-          
-
           body: contrllerhom.widgetOptions[contrllerhome.selectedIndex],
-          // IndexedStack(
-          //     index: contrllerhom.selectedIndex,
-          //     children: contrllerhom.widgetOptions),
           bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
+              type: BottomNavigationBarType.fixed,
               selectedItemColor: Appcolor.primary, // لون العنصر المحدد
-              // unselectedItemColor: Colors.grey,
               onTap: contrllerhome.onItemTapped,
               currentIndex: contrllerhome.selectedIndex,
-              items:  [
+              items: [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   label: 'homebar'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart_rounded),
+                  
+                  icon: Obx(
+                    () => Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Icon(Icons.shopping_cart_rounded),
+                        ),
+                        if (cartcontroller.cartcount.value > 0)
+                          Positioned(
+                            right: 0,
+                            top: -5,
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 18,
+                                minHeight: 18,
+                              ),
+                              child: Text(
+                                cartcontroller.cartcount.value.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
                   label: 'cartbar'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
+                  icon: Obx(
+                    () => Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Icon(Icons.favorite),
+                        ),
+                        if (favoratecontroller.favoriteCount.value > 0)
+                          Positioned(
+                            right: 0,
+                            top: -5,
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 18,
+                                minHeight: 18,
+                              ),
+                              child: Text(
+                                favoratecontroller.favoriteCount.value.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
                   label: 'favorite'.tr,
                 ),
                 BottomNavigationBarItem(
@@ -55,25 +118,4 @@ class Homescrean extends StatelessWidget {
   }
 }
 
-class CostumListTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final subtitle;
-  final Function()? onTap;
-  const CostumListTile(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.onTap,
-      this.subtitle});
 
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      onTap: onTap,
-      subtitle: subtitle != null ? Text(subtitle) : null,
-    );
-  }
-}

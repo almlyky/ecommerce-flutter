@@ -20,6 +20,18 @@ class Ordercontroller extends GetxController {
 
   int? orderId;
 
+  String selectedValueRadio = "cash";
+  setselected(String value) {
+    selectedValueRadio = value;
+    update();
+  }
+
+  String typeorder = "delivery";
+  changeTypeOrder(String type) {
+    typeorder = type;
+    update();
+  }
+
   Controldata controldata = Controldata();
   Cartcontroller cartcontroller = Get.put(Cartcontroller());
   getOrder() async {
@@ -31,6 +43,11 @@ class Ordercontroller extends GetxController {
         return OrderModel.fromJson(order);
       }).toList();
       dataOrderModel.addAll(orders);
+    }
+    else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }
@@ -54,6 +71,11 @@ class Ordercontroller extends GetxController {
                 color: Colors.white,
               )));
     }
+    else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
+    }
     update();
   }
 
@@ -67,6 +89,11 @@ class Ordercontroller extends GetxController {
         return OrderItemModel.fromJson(order);
       }).toList();
       dataOrderItem.addAll(orders);
+    }
+    else if (statusRequestOrderItem == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }
@@ -82,7 +109,9 @@ class Ordercontroller extends GetxController {
       "user": "${settingcontroller.userid}",
       "address": "ib alodain",
       "total_order": "${cartcontroller.totalPrice}",
-      "order_code": "ABuBDder23"
+      "order_code": "ABuBDder23",
+      "order_type":typeorder,
+      "payment_status":selectedValueRadio
     };
     var response =
         await controldata.addData(Order, data, settingcontroller.accesstoken!);
@@ -92,28 +121,12 @@ class Ordercontroller extends GetxController {
       dataOrderModel.add(orderModel);
       addOrderItem(orderModel.id!);
     }
+    else if (statusRequest == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
+    }
   }
-
-  // addOrderItem(int orderId,int cartId) async {
-  //   statusRequestOrderItem = StatusRequest.loading;
-  //   cartcontroller.dataCartModels.forEach((element) {
-  //     if (element.order == 0) {
-  //       element.order = orderId;
-  //     }
-  //   });
-  //   var response=await controldata.uppdateData("$updateCart/$cartId", {
-  //     "order":orderId
-  //   });
-  //   statusRequestOrderItem = handlingData(response);
-  //   if (statusRequestOrderItem == StatusRequest.success) {
-  //     // Get.rawSnackbar(
-  //     //     title: "اشعار",
-  //     //     messageText: Text("تم اضافة المنتجات الى الطلب ",
-  //     //         style: const TextStyle(
-  //     //           color: Colors.white,
-  //     //         )));
-  //   }
-  // }
 
   addOrderItem(int orderId) async {
     statusRequestOrderItem = StatusRequest.loading;
@@ -140,6 +153,11 @@ class Ordercontroller extends GetxController {
               style: const TextStyle(
                 color: Colors.white,
               )));
+    }
+    else if (statusRequestOrderItem == StatusRequest.offlineFailure) {
+      Get.rawSnackbar(
+        message: "لا يوجد اتصال بالانترنت",
+      );
     }
     update();
   }

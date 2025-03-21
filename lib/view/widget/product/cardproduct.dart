@@ -69,9 +69,17 @@ class myProductCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8.0),
-                      if (productModel.prDiscount == 0)
+                       if (productModel.prDiscount! > 0)
                         Text(
                           '${productModel.prCost} R.Y',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      if (productModel.prDiscount == 0)
+                        Text(
+                          '${productModel.prCost} ريال',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -87,15 +95,6 @@ class myProductCard extends StatelessWidget {
                             color: Colors.red,
                           ),
                         ),
-
-                      if (productModel.prDiscount! > 0)
-                        Text(
-                          '${productModel.prCost} R.Y',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            decoration: TextDecoration.lineThrough,
-                          ),
-                        ),
                     ],
                   ),
                 ),
@@ -104,7 +103,7 @@ class myProductCard extends StatelessWidget {
           ),
       
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 20),
               child: Align(
                 
                 alignment: AlignmentDirectional.bottomEnd,

@@ -44,7 +44,7 @@ class _MyhomepageState extends State<Myhomepage> {
       debugShowCheckedModeBanner: false,
       getPages: routeapp,
       // home: Resetpassowrd(),
-      initialRoute: AppRoute.login,
+      initialRoute: AppRoute.onboarding,
       theme: ThemeData(
         fontFamily: "Cairo",
           appBarTheme: const AppBarTheme(

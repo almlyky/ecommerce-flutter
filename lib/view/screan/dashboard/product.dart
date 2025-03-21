@@ -1,48 +1,31 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
-import 'package:eccommerce_new/view/screan/dashboard/addproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-
-import '../../../controler/contentapp/productcontroller.dart';
-import '../../../controler/dashboard/dashhomecontroller.dart';
 import '../../../controler/homepagecontroler.dart';
-import '../../../core/constant/linksapi.dart';
 
-class productdash extends StatefulWidget {
-  const productdash({super.key});
-
-  @override
-  State<productdash> createState() => _productdashState();
-}
-
-class _productdashState extends State<productdash> {
-  //  Productcontroller controllerproduct = Get.put(Productcontroller());
-  // dashhomcontrollerimp controller = Get.put(dashhomcontrollerimp());
-  homepagecontrolerimp homecontroller = Get.find();
-  ProductModel? productModel;
+class Productdash extends StatelessWidget {
+  const Productdash({super.key});
 
   @override
   Widget build(BuildContext context) {
+    homepagecontrolerimp homecontroller = Get.find();
+    ProductModel? productModel;
+
     return Scaffold(
       appBar: AppBar(
+        title: Text("products".tr),
         actions: [
-          IconButton(onPressed: (){
-            homecontroller.gotoinsertproduct();
-          }, icon: Icon(Icons.add))
+          IconButton(
+              onPressed: () {
+                homecontroller.gotoinsertproduct();
+              },
+              icon: Icon(Icons.add))
         ],
       ),
       body: Column(
         children: [
-          // ElevatedButton(
-          //     onPressed: () {
-          //       homecontroller.gotoinsertproduct();
-          //     },
-          //     child: const Text("add product")),
           Expanded(
               child: GetBuilder<homepagecontrolerimp>(
             // init: dashhomcontrollerimp(),
@@ -86,7 +69,8 @@ class _productdashState extends State<productdash> {
                                 child: const Icon(Icons.edit,
                                     color: Colors.greenAccent),
                                 onTap: () {
-                                  controller.productModel = controller.dataproductModels[i];
+                                  controller.productModel =
+                                      controller.dataproductModels[i];
                                   controller.gotoEdeteProduct();
                                 }),
                             InkWell(
@@ -134,7 +118,6 @@ class _productdashState extends State<productdash> {
                   },
                 )),
           )),
-          
         ],
       ),
     );

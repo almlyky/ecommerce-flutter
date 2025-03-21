@@ -4,20 +4,20 @@ import '../../model/onboardingmodel.dart';
 
 List<onboardingmodel> onboardinglist = [
   onboardingmodel(
-      "chose product",
-      "we Have a 100k Product chose \n Yor Product from our E-commerce",
-      Image.asset("assets/image/im1.png")),
+      "choose_product",
+      "choose_product_disc",
+      Image.asset("assets/image/img1.png")),
   onboardingmodel(
-      "Eeazy & Safe Payment",
-      "we Have a 100k Product chose \n Yor Product from our E-commerce",
+      "easy_safe_payment",
+      "easy_safe_payment_disc",
       Image.asset("assets/image/im2.png")),
   onboardingmodel(
-      "Tack Your Order",
-      "we Have a 100k Product chose \n Yor Product from our E-commerce",
+      "track_order",
+      "track_order_disc",
       Image.asset("assets/image/im3.png")),
   onboardingmodel(
-      "Fast Delevery",
-      "we Have a 100k Product chose \n Yor Product from our E-commerce",
+      "fast_delivery",
+      "fast_delivery_disc",
       Image.asset("assets/image/im4.png")),
 ];
-List<Image> image = [Image.asset("assets/image/im1.png")];
+// List<Image> image = [Image.asset("assets/image/im1.png")];

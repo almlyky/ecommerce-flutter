@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
 import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
+import 'package:eccommerce_new/view/widget/shared/pricetext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -46,15 +47,17 @@ class CardCart extends StatelessWidget {
                   "${cartModel.prFk!.prName}",
                   style: const TextStyle(fontSize: 16),
                 ),
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                      text: "$price",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold)),
-                ])),
+                PriceText(price: price.toDouble()),
+
+                // RichText(
+                //     text: TextSpan(children: [
+                //   TextSpan(
+                //       text: "$price",
+                //       style: const TextStyle(
+                //           color: Colors.black,
+                //           fontSize: 16,
+                //           fontWeight: FontWeight.bold)),
+                // ])),
                 Row(
                   children: [
                     IconIncrement(
