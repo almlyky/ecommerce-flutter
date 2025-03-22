@@ -2,6 +2,7 @@ import 'package:eccommerce_new/controler/contentapp/favoratecontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
+import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
 import 'package:eccommerce_new/data/model/CategoriesModel.dart';
 import 'package:eccommerce_new/view/screan/contentapp/search.dart';
@@ -21,6 +22,7 @@ class home extends StatelessWidget {
     Productcontroller controllerproduct = Get.put(Productcontroller());
     CategoriesModel categoriesModel;
     Favoratecontroller contrllerfav = Get.put(Favoratecontroller());
+    // localecontroler localcontroller = Get.find();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -108,9 +110,7 @@ class home extends StatelessWidget {
                                           ),
                                         ],
                                       ))),
-
                               const SizedBox(height: 10),
-
                               const SizedBox(height: 10),
                               Text(
                                 "foryou".tr,
@@ -118,7 +118,6 @@ class home extends StatelessWidget {
                                     fontWeight: FontWeight.bold, fontSize: 24),
                               ),
                               const SizedBox(height: 10),
-
                               GetBuilder<homepagecontrolerimp>(
                                   builder: (controlerhome) => Handlingdataview(
                                         statusRequest: controlerhome

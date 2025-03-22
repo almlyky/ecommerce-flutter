@@ -120,7 +120,8 @@ class Mytranslte extends Translations {
           "track_order":"تتبع الطلب",
           "track_order_disc":"تم استخدام أفضل نظام تتبع لمعرفة حالة طلبك. ستعرف مكان منتجك في أي لحظة.", 
 
-          "start":"ابدأ التطبيق",      
+          "start":"ابدأ التطبيق",  
+          "shopingnow":"تسوق الأن"    
         },
         "en": {
           "homepage": "Home page",
@@ -243,6 +244,7 @@ class Mytranslte extends Translations {
           "track_order_disc":"Best tracker has been used for track your order. You'll know where your product is at the moment.",
 
           "start":"Start App",
+          "shopingnow":"Shoping"
           
         }
       };

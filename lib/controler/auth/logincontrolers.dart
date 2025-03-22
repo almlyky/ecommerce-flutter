@@ -53,23 +53,23 @@ class Logincontrolers extends GetxController {
   // signin in firebase with google acount
   Future<User?> signInWithGoogle() async {
     // if (await checkinternet()) {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-      if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
+    if (googleUser != null) {
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-        final userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        return userCredential.user;
-      }
-      return null;
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      return userCredential.user;
+    }
+    return null;
     // }
     // else{
     //   Get.rawSnackbar(message: "لا يوجد اتصال بالانترنت");
@@ -87,14 +87,11 @@ class Logincontrolers extends GetxController {
       contrller.shared.setString("rule", "user");
       contrller.shared.setString("accesstoken", response["access_token"]);
       gotohome();
-    }
-    else if (statusRequestlogin == StatusRequest.offlineFailure) {
+    } else if (statusRequestlogin == StatusRequest.offlineFailure) {
       Get.rawSnackbar(
         message: "لا يوجد اتصال بالانترنت",
       );
-    }
-    
-     else {
+    } else {
       Get.rawSnackbar(
           title: "إشعار",
           messageText: Text("يوجد خطأ ",
@@ -137,13 +134,12 @@ class Logincontrolers extends GetxController {
             Get.offNamed(AppRoute.dashhome);
           }
         }
-      }
-      else if (statusRequestUser == StatusRequest.offlineFailure) {
-      Get.rawSnackbar(
-        message: "لا يوجد اتصال بالانترنت",
-      );
-    }
-       else {
+      } else if (statusRequestlogin == StatusRequest.offlineFailure) {
+        load = false;
+        Get.rawSnackbar(
+          message: "لا يوجد اتصال بالانترنت",
+        );
+      } else {
         load = false;
         update();
       }

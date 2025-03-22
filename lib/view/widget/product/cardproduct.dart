@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eccommerce_new/controler/contentapp/favoratecontroller.dart';
+import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/data/model/ProductModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 class myProductCard extends StatelessWidget {
   final ProductModel productModel;
@@ -50,11 +50,15 @@ class myProductCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        productModel.prName!,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      GetBuilder<localecontroler>(
+                        builder: (controller) => Text(
+                          controller.language.languageCode == "ar"
+                              ? productModel.prName!
+                              : productModel.prNameEn!,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 8.0),
@@ -69,7 +73,7 @@ class myProductCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8.0),
-                       if (productModel.prDiscount! > 0)
+                      if (productModel.prDiscount! > 0)
                         Text(
                           '${productModel.prCost} R.Y',
                           style: const TextStyle(
@@ -101,27 +105,23 @@ class myProductCard extends StatelessWidget {
               ],
             ),
           ),
-      
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 25,horizontal: 20),
-              child: Align(
-                
-                alignment: AlignmentDirectional.bottomEnd,
-                child: InkWell(onTap: () {
-                  controller.onTapFavorite(productModel);
-                }, child: GetBuilder<Favoratecontroller>(builder: (controller) {
-                  return Icon(
-                    controller.isfavorate[productModel.prId] == 0
-                        ? Icons.favorite_border
-                        : Icons.favorite,
-                    color: const Color.fromARGB(255, 9, 9, 9),
-                    // size: 25,
-                  );
-                })
-                    ),
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+            child: Align(
+              alignment: AlignmentDirectional.bottomEnd,
+              child: InkWell(onTap: () {
+                controller.onTapFavorite(productModel);
+              }, child: GetBuilder<Favoratecontroller>(builder: (controller) {
+                return Icon(
+                  controller.isfavorate[productModel.prId] == 0
+                      ? Icons.favorite_border
+                      : Icons.favorite,
+                  color: const Color.fromARGB(255, 9, 9, 9),
+                  // size: 25,
+                );
+              })),
             ),
-          
+          ),
           if (productModel.prDiscount! > 0)
             const Positioned(
                 top: 0,

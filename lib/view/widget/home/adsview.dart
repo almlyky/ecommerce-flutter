@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
+import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/core/my_classes/HandlingDataView.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Adsview extends StatelessWidget {
   final homepagecontrolerimp controlerhome;
@@ -32,19 +34,23 @@ class Adsview extends StatelessWidget {
                   children: [
                     // Text and Button
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const SizedBox(height: 8.0),
-                          const SizedBox(height: 16.0),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'تسوق الأن',
+                      child: GetBuilder<localecontroler>(
+                        builder: (controller) => 
+                        Column(
+                        
+                          crossAxisAlignment:controller.language.languageCode=="ar"? CrossAxisAlignment.end:CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const SizedBox(height: 8.0),
+                            const SizedBox(height: 16.0),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                'shopingnow'.tr,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -1,7 +1,9 @@
 import 'package:eccommerce_new/controler/contentapp/productcontroller.dart';
 import 'package:eccommerce_new/controler/homepagecontroler.dart';
+import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/data/model/CategoriesModel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardCategories extends StatelessWidget {
   const CardCategories({
@@ -49,7 +51,12 @@ class CardCategories extends StatelessWidget {
             ),
           ),
         ),
-        Text(catmodel.catName!),
+        // ignore: unrelated_type_equality_checks
+        GetBuilder<localecontroler>(
+            builder: (controller) => Text(
+                controller.language.languageCode == "ar"
+                    ? catmodel.catName!
+                    : catmodel.catNameEn!)),
       ],
     );
   }

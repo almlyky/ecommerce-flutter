@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eccommerce_new/controler/contentapp/cartcontroller.dart';
 import 'package:eccommerce_new/core/constant/colors.dart';
+import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/data/model/cartmodel.dart';
 import 'package:eccommerce_new/view/widget/shared/pricetext.dart';
 import 'package:flutter/material.dart';
@@ -43,21 +44,16 @@ class CardCart extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "${cartModel.prFk!.prName}",
-                  style: const TextStyle(fontSize: 16),
+                GetBuilder<localecontroler>(
+                  builder: (controller) => 
+                   Text(
+                    controller.language.languageCode=="ar"? cartModel.prFk!.prName!:cartModel.prFk!.prNameEn!,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
                 PriceText(price: price.toDouble()),
 
-                // RichText(
-                //     text: TextSpan(children: [
-                //   TextSpan(
-                //       text: "$price",
-                //       style: const TextStyle(
-                //           color: Colors.black,
-                //           fontSize: 16,
-                //           fontWeight: FontWeight.bold)),
-                // ])),
+               
                 Row(
                   children: [
                     IconIncrement(
