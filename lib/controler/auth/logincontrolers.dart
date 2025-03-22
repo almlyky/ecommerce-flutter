@@ -52,7 +52,7 @@ class Logincontrolers extends GetxController {
 
   // signin in firebase with google acount
   Future<User?> signInWithGoogle() async {
-    if (checkinternet()) {
+    // if (await checkinternet()) {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
@@ -70,10 +70,10 @@ class Logincontrolers extends GetxController {
         return userCredential.user;
       }
       return null;
-    }
-    else{
-      Get.rawSnackbar(message: "لا يوجد اتصال بالانترنت");
-    }
+    // }
+    // else{
+    //   Get.rawSnackbar(message: "لا يوجد اتصال بالانترنت");
+    // }
   }
 
   // signin in App with google acount

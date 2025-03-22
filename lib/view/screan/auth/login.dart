@@ -123,31 +123,7 @@ class login extends StatelessWidget {
                         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))
                       ),
                       onPressed: () {
-                        Get.defaultDialog(
-                          title: "نجاح",
-                          titleStyle: TextStyle(
-                              color: Colors.green,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                          content: Column(
-                            children: [
-                              Icon(Icons.check_circle,
-                                  color: Colors.green, size: 70),
-                              SizedBox(height: 10),
-                              Text('تمت العملية بنجاح!',
-                                  textAlign: TextAlign.center),
-                            ],
-                          ),
-                          // textConfirm: "موافق",
-                          confirm: TextButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: Text("موافق")),
-                          // confirmTextColor: Colors.white,
-                          // textCancel: "إلغاء"
-                          // onConfirm: ()=>Get.back()
-                        );
+                        
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
