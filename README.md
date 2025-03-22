@@ -31,17 +31,17 @@ ecommerce new
 
 ### onboarding
 <p align="center">
-  <img src="assets/screenshots/onb1.png" width="30%" />
-  <img src="assets/screenshots/onb2.png" width="30%" />
-  <img src="assets/screenshots/onb3.png" width="30%" />
-  <img src="assets/screenshots/onb4.png" width="30%" />
+  <img src="assets/screenshots/onb1.jpg" width="30%" />
+  <img src="assets/screenshots/onb2.jpg" width="30%" />
+  <img src="assets/screenshots/onb3.jpg" width="30%" />
+  <img src="assets/screenshots/onb4.jpg" width="30%" />
 </p>
 
 ### authentication
 <p align="center">
-  <img src="assets/screenshots/login1.png" width="30%" />
-  <img src="assets/screenshots/login2.png" width="30%" />
-  <img src="assets/screenshots/login3.png" width="30%" />
-  <img src="assets/screenshots/login4.png" width="30%" />
-  <img src="assets/screenshots/login5.png" width="30%" />
+  <img src="assets/screenshots/login1.jpg" width="30%" />
+  <img src="assets/screenshots/login2.jpg" width="30%" />
+  <img src="assets/screenshots/login3.jpg" width="30%" />
+  <img src="assets/screenshots/login4.jpg" width="30%" />
+  <img src="assets/screenshots/login5.jpg" width="30%" />
 </p>
