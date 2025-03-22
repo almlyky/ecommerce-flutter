@@ -27,43 +27,43 @@ ecommerce new
 │ ├── widget # Reusable UI components
 ```
 
-## Screenshots
+## readme_image
 
 ### onboarding
 <p align="start">
-  <img src="assets/screenshots/onb1.jpg" width="20%" />
-  <img src="assets/screenshots/onb2.jpg" width="20%" />
-  <img src="assets/screenshots/onb3.jpg" width="20%" />
-  <img src="assets/screenshots/onb4.jpg" width="20%" />
+  <img src="assets/readme_image/onb1.jpg" width="20%" />
+  <img src="assets/readme_image/onb2.jpg" width="20%" />
+  <img src="assets/readme_image/onb3.jpg" width="20%" />
+  <img src="assets/readme_image/onb4.jpg" width="20%" />
 </p>
 
 ### authentication
 <p align="start">
-  <img src="assets/screenshots/login1.jpg" width="20%" />
-  <img src="assets/screenshots/login2.jpg" width="20%" />
-  <img src="assets/screenshots/login3.jpg" width="20%" />
-  <img src="assets/screenshots/login4.jpg" width="20%" />
-  <img src="assets/screenshots/login5.jpg" width="20%" />
+  <img src="assets/readme_image/login1.jpg" width="20%" />
+  <img src="assets/readme_image/login2.jpg" width="20%" />
+  <img src="assets/readme_image/login3.jpg" width="20%" />
+  <img src="assets/readme_image/login4.jpg" width="20%" />
+  <img src="assets/readme_image/login5.jpg" width="20%" />
 </p>
 
 ### user screan
 <p align="start">
-  <img src="assets/screenshots/h1.jpg" width="20%" />
-  <img src="assets/screenshots/h2.jpg" width="20%" />
-  <img src="assets/screenshots/h3.jpg" width="20%" />
-  <img src="assets/screenshots/h4.jpg" width="20%" />
-  <img src="assets/screenshots/h5.jpg" width="20%" />
-  <img src="assets/screenshots/h6.jpg" width="20%" />
-  <img src="assets/screenshots/h7.jpg" width="20%" />
-  <img src="assets/screenshots/h8.jpg" width="20%" />
+  <img src="assets/readme_image/h1.jpg" width="20%" />
+  <img src="assets/readme_image/h2.jpg" width="20%" />
+  <img src="assets/readme_image/h3.jpg" width="20%" />
+  <img src="assets/readme_image/h4.jpg" width="20%" />
+  <img src="assets/readme_image/h5.jpg" width="20%" />
+  <img src="assets/readme_image/h6.jpg" width="20%" />
+  <img src="assets/readme_image/h7.jpg" width="20%" />
+  <img src="assets/readme_image/h8.jpg" width="20%" />
 </p>
 
 
 ### dashboard screan
 <p align="start">
-  <img src="assets/screenshots/d1.jpg" width="20%" />
-  <img src="assets/screenshots/d2.jpg" width="20%" />
-  <img src="assets/screenshots/d3.jpg" width="20%" />
-  <img src="assets/screenshots/d4.jpg" width="20%" />
+  <img src="assets/readme_image/d1.jpg" width="20%" />
+  <img src="assets/readme_image/d2.jpg" width="20%" />
+  <img src="assets/readme_image/d3.jpg" width="20%" />
+  <img src="assets/readme_image/d4.jpg" width="20%" />
 
 </p>
