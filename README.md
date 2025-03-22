@@ -56,5 +56,14 @@ ecommerce new
   <img src="assets/screenshots/h6.jpg" width="20%" />
   <img src="assets/screenshots/h7.jpg" width="20%" />
   <img src="assets/screenshots/h8.jpg" width="20%" />
+</p>
+
+
+### dashboard screan
+<p align="start">
+  <img src="assets/screenshots/d1.jpg" width="20%" />
+  <img src="assets/screenshots/d2.jpg" width="20%" />
+  <img src="assets/screenshots/d3.jpg" width="20%" />
+  <img src="assets/screenshots/d4.jpg" width="20%" />
 
 </p>
