@@ -1,5 +1,6 @@
 import 'package:eccommerce_new/controler/contentapp/ordercontroller.dart';
 import 'package:eccommerce_new/core/constant/linksapi.dart';
+import 'package:eccommerce_new/core/localization/changelang.dart';
 import 'package:eccommerce_new/data/model/orderitemmodel.dart';
 import 'package:eccommerce_new/view/widget/order/cardorder.dart';
 import 'package:flutter/material.dart';
@@ -79,10 +80,14 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "${orderItemModel.product!.prName}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
+                  GetBuilder<localecontroler>(
+                    builder: (controller) => Text(
+                      controller.language.languageCode == "ar"
+                          ? orderItemModel.product!.prName!
+                          : orderItemModel.product!.prNameEn!,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -95,7 +100,7 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             Text(
-              '\$${orderItemModel.product!.prCost}',
+              '${orderItemModel.product!.prCost} ريال',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ],

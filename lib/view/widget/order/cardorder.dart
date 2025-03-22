@@ -53,7 +53,7 @@ class CardOrder extends StatelessWidget {
                     style: const TextStyle(
                         color: Color.fromARGB(255, 21, 28, 219), fontSize: 16)),
                 const TextSpan(
-                    text: ' R.Y',
+                    text: ' ريال',
                     style: TextStyle(color: Colors.black, fontSize: 16)),
               ])),
             ],
