@@ -27,9 +27,25 @@ ecommerce new
 │ ├── widget # Reusable UI components
 ```
 
+## 🛠️ Technologies & Libraries Used
+
+- **GetX** – For state management and navigation.
+- **Firebase Auth** & **Google Sign-In** – For user authentication.
+- **Firebase Core** – To integrate with Firebase services.
+- **Mapbox**, **Geolocator**, **Geocoding** – For location services and map integration.
+- **Shared Preferences** – For local storage and caching.
+- **HTTP** – For handling RESTful API requests.
+- **Image Picker** & **Cached Network Image** – For selecting and displaying images efficiently.
+- **Dartz** – For functional programming patterns (e.g., Either, Option).
+- **Carousel Slider** & **Smooth Page Indicator** – For interactive UI sliders.
+- **Lottie** – For rendering vector animations.
+- **Internet Connection Checker** – For monitoring network connectivity.
+- **flutter_dotenv** – For loading environment variables from a `.env` file.
+
 ## readme_image
 
 ### onboarding
+
 <p align="start">
   <img src="assets/readme_image/onb1.jpg" width="20%" />
   <img src="assets/readme_image/onb2.jpg" width="20%" />
@@ -38,6 +54,7 @@ ecommerce new
 </p>
 
 ### authentication
+
 <p align="start">
   <img src="assets/readme_image/login1.jpg" width="20%" />
   <img src="assets/readme_image/login2.jpg" width="20%" />
@@ -47,6 +64,7 @@ ecommerce new
 </p>
 
 ### user screan
+
 <p align="start">
   <img src="assets/readme_image/h1.jpg" width="20%" />
   <img src="assets/readme_image/h2.jpg" width="20%" />
@@ -56,10 +74,11 @@ ecommerce new
   <img src="assets/readme_image/h6.jpg" width="20%" />
   <img src="assets/readme_image/h7.jpg" width="20%" />
   <img src="assets/readme_image/h8.jpg" width="20%" />
+  <img src="assets/readme_image/h9.jpg" width="20%">
 </p>
 
-
 ### dashboard screan
+
 <p align="start">
   <img src="assets/readme_image/d1.jpg" width="20%" />
   <img src="assets/readme_image/d2.jpg" width="20%" />
