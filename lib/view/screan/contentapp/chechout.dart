@@ -1,3 +1,4 @@
+import 'package:eccommerce_new/controler/contentapp/mapcontroller.dart';
 import 'package:eccommerce_new/controler/contentapp/ordercontroller.dart';
 import 'package:eccommerce_new/core/constant/colors.dart';
 import 'package:eccommerce_new/core/constant/route.dart';
@@ -9,8 +10,8 @@ class Chechout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-   return Scaffold(
+    Mapcontroller mapcontroller = Get.put(Mapcontroller());
+    return Scaffold(
       appBar: AppBar(
         title: Text("check_out".tr),
       ),
@@ -18,13 +19,12 @@ class Chechout extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: GetBuilder<Ordercontroller>(
           init: Ordercontroller(),
-          builder: (controller) => 
-           ListView(
+          builder: (controller) => ListView(
             children: [
               Card(
                 child: ListTile(
                   title: Text("address".tr),
-                  subtitle: Text("شارع العدين"),
+                  subtitle: GetBuilder<Mapcontroller>(builder:(control)=> Text( "${mapcontroller.placemarks.isNotEmpty? mapcontroller.placemarks[0].street:""}")),
                   leading: const CircleAvatar(
                     backgroundColor: Appcolor.iconcolor,
                     child: Icon(
@@ -32,8 +32,11 @@ class Chechout extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  trailing:
-                      TextButton(onPressed: () {}, child: Text("change".tr)),
+                  trailing: TextButton(
+                      onPressed: () {
+                        Get.toNamed(AppRoute.mapbox);
+                      },
+                      child: Text("change".tr)),
                 ),
               ),
               Card(
@@ -51,40 +54,40 @@ class Chechout extends StatelessWidget {
               ),
               Card(
                 child: Column(
-                    children: [
-                      ListTile(
-                        title: Text("payment".tr),
-                        leading: CircleAvatar(
-                          backgroundColor: Appcolor.iconcolor,
-                          child: Icon(
-                            Icons.attach_money_outlined,
-                            color: Colors.white,
-                          ),
+                  children: [
+                    ListTile(
+                      title: Text("payment".tr),
+                      leading: CircleAvatar(
+                        backgroundColor: Appcolor.iconcolor,
+                        child: Icon(
+                          Icons.attach_money_outlined,
+                          color: Colors.white,
                         ),
                       ),
-                      RadioListTile(
-                        value: "cash",
-                        groupValue: controller.selectedValueRadio,
-                        onChanged: (value) {
-                          controller.setselected(value!);
-                        },
-                        title: Text("cash".tr,
-                            style: Theme.of(context).textTheme.displaySmall),
+                    ),
+                    RadioListTile(
+                      value: "cash",
+                      groupValue: controller.selectedValueRadio,
+                      onChanged: (value) {
+                        controller.setselected(value!);
+                      },
+                      title: Text("cash".tr,
+                          style: Theme.of(context).textTheme.displaySmall),
+                    ),
+                    RadioListTile(
+                      value: "transfer",
+                      groupValue: controller.selectedValueRadio,
+                      onChanged: (value) {
+                        controller.setselected(value!);
+                      },
+                      title: Text(
+                        "cash_on_delivery".tr,
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
-                      RadioListTile(
-                        value: "transfer",
-                        groupValue: controller.selectedValueRadio,
-                        onChanged: (value) {
-                          controller.setselected(value!);
-                        },
-                        title: Text(
-                          "cash_on_delivery".tr,
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
               Card(
                 child: Column(
                   children: [
@@ -114,28 +117,26 @@ class Chechout extends StatelessWidget {
                         ),
                       ),
                     ),
-                   Column(
-                        children: [
-                          RadioListTile(
-                            value: "delivery",
-                            groupValue: controller.typeorder,
-                            onChanged: (value) {
-                              controller.changeTypeOrder(value!);
-                            },
-                            title: Text("delivery".tr),
-                          ),
-                          RadioListTile(
-                            value: "recive",
-                            groupValue: controller.typeorder,
-                            onChanged: (value) {
-                              controller.changeTypeOrder(value!);
-                            },
-                            title: Text("recive".tr),
-                          ),
-                          
-                        ],
-                      ),
-                    
+                    Column(
+                      children: [
+                        RadioListTile(
+                          value: "delivery",
+                          groupValue: controller.typeorder,
+                          onChanged: (value) {
+                            controller.changeTypeOrder(value!);
+                          },
+                          title: Text("delivery".tr),
+                        ),
+                        RadioListTile(
+                          value: "recive",
+                          groupValue: controller.typeorder,
+                          onChanged: (value) {
+                            controller.changeTypeOrder(value!);
+                          },
+                          title: Text("recive".tr),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

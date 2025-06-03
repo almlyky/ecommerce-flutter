@@ -10,6 +10,7 @@ import 'package:eccommerce_new/view/screan/contentapp/cart.dart';
 import 'package:eccommerce_new/view/screan/contentapp/chechout.dart';
 import 'package:eccommerce_new/view/screan/contentapp/detailsproduct.dart';
 import 'package:eccommerce_new/view/screan/contentapp/favorate.dart';
+import 'package:eccommerce_new/view/screan/contentapp/map.dart';
 import 'package:eccommerce_new/view/screan/contentapp/orderdetails.dart';
 import 'package:eccommerce_new/view/screan/dashboard/addAds.dart';
 import 'package:eccommerce_new/view/screan/dashboard/addCoupon.dart';
@@ -70,6 +71,7 @@ List<GetPage<dynamic>>? routeapp = [
   GetPage(name: AppRoute.addads, page: () => const Addads(action: "add")),
   GetPage(name: AppRoute.editeads, page: () => const Addads(action: "edite")),
   GetPage(name: AppRoute.addcoupon, page: ()=> const Addcoupon(action: "add")),
-  GetPage(name: AppRoute.editecoupon, page: ()=> const Addcoupon(action:"edite"))
+  GetPage(name: AppRoute.editecoupon, page: ()=> const Addcoupon(action:"edite")),
+  GetPage(name: AppRoute.mapbox, page: ()=> const Mapbox())
 
 ];

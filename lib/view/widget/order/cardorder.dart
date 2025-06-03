@@ -8,13 +8,13 @@ class CardOrder extends StatelessWidget {
   final OrderModel orderModel;
   final String typeAcount;
   final Ordercontroller ordercontroller;
-  final showdetails;
+  final bool showdetails;
 
   const CardOrder({
     super.key,
     required this.orderModel,
     required this.ordercontroller,
-    this.showdetails,
+    this.showdetails=false,
     required this.typeAcount,
   });
 
@@ -76,7 +76,7 @@ class CardOrder extends StatelessWidget {
                   // await ordercontroller.getOrderDetails(orderModel.id!);
                   // Get.toNamed(AppRoute.orderdetail);
                 },
-                child: showdetails == null
+                child: showdetails == false
                     ? Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 6),

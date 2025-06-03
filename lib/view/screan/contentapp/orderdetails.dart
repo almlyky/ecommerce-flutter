@@ -26,7 +26,7 @@ class Orderdetails extends StatelessWidget {
                     children: [
                       CardOrder(
                           typeAcount: "user",
-                          showdetails: "show",
+                          showdetails: true,
                           orderModel: controller.orderModel!,
                           ordercontroller: ordercontroller),
                       Container(

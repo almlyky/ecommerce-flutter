@@ -25,4 +25,5 @@ class AppRoute {
   static const String editeads = "/editeAds";
   static const String addcoupon = "/addcoupon";
   static const String editecoupon = "/editecoupon";
+  static const String mapbox = "/mapbox";
 }
