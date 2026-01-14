@@ -3,9 +3,11 @@ import 'package:eccommerce_new/core/constant/route.dart';
 import 'package:eccommerce_new/firebase_options.dart';
 import 'package:eccommerce_new/routes.dart';
 import 'package:eccommerce_new/core/serveces/serveces.dart';
+import 'package:eccommerce_new/view/screan/contentapp/Payment.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
@@ -16,6 +18,7 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // String accessToken = String.fromEnvironment("ACCESS_TOKEN");
   await dotenv.load(fileName: ".env");
+  Stripe.publishableKey = dotenv.env['PUBLISHABLE_KEY'] ?? '';
   final accessToken = dotenv.env['MAPBOX_ACCESS_TOKEN'] ?? '';
   MapboxOptions.setAccessToken(
     accessToken,
@@ -51,8 +54,8 @@ class _MyhomepageState extends State<Myhomepage> {
       translations: Mytranslte(),
       debugShowCheckedModeBanner: false,
       getPages: routeapp,
-      // home: Mapbox(),
-      initialRoute: AppRoute.onboarding,
+      home: PaymentPage(),
+      // initialRoute: AppRoute.onboarding,
       theme: ThemeData(
           fontFamily: "Cairo",
           appBarTheme: const AppBarTheme(

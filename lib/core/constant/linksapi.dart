@@ -52,5 +52,7 @@ const String OrderItemList = "$djServer/pages/orderitemlist/";
 
 // api offer
 const String offer = "$djServer/pages/offer/";
+const String createPaymentIntent = "$djServer/create_payment_intent/";
+
 
 // const String linkssignup="https://jsonplaceholder.typicode.com/posts";

@@ -55,6 +55,7 @@ dependencies:
   geolocator: ^13.0.4
   flutter_dotenv: ^5.2.1
   geocoding: ^4.0.0
+  flutter_stripe: ^11.5.0
 
 dev_dependencies:
   flutter_test:
